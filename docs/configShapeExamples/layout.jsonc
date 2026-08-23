@@ -1,0 +1,19 @@
+{
+  // Navigation links config - drives both Navbar and Footer
+  // Add/remove/reorder links here to update navigation across the site
+
+  "navLinks": [
+    {
+      "id": "rankings",
+      "label": "Rankings",
+      "path": "/rankings",
+      "icon": "leaderboard"
+    },
+    {
+      "id": "games",
+      "label": "Games",
+      "path": "/games",
+      "icon": "sports_esports"
+    }
+  ]
+}

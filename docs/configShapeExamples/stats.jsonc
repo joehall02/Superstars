@@ -1,0 +1,71 @@
+{
+  // Stat label mappings for dynamic table column headers
+  // Defines reusable stat groups, then maps games to those groups
+
+  // Reusable stat group definitions
+  "statGroups": {
+    "headToHead": {
+      "played": "Played",
+      "wins": "Wins",
+      "goalsFor": "GF",
+      "goalsAgainst": "GA",
+      "goalDifference": "GD"
+    },
+    "pointsOnly": {
+      "played": "Played",
+      "points": "Points"
+    },
+    "averageOnly": {
+      "played": "Played",
+      "averagePoints": "Avg"
+    },
+    "pointsWithAverage": {
+      "played": "Played",
+      "points": "Points",
+      "averagePoints": "Avg"
+    },
+    "bowlsYear": {
+      "played": "Played",
+      "wins": "Wins",
+      "points": "Points"
+    }
+  },
+
+  // Game mappings - reference stat groups by ID
+  "games": {
+    "g_1": { // Air Hockey
+      "allTime": "headToHead",
+      "byYear": "headToHead"
+    },
+    "g_2": { // Bar Footy
+      "allTime": "headToHead",
+      "byYear": "headToHead"
+    },
+    "g_3": { // Bowls
+      "allTime": "headToHead",
+      "byYear": "bowlsYear"
+    },
+    "g_4": { // Ten Pin
+      "allTime": "averageOnly",
+      "byYear": "pointsOnly"
+    },
+    "g_5": { // Darts
+      "allTime": "averageOnly",
+      "byYear": "pointsWithAverage"
+    },
+    "g_6": { // Cards
+      "allTime": "averageOnly",
+      "byYear": "pointsOnly"
+    }
+  },
+
+  // Overall rankings (not game-specific)
+  "overall": {
+    "allTime": {
+      "score": "Score"
+    },
+    "byYear": {
+      "totalGameRanks": "Total Ranks"
+    }
+  }
+}

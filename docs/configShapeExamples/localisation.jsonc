@@ -1,0 +1,31 @@
+{
+  // Localisation for game-specific text content
+  // Keyed by game ID
+
+  "games": {
+    "g_1": {
+      "summary": "Fast-paced 1v1 air hockey matches. First to 5 goals wins.",
+      "rules": "Standard air hockey rules. Serve alternates after each goal. Puck must cross center line to count."
+    },
+    "g_2": {
+      "summary": "Table football (foosball) tournament. Teams of 2 compete in knockout format.",
+      "rules": "5 goals to win. No spinning. Serve from center after each goal. Winner stays on."
+    },
+    "g_3": {
+      "summary": "Indoor bowls competition. Precision rolling to get closest to the jack.",
+      "rules": "Each player rolls 2 bowls per end. 6 ends per match. Closest bowl to jack scores 1 point."
+    },
+    "g_4": {
+      "summary": "Ten pin bowling. Highest total score across multiple frames wins.",
+      "rules": "Standard ten pin scoring. 2 games per session. Total pinfall determines ranking."
+    },
+    "g_5": {
+      "summary": "Darts competition. 501 format with best average deciding the winner.",
+      "rules": "501 straight start, double out. 3 darts per turn. Average points per game determines yearly ranking."
+    },
+    "g_6": {
+      "summary": "Card games tournament. Various games played across the year.",
+      "rules": "Different card games each year. Points awarded based on finishing position. Average points determines ranking."
+    }
+  }
+}

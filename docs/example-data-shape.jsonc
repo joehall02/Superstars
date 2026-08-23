@@ -1,0 +1,204 @@
+{
+	"metadata": {
+    "lastUpdated": "2026-08-21T00:00:00Z",
+    "sourceFile": "Superstars - Master Scores.xlsx",
+    "availableYears": [2020, 2022, 2023, 2024, 2025, 2026],
+    "totalPlayers": 16,
+    "totalGames": 6
+  },
+
+  "entities": {
+    "players": {
+      "p_1":  { "id": "p_1",  "name": "Daniel" },
+      "p_2":  { "id": "p_2",  "name": "Olivia" },
+      "p_3":  { "id": "p_3",  "name": "Marcus" },
+      "p_4":  { "id": "p_4",  "name": "Sophie" },
+      "p_5":  { "id": "p_5",  "name": "Nathan" },
+      "p_6":  { "id": "p_6",  "name": "Helen" },
+      "p_7":  { "id": "p_7",  "name": "Rachel" },
+      "p_8":  { "id": "p_8",  "name": "Thomas" },
+      "p_9":  { "id": "p_9",  "name": "David" },
+      "p_10": { "id": "p_10", "name": "Emma" },
+      "p_11": { "id": "p_11", "name": "Chloe" },
+      "p_12": { "id": "p_12", "name": "Ryan" },
+      "p_13": { "id": "p_13", "name": "Grace" },
+      "p_14": { "id": "p_14", "name": "Margaret" },
+      "p_15": { "id": "p_15", "name": "Lucy" },
+      "p_16": { "id": "p_16", "name": "Benjamin" }
+    },
+    "games": {
+      "g_1": { "id": "g_1", "name": "Air Hockey" },
+      "g_2": { "id": "g_2", "name": "Bar Footy" },
+      "g_3": { "id": "g_3", "name": "Bowls" },
+      "g_4": { "id": "g_4", "name": "Ten Pin" },
+      "g_5": { "id": "g_5", "name": "Darts" },
+      "g_6": { "id": "g_6", "name": "Cards" }
+    }
+  },
+
+  "rankings": {
+    "overall": {
+      // "All-time standings (Running Ranks)" table.
+      // score = 1000 - sum of the player's six all-time game ranks (higher is better).
+      // gameRanks is null where the player has never played that game.
+      "allTime": [
+        {
+          "rank": 1,
+          "playerId": "p_6",
+          "score": 989,
+          "gameRanks": { "g_1": 1, "g_2": 2, "g_3": 2, "g_4": null, "g_5": 3, "g_6": 3 }
+        },
+        {
+          "rank": 2,
+          "playerId": "p_1",
+          "score": 979,
+          "gameRanks": { "g_1": 2, "g_2": 1, "g_3": 6, "g_4": 5, "g_5": 5, "g_6": 2 }
+        },
+        {
+          "rank": 3,
+          "playerId": "p_12",
+          "score": 976,
+          "gameRanks": { "g_1": 9, "g_2": 7, "g_3": 1, "g_4": 4, "g_5": 2, "g_6": 1 }
+        }
+        // ... 13 more players
+      ],
+
+      // One "season" table per year: totalGameRanks = sum of game ranks, lowest wins.
+      // Tied totals share a rank.
+      "byYear": {
+        "2026": [
+          { "rank": 1, "playerId": "p_5",  "totalGameRanks": 15 },
+          { "rank": 2, "playerId": "p_16", "totalGameRanks": 24 },
+          { "rank": 3, "playerId": "p_1",  "totalGameRanks": 26 },
+          { "rank": 4, "playerId": "p_8",  "totalGameRanks": 28 },
+          { "rank": 4, "playerId": "p_12", "totalGameRanks": 28 }
+          // ... 6 more players
+        ],
+        "2025": [
+          { "rank": 1, "playerId": "p_12", "totalGameRanks": 7 },
+          { "rank": 2, "playerId": "p_2",  "totalGameRanks": 18 }
+          // ... 7 more players
+        ]
+        // ... "2020", "2022", "2023", "2024"
+      },
+
+      // "Year champions at a glance" — playerIds are arrays because joint places happen.
+      "champions": [
+        { "year": 2020, "playerIds": ["p_1"],  "runnerUpIds": ["p_6"],  "thirdIds": ["p_5"] },
+        { "year": 2022, "playerIds": ["p_6"],  "runnerUpIds": ["p_1"],  "thirdIds": ["p_2"] },
+        { "year": 2023, "playerIds": ["p_1"],  "runnerUpIds": ["p_6"],  "thirdIds": ["p_2"] },
+        { "year": 2024, "playerIds": ["p_1"],  "runnerUpIds": ["p_10"], "thirdIds": ["p_12"] },
+        { "year": 2025, "playerIds": ["p_12"], "runnerUpIds": ["p_2"],  "thirdIds": ["p_1"] },
+        { "year": 2026, "playerIds": ["p_5"],  "runnerUpIds": ["p_16"], "thirdIds": ["p_1"] }
+      ]
+    },
+
+    "byGame": {
+      // ---- Head-to-head stat shape (Air Hockey, Bar Footy) ----
+      "g_1": { // Air Hockey
+        "allTime": [
+          { "rank": 1, "playerId": "p_6", "played": 7,  "wins": 6, "goalsFor": 19, "goalsAgainst": 8,  "goalDifference": 11 },
+          { "rank": 2, "playerId": "p_1", "played": 12, "wins": 9, "goalsFor": 32, "goalsAgainst": 16, "goalDifference": 16 }
+          // ... 14 more players
+        ],
+        "byYear": {
+          "2020": [
+            { "rank": 1, "playerId": "p_2",  "played": 3, "wins": 3, "goalsFor": 9, "goalsAgainst": 0, "goalDifference": 9 },
+            { "rank": 2, "playerId": "p_11", "played": 3, "wins": 3, "goalsFor": 9, "goalsAgainst": 2, "goalDifference": 7 }
+            // ... 7 more players
+          ]
+          // ... "2022", "2023", "2024", "2026" (no 2025 for Air Hockey)
+        }
+      },
+
+      "g_2": { // Bar Footy
+        "allTime": [
+          { "rank": 1, "playerId": "p_1", "played": 28, "wins": 24, "goalsFor": 74, "goalsAgainst": 35, "goalDifference": 39 }
+          // ... 15 more players
+        ],
+        "byYear": {
+          "2025": [
+            { "rank": 1, "playerId": "p_1",  "played": 6, "wins": 5, "goalsFor": 15, "goalsAgainst": 6, "goalDifference": 9 },
+            { "rank": 2, "playerId": "p_12", "played": 6, "wins": 5, "goalsFor": 15, "goalsAgainst": 8, "goalDifference": 7 }
+            // ... 7 more players
+          ]
+          // ... "2020", "2022", "2023", "2024", "2026"
+        }
+      },
+
+      // ---- Bowls: points-based yearly rows, head-to-head-style all-time rows ----
+      "g_3": { // Bowls
+        "allTime": [
+          { "rank": 1, "playerId": "p_12", "played": 8, "wins": 8, "goalsFor": 21, "goalsAgainst": 3, "goalDifference": 18 },
+          { "rank": 2, "playerId": "p_6",  "played": 3, "wins": 3, "goalsFor": 8,  "goalsAgainst": 1, "goalDifference": 7 }
+          // ... 14 more players — note: only counts 2024 onwards
+        ],
+        "byYear": {
+          "2022": [
+            // Four-way tie for 1st — tied ranks repeat.
+            { "rank": 1, "playerId": "p_1",  "played": 2, "wins": 2, "points": 5 },
+            { "rank": 1, "playerId": "p_5",  "played": 2, "wins": 2, "points": 5 },
+            { "rank": 1, "playerId": "p_7",  "played": 2, "wins": 2, "points": 5 },
+            { "rank": 1, "playerId": "p_11", "played": 2, "wins": 2, "points": 5 },
+            { "rank": 5, "playerId": "p_2",  "played": 2, "wins": 1, "points": 4 }
+            // ... 6 more players — points can be fractional (e.g. Joe 2.5 in 2020)
+          ]
+          // ... "2020", "2023", "2024", "2025", "2026"
+        }
+      },
+
+      // ---- Simple points shape (Ten Pin, Cards) ----
+      "g_4": { // Ten Pin
+        "allTime": [
+          { "rank": 1, "playerId": "p_8", "played": 8, "averagePoints": 9.38 },
+          { "rank": 2, "playerId": "p_4", "played": 8, "averagePoints": 9.13 }
+          // ... 9 more players (only 11 have ever played Ten Pin)
+        ],
+        "byYear": {
+          "2025": [
+            { "rank": 1, "playerId": "p_12", "played": 4, "points": 43 },
+            { "rank": 2, "playerId": "p_2",  "played": 4, "points": 41 },
+            { "rank": 2, "playerId": "p_8",  "played": 4, "points": 41 }
+            // ... 6 more players
+          ]
+          // ... "2026" (Ten Pin only exists from 2025)
+        }
+      },
+
+      // ---- Darts: points shape plus per-year average (the average decides the rank) ----
+      "g_5": { // Darts
+        "allTime": [
+          { "rank": 1, "playerId": "p_16", "played": 14, "averagePoints": 46.93 },
+          { "rank": 2, "playerId": "p_12", "played": 12, "averagePoints": 43.25 }
+          // ... 14 more players
+        ],
+        "byYear": {
+          "2026": [
+            { "rank": 1, "playerId": "p_8",  "played": 4, "points": 211, "averagePoints": 52.8 },
+            { "rank": 2, "playerId": "p_12", "played": 4, "points": 187, "averagePoints": 46.8 },
+            { "rank": 3, "playerId": "p_5",  "played": 6, "points": 256, "averagePoints": 42.7 }
+            // ... 8 more players
+          ]
+          // ... "2020", "2022", "2023", "2024", "2025"
+        }
+      },
+
+      "g_6": { // Cards
+        "allTime": [
+          { "rank": 1, "playerId": "p_12", "played": 3, "averagePoints": 65.67 },
+          { "rank": 2, "playerId": "p_1",  "played": 6, "averagePoints": 60.67 }
+          // ... 14 more players — using the CORRECTED ranking (the spreadsheet's Cards all-time rank column has an unanchored-range bug)
+        ],
+        "byYear": {
+          "2020": [
+            { "rank": 1, "playerId": "p_7", "played": 1, "points": 69 },
+            { "rank": 1, "playerId": "p_9", "played": 1, "points": 69 },
+            { "rank": 3, "playerId": "p_2", "played": 1, "points": 60 }
+            // ... 6 more players
+          ]
+          // ... "2022", "2023", "2024", "2025", "2026"
+        }
+      }
+    }
+  }
+}
