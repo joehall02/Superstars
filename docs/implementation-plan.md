@@ -390,9 +390,9 @@
 
 **Note**: Docker uses the same data fetching logic as local development (`VITE_DATA_SOURCE=local`), fetching from the pre-generated JSON file. Production uses `VITE_DATA_SOURCE=api` to fetch from Vercel serverless functions. No separate Express server needed.
 
-### 5.6 Unit Testing with Jest
-- [ ] Install Jest and TypeScript support (`jest`, `ts-jest`, `@types/jest`)
-- [ ] Configure Jest for TypeScript (`jest.config.js` or `jest.config.ts`)
+### 5.6 Unit Testing with Vitest
+- [ ] Install Vitest (`vitest`)
+- [ ] Configure Vitest for TypeScript (`test` block in `vite.config.ts`)
 - [ ] Colocate test files alongside source files (e.g., `convertMasterScores.test.ts` next to `convertMasterScores.ts`)
 - [ ] Add test scripts to package.json (`npm test`, `npm run test:watch`, `npm run test:coverage`)
 - [ ] Focus on business logic tests (not component tests):
