@@ -5,13 +5,13 @@
 ### 1.1 Spreadsheet Conversion Setup
 
 **Shared conversion logic (`lib/` folder):**
-- [ ] Create `lib/convertMasterScores.ts` with pure conversion function:
-  - [ ] `convertMasterScoresToJson(buffer: Buffer): SuperstarsData`
-  - [ ] No I/O operations - takes buffer, returns JSON
-  - [ ] Install SheetJS (`xlsx` package)
-  - [ ] Implement parsing logic using SheetJS
-  - [ ] Add error handling for missing/corrupt data (Return `ERRORS` object that client can interoperate and show errors screen)
-  - [ ] Write unit tests for conversion logic (valid input, edge cases, error scenarios)
+- [x] Create `lib/convertMasterScores.ts` with pure conversion function:
+  - [x] `convertMasterScoresToJson(buffer: Buffer): SuperstarsData`
+  - [x] No I/O operations - takes buffer, returns JSON
+  - [x] Install SheetJS (`xlsx` package)
+  - [x] Implement parsing logic using SheetJS
+  - [x] Add error handling for missing/corrupt data (Return `ERRORS` object that client can interoperate and show errors screen)
+  - [x] Write unit tests for conversion logic (valid input, edge cases, error scenarios)
 
 **Development wrapper (`scripts/` folder):**
 - [ ] Create `scripts/convert-data.ts` for local development
@@ -32,30 +32,30 @@
 - [ ] Add caching headers (aggressive caching as data changes yearly)
 
 ### 1.2 Data Types & Models
-- [ ] Create TypeScript interfaces for:
+- [x] Create TypeScript interfaces for:
 
   **Metadata:**
-  - [ ] `Metadata` - lastUpdated, sourceFile, availableYears, totalPlayers, totalGames
+  - [x] `Metadata` - lastUpdated, sourceFile, availableYears, totalPlayers, totalGames
 
   **Entities:**
-  - [ ] `Player` - id, name
-  - [ ] `Game` - id, name
-  - [ ] `Entities` - players (Record<playerId, Player>), games (Record<gameId, Game>)
+  - [x] `Player` - id, name
+  - [x] `Game` - id, name
+  - [x] `Entities` - players (Record<playerId, Player>), games (Record<gameId, Game>)
 
   **Overall Rankings:**
-  - [ ] `GameRanks` - Record<gameId, rank | null> (for overall allTime)
-  - [ ] `OverallAllTimeRanking` - rank, playerId, score, gameRanks
-  - [ ] `OverallYearRanking` - rank, playerId, totalGameRanks
-  - [ ] `YearChampion` - year, playerIds[], runnerUpIds[], thirdIds[]
+  - [x] `GameRanks` - Record<gameId, rank | null> (for overall allTime)
+  - [x] `OverallAllTimeRanking` - rank, playerId, score, gameRanks
+  - [x] `OverallYearRanking` - rank, playerId, totalGameRanks
+  - [x] `YearChampion` - year, playerIds[], runnerUpIds[], thirdIds[]
 
   **Game Rankings (nested stats structure):**
-  - [ ] `GameAllTimeRanking` - rank, playerId, stats: Record<string, number | null>
-  - [ ] `GameYearRanking` - rank, playerId, stats: Record<string, number | null>
-  - [ ] `GameRankings` - allTime: GameAllTimeRanking[], byYear: Record<year, GameYearRanking[]>
+  - [x] `GameAllTimeRanking` - rank, playerId, stats: Record<string, number | null>
+  - [x] `GameYearRanking` - rank, playerId, stats: Record<string, number | null>
+  - [x] `GameRankings` - allTime: GameAllTimeRanking[], byYear: Record<year, GameYearRanking[]>
 
   **Root Structure:**
-  - [ ] `Rankings` - overall (allTime, byYear, champions), byGame (Record<gameId, GameRankings>)
-  - [ ] `SuperstarsData` - metadata, entities, rankings
+  - [x] `Rankings` - overall (allTime, byYear, champions), byGame (Record<gameId, GameRankings>)
+  - [x] `SuperstarsData` - metadata, entities, rankings
 
 - [ ] Create domain models with validation methods
 - [ ] Write unit tests for validation methods
@@ -391,12 +391,12 @@
 **Note**: Docker uses the same data fetching logic as local development (`VITE_DATA_SOURCE=local`), fetching from the pre-generated JSON file. Production uses `VITE_DATA_SOURCE=api` to fetch from Vercel serverless functions. No separate Express server needed.
 
 ### 5.6 Unit Testing with Vitest
-- [ ] Install Vitest (`vitest`)
-- [ ] Configure Vitest for TypeScript (`test` block in `vite.config.ts`)
-- [ ] Colocate test files alongside source files (e.g., `convertMasterScores.test.ts` next to `convertMasterScores.ts`)
-- [ ] Add test scripts to package.json (`npm test`, `npm run test:watch`, `npm run test:coverage`)
+- [x] Install Vitest (`vitest`)
+- [x] Configure Vitest for TypeScript (`test` block in `vite.config.ts`)
+- [x] Colocate test files alongside source files (e.g., `convertMasterScores.test.ts` next to `convertMasterScores.ts`)
+- [x] Add test scripts to package.json (`npm test`, `npm run test:watch`, `npm run test:coverage`)
 - [ ] Focus on business logic tests (not component tests):
-  - [ ] Spreadsheet conversion logic (`lib/convertMasterScores.ts`)
+  - [x] Spreadsheet conversion logic (`lib/convertMasterScores.ts`)
   - [ ] Data validation methods (domain models)
   - [ ] Data normalization and transformation functions
   - [ ] MasterScoreService pure extraction methods
