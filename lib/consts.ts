@@ -5,7 +5,8 @@
  * player rows, year-block columns and the computed-rank/running-total blocks.
  */
 
-import { GameKind, GameName } from './enums';
+import { GameKind } from '../shared/enums';
+import { GameName } from './enums';
 import { type AllTimeColumns, type GameDefinition, type OverallColumns, type YearBlock, type YearBlockOffsets } from './types';
 
 /** Players occupy the same rows on every sheet. */

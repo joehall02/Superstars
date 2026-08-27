@@ -2,8 +2,8 @@
  * Cnversion error factories, so every error object is built in one place.
  */
 
-import { ConversionErrorCode } from './enums';
-import { type ConversionError } from './types';
+import { ConversionErrorCode } from '../shared/enums';
+import { type ConversionError } from '../shared/types';
 
 /**
  * The workbook buffer could not be parsed at all.

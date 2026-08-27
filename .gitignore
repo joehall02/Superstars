@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Environment variables
+.env
+!docs/.env.example
+
 data/*
 
 # Editor directories and files

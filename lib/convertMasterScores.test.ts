@@ -1,9 +1,10 @@
 import * as XLSX from 'xlsx';
 
+import { ConversionErrorCode } from '../shared/enums';
+import { type ConversionErrors, type ConversionResult, isConversionErrors, type SuperstarsData } from '../shared/types';
 import { GAME_DEFINITIONS, OVERALL_SHEET, PLAYER_FIRST_ROW, SOURCE_FILE_NAME } from './consts';
 import { convertMasterScoresToJson } from './convertMasterScores';
-import { ConversionErrorCode, GameName } from './enums';
-import { type ConversionErrors, type ConversionResult, isConversionErrors, type SuperstarsData } from './types';
+import { GameName } from './enums';
 
 // ---------------------------------------------------------------------------
 // Fixture builder

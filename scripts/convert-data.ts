@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 import { SOURCE_FILE_NAME } from '../lib/consts';
 import { convertMasterScoresToJson } from '../lib/convertMasterScores';
-import { isConversionErrors } from '../lib/types';
+import { isConversionErrors } from '../shared/types';
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const dataDir = join(scriptDir, '..', 'data');

@@ -1,9 +1,10 @@
 import * as XLSX from 'xlsx';
 
+import { GameKind } from '../shared/enums';
+import { type ConversionResult, type GameAllTimeRanking, type GameRankings, type GameRanks, type GameYearRanking, type OverallAllTimeRanking, type OverallYearRanking, type SuperstarsData, type YearChampion } from '../shared/types';
 import { ALL_TIME_COLS, BOWLS_NEW_FORMAT_FROM, GAME_DEFINITIONS, OFFSET, OVERALL_COLS, OVERALL_SHEET, PLAYER_FIRST_ROW, PLAYER_LAST_ROW, SOURCE_FILE_NAME, YEAR_BLOCKS } from './consts';
-import { GameKind } from './enums';
 import { corruptWorkbookError, missingSheetError, noPlayersError, playerNameMismatchError } from './errors';
-import { type ConversionResult, type GameAllTimeRanking, type GameDefinition, type GameRankings, type GameRanks, type GameYearRanking, type OverallAllTimeRanking, type OverallYearRanking, type PlayerRoster, type RawGameStats, type RawYearStats, type ReadContext, type SuperstarsData, type YearChampion, type YearStats } from './types';
+import { type GameDefinition, type PlayerRoster, type RawGameStats, type RawYearStats, type ReadContext, type YearStats } from './types';
 import { columnOffset, readCellNumber, readCellRank, readCellString, readComputedNumber, round } from './utils';
 
 // ---------------------------------------------------------------------------
