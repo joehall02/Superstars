@@ -23,5 +23,5 @@
     "noFallthroughCasesInSwitch": true,
     "erasableSyntaxOnly": false
   },
-  "include": ["src", "lib"]
+  "include": ["src", "lib", "scripts"]
 }

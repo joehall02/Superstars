@@ -77,6 +77,16 @@ export default defineConfig([
 		extends: [vitest.configs.recommended],
 	},
 	{
+		// Node-run build tooling: console output is intended, and it needs Node globals.
+		files: ["scripts/**/*.ts"],
+		languageOptions: {
+			globals: globals.node,
+		},
+		rules: {
+			"no-console": "off",
+		},
+	},
+	{
 		settings: {
 			react: {
 				version: "detect"

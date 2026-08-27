@@ -14,12 +14,12 @@
   - [x] Write unit tests for conversion logic (valid input, edge cases, error scenarios)
 
 **Development wrapper (`scripts/` folder):**
-- [ ] Create `scripts/convert-data.ts` for local development
-- [ ] Read spreadsheet from `data/` directory (local file)
-- [ ] Call `convertMasterScoresToJson()` with buffer
-- [ ] Write JSON to `data/master-scores.json` on disk
-- [ ] Add `npm run convert-data` script to package.json
-- [ ] Used for local development and Docker builds
+- [x] Create `scripts/convert-data.ts` for local development
+- [x] Read spreadsheet from `data/` directory (local file)
+- [x] Call `convertMasterScoresToJson()` with buffer
+- [x] Write JSON to `data/master-scores.json` on disk
+- [x] Add `npm run convert-data` script to package.json
+- [x] Used for local development and Docker builds
 
 > Do this after section 2.4
 
