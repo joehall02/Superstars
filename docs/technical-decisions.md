@@ -69,6 +69,16 @@ The conversion logic is isolated to `lib/`, so a swap later is contained to one 
 
 ---
 
+## Generated Data Folder Tracked via `.gitkeep`
+
+**Current approach:** `npm run convert-data` writes the generated JSON to `public/data/master-scores.json`. The folder is kept in the repo by committing an empty `public/data/.gitkeep`, while `.gitignore` ignores the folder's *contents* (`public/data/*`) and negates the marker (`!public/data/.gitkeep`). The convert script therefore just writes into an always-present directory — it does not create the folder at runtime.
+
+**Why it works now:**
+- Git tracks files, not directories, so an ignored-but-empty `public/data/` would not survive a clone; `.gitkeep` makes the directory part of the committed repo structure.
+- Vite serves `public/` at the URL root, so `public/data/master-scores.json` is reachable at `/data/master-scores.json` in dev and copied into `dist/` on build — the folder needs to exist for that path to resolve regardless of whether the JSON has been generated yet.
+
+---
+
 ## Test Runner (Vitest instead of Jest)
 
 **Current approach:** Tests run on Vitest, configured via a `test` block in `vite.config.ts` (`globals: true`, `environment: 'node'`, discovering `*.test.ts(x)` under `lib/` and `src/`). The implementation plan originally called for Jest (`jest`, `ts-jest`, `@types/jest`) in §5.6; that has been superseded.

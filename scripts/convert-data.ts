@@ -16,7 +16,7 @@ const outputPath = join(dataDir, 'master-scores.json');
  * Local development wrapper around the pure conversion logic.
  *
  * Reads the Master Scores spreadsheet from `data/`, runs it through
- * `convertMasterScoresToJson`, and writes the result to `data/master-scores.json`.
+ * `convertMasterScoresToJson`, and writes the result to `public/data/master-scores.json`.
  * This is the JSON the app fetches in development and inside the Docker build
  * (`VITE_DATA_SOURCE=local`). 
  *

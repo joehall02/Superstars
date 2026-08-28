@@ -17,7 +17,7 @@
 - [x] Create `scripts/convert-data.ts` for local development
 - [x] Read spreadsheet from `data/` directory (local file)
 - [x] Call `convertMasterScoresToJson()` with buffer
-- [x] Write JSON to `data/master-scores.json` on disk
+- [x] Write JSON to `public/data/master-scores.json` on disk (served by Vite dev server at `/data/...`; also copied into `dist/` by `vite build`)
 - [x] Add `npm run convert-data` script to package.json
 - [x] Used for local development and Docker builds
 
@@ -57,26 +57,18 @@
   - [x] `Rankings` - overall (allTime, byYear, champions), byGame (Record<gameId, GameRankings>)
   - [x] `SuperstarsData` - metadata, entities, rankings
 
-- [ ] Create domain models with validation methods
-- [ ] Write unit tests for validation methods
-- [ ] Create utility to extract stat field names from game ranking data
-- [ ] Create stat label mapping in config (e.g., `goalsFor` → "Goals For", `averagePoints` → "Avg Points")
-
-### 1.3 Data Normalisation Layer
-- [ ] Create data transformation functions (raw JSON → domain models)
-- [ ] Implement data validation logic
-- [ ] Add error handling for invalid data shapes
-- [ ] Write unit tests for transformation and validation logic
-
-### 1.4 React Query & Data Service
+### 1.3 React Query & Data Service
 - [ ] Install TanStack React Query (`@tanstack/react-query`)
 - [ ] Set up QueryClient and QueryClientProvider in app root
 - [ ] Implement environment-based data fetching:
   - [ ] Development/Docker: fetch from `/data/master-scores.json` (local file)
   - [ ] Production: fetch from `/api/data` endpoint (Vercel serverless function)
   - [ ] Use `VITE_DATA_SOURCE` environment variable to switch (`local` vs `api`)
-- [ ] Create MasterScoreService class (see `@docs/example-master-score-service.md` for implementation pattern):
-  - [ ] Pure extraction methods (testable, reusable):
+  - [ ] Add typed env access via `src/vite-env.d.ts` (augment `ImportMetaEnv` with `VITE_DATA_SOURCE: 'local' | 'api'`); only `VITE_`-prefixed vars reach the browser, everything else (`GCS_*`, `SITE_PASSWORD`) is server-only
+  - [ ] Use Vite's built-in `import.meta.env.DEV`/`.PROD`/`.MODE` for environment checks (no custom `VITE_ENVIRONMENT` var)
+- [ ] Add error handling for invalid data shapes (validate the fetched JSON response and confirm if errors are returned) — eventually used to route to the Error Page (see section 4.4)
+- [ ] Create MasterScoreService (functional: pure selector module + hooks module; see `@docs/example-master-score-service.md` for the extraction/hook pattern, but implemented as free functions rather than a class):
+  - [ ] Pure extraction functions (`masterScoreSelectors.ts` — no React, trivially testable):
     - [ ] `getAllTimeRankings(data)` - Rankings Page Section 1: all-time standings table
     - [ ] `getYearChampions(data, year)` - Rankings Page Section 2: year champions table
     - [ ] `getYearRankings(data, year)` - Rankings Page Section 2: per-year player rankings table
@@ -86,15 +78,16 @@
     - [ ] `getGameYearRankings(data, gameId, year)` - Game Details Page Section 2: per-year leaderboard for game
     - [ ] `getPlayerById(data, id)` - ProfileCard: player name
     - [ ] Write unit tests for all pure extraction methods
-  - [ ] Hook methods (components call these directly):
-    - [ ] `useAllTimeRankings()` - wraps useQuery with pure method
-    - [ ] `useYearRankings(year)` - query key includes year parameter
-    - [ ] `useYearChampions(year)` - query key includes year parameter
-    - [ ] `useAllGames()` - fetch all games
-    - [ ] `useGame(gameId)` - query key includes gameId parameter
-    - [ ] `useGameAllTimeRankings(gameId)` - query key includes gameId parameter
-    - [ ] `useGameYearRankings(gameId, year)` - query key includes both parameters
-    - [ ] `usePlayer(playerId)` - query key includes playerId parameter
+  - [ ] Hooks (`useMasterScores.ts` — components call these directly):
+    - [ ] One base hook + shared query key `['masterScores']` (the whole dataset is fetched once and cached); derived hooks reuse it via `select` to return their slice, so no redundant refetches
+    - [ ] `useAllTimeRankings()` - `select` → all-time standings
+    - [ ] `useYearRankings(year)` - `select` → per-year player rankings
+    - [ ] `useYearChampions(year)` - `select` → year champions
+    - [ ] `useAllGames()` - `select` → all games
+    - [ ] `useGame(gameId)` - `select` → single game
+    - [ ] `useGameAllTimeRankings(gameId)` - `select` → game all-time leaderboard
+    - [ ] `useGameYearRankings(gameId, year)` - `select` → game per-year leaderboard
+    - [ ] `usePlayer(playerId)` - `select` → single player
 - [ ] React Query handles caching, loading states, and error states automatically
 - [ ] Components interact with MasterScoreService directly via hook methods
 
@@ -109,6 +102,7 @@
   - [ ] `/games` - Games list page
   - [ ] `/games/:gameId` - Game details page
   - [ ] `/login` - Password entry page
+  - [ ] `/error` - Error page (data fetch/validation failures)
   - [ ] `*` - 404/Not Found page (catch-all for invalid routes)
 - [ ] Create 404 page with:
   - [ ] Clear "Page Not Found" message
@@ -137,6 +131,7 @@
   - [ ] `images.json` - Game images and player icons (keyed by ID, paths relative to public GCS bucket)
   - [ ] `localisation.json` - Game summaries and rules (keyed by game ID)
   - [ ] `stats.json` - Stat label mappings with reusable stat groups (keyed by game ID)
+    - [ ] Create stat label mapping (e.g., `goalsFor` → "Goals For", `averagePoints` → "Avg Points")
   - [ ] `layout.json` - Navigation links config (drives Navbar and Footer)
 - [ ] Local configs are git-tracked and serve as production fallback
 - [ ] Set up environment variables for Google Cloud Buckets (see section 2.4)
@@ -212,6 +207,7 @@
 ### 3.3 Table Component
 - [ ] Create reusable Table component with dynamic column rendering
 - [ ] Discover columns from data keys (excluding rank, playerId)
+  - [ ] Create utility to extract stat field names from game ranking data (excluding rank, playerId)
 - [ ] Use `useConfig().getStatLabels(gameId, type)` to look up column labels
 - [ ] Support flexible data shapes (props for columns, rows)
 - [ ] Add sorting functionality
@@ -287,6 +283,7 @@
 | **Rankings Page** | `useAllTimeRankings()` - all-time standings table<br>`useYearRankings(year)` - per-year player rankings<br>`useYearChampions(year)` - year champions table<br>`usePlayer(playerId)` - profile card data | `getPlayerIcon(playerId)` - player avatars |
 | **Games Page (Layer 1)** | `useAllGames()` - game names for grid | `getGameImage(gameId)` - game images<br>`getGameIcon(gameId)` - game icons for mobile scrollbar |
 | **Game Details Page (Layer 2)** | `useGame(gameId)` - game name for header<br>`useGameAllTimeRankings(gameId)` - all-time leaderboard<br>`useGameYearRankings(gameId, year)` - per-year leaderboard | `getGameImage(gameId)` - game image<br>`getGameIcon(gameId)` - game icon for breadcrumbs<br>`getGameLocalisation(gameId)` - summary & rules<br>`getStatLabels(gameId, type)` - table column headers |
+| **Error Page** | — (consumes the error result returned by the data fetch) | — |
 
 ### 4.1 Rankings Page
 - [ ] Create Rankings page layout
@@ -338,6 +335,13 @@
 - [ ] Add error handling
 - [ ] Add back navigation to Games list
 
+### 4.4 Error Page
+- [ ] Create Error page layout (shown when the data fetch fails or the response is invalid)
+- [ ] Display returned error details (from `ConversionErrors` or an invalid data shape)
+- [ ] Add clear, user-friendly error message
+- [ ] Add navigation back to rankings / retry
+- [ ] Consistent styling with rest of app
+- [ ] Route via `/error`
 ---
 
 ## Phase 5: Polish & Deployment
@@ -378,11 +382,10 @@
 - [ ] Create Dockerfile for production-like local testing:
   - [ ] Multi-stage build: Node.js for building, Nginx for serving
   - [ ] Run `npm run convert-data` during build to generate JSON from spreadsheet
-  - [ ] Build React app with `VITE_DATA_SOURCE=local` environment variable
-  - [ ] Copy built assets and `data/master-scores.json` to Nginx directory
+  - [ ] Build React app with `VITE_DATA_SOURCE=local` environment variable (`vite build` copies `public/data/master-scores.json` into `dist/data/`)
+  - [ ] Copy built `dist/` assets to Nginx directory (the JSON is already inside `dist/data/`)
 - [ ] Create Nginx configuration:
-  - [ ] Serve static React build from `/`
-  - [ ] Serve `data/master-scores.json` from `/data/` path
+  - [ ] Serve static React build from `/` (this also serves `/data/master-scores.json` — no special location block needed)
   - [ ] Configure caching headers for static assets
 - [ ] Create `.dockerignore` to exclude node_modules, .git, etc.
 - [ ] Add Docker build and run scripts to package.json
@@ -397,8 +400,7 @@
 - [x] Add test scripts to package.json (`npm test`, `npm run test:watch`, `npm run test:coverage`)
 - [ ] Focus on business logic tests (not component tests):
   - [x] Spreadsheet conversion logic (`lib/convertMasterScores.ts`)
-  - [ ] Data validation methods (domain models)
-  - [ ] Data normalization and transformation functions
+  - [ ] Data-response validation (shape guard + `ConversionErrors` handling)
   - [ ] MasterScoreService pure extraction methods
 
 ### 5.7 CI/CD Pipeline (GitHub Actions)
