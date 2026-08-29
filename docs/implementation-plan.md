@@ -58,38 +58,38 @@
   - [x] `SuperstarsData` - metadata, entities, rankings
 
 ### 1.3 React Query & Data Service
-- [ ] Install TanStack React Query (`@tanstack/react-query`)
-- [ ] Set up QueryClient and QueryClientProvider in app root
-- [ ] Implement environment-based data fetching:
-  - [ ] Development/Docker: fetch from `/data/master-scores.json` (local file)
-  - [ ] Production: fetch from `/api/data` endpoint (Vercel serverless function)
-  - [ ] Use `VITE_DATA_SOURCE` environment variable to switch (`local` vs `api`)
-  - [ ] Add typed env access via `src/vite-env.d.ts` (augment `ImportMetaEnv` with `VITE_DATA_SOURCE: 'local' | 'api'`); only `VITE_`-prefixed vars reach the browser, everything else (`GCS_*`, `SITE_PASSWORD`) is server-only
-  - [ ] Use Vite's built-in `import.meta.env.DEV`/`.PROD`/`.MODE` for environment checks (no custom `VITE_ENVIRONMENT` var)
-- [ ] Add error handling for invalid data shapes (validate the fetched JSON response and confirm if errors are returned) — eventually used to route to the Error Page (see section 4.4)
-- [ ] Create MasterScoreService (functional: pure selector module + hooks module; see `@docs/example-master-score-service.md` for the extraction/hook pattern, but implemented as free functions rather than a class):
-  - [ ] Pure extraction functions (`masterScoreSelectors.ts` — no React, trivially testable):
-    - [ ] `getAllTimeRankings(data)` - Rankings Page Section 1: all-time standings table
-    - [ ] `getYearChampions(data, year)` - Rankings Page Section 2: year champions table
-    - [ ] `getYearRankings(data, year)` - Rankings Page Section 2: per-year player rankings table
-    - [ ] `getAllGames(data)` - Games Page: list of all games for grid display
-    - [ ] `getGameById(data, id)` - Game Details Page: game name for header
-    - [ ] `getGameAllTimeRankings(data, gameId)` - Game Details Page Section 1: all-time leaderboard for game
-    - [ ] `getGameYearRankings(data, gameId, year)` - Game Details Page Section 2: per-year leaderboard for game
-    - [ ] `getPlayerById(data, id)` - ProfileCard: player name
-    - [ ] Write unit tests for all pure extraction methods
-  - [ ] Hooks (`useMasterScores.ts` — components call these directly):
-    - [ ] One base hook + shared query key `['masterScores']` (the whole dataset is fetched once and cached); derived hooks reuse it via `select` to return their slice, so no redundant refetches
-    - [ ] `useAllTimeRankings()` - `select` → all-time standings
-    - [ ] `useYearRankings(year)` - `select` → per-year player rankings
-    - [ ] `useYearChampions(year)` - `select` → year champions
-    - [ ] `useAllGames()` - `select` → all games
-    - [ ] `useGame(gameId)` - `select` → single game
-    - [ ] `useGameAllTimeRankings(gameId)` - `select` → game all-time leaderboard
-    - [ ] `useGameYearRankings(gameId, year)` - `select` → game per-year leaderboard
-    - [ ] `usePlayer(playerId)` - `select` → single player
-- [ ] React Query handles caching, loading states, and error states automatically
-- [ ] Components interact with MasterScoreService directly via hook methods
+- [x] Install TanStack React Query (`@tanstack/react-query`)
+- [x] Set up QueryClient and QueryClientProvider in app root
+- [x] Implement environment-based data fetching:
+  - [x] Development/Docker: fetch from `/data/master-scores.json` (local file)
+  - [x] Production: fetch from `/api/data` endpoint (Vercel serverless function)
+  - [x] Use `VITE_DATA_SOURCE` environment variable to switch (`local` vs `api`)
+  - [x] Add typed env access via `src/vite-env.d.ts` (augment `ImportMetaEnv` with `VITE_DATA_SOURCE: 'local' | 'api'`); only `VITE_`-prefixed vars reach the browser, everything else (`GCS_*`, `SITE_PASSWORD`) is server-only
+  - [x] Use Vite's built-in `import.meta.env.DEV`/`.PROD`/`.MODE` for environment checks (no custom `VITE_ENVIRONMENT` var)
+- [x] Add error handling for invalid data shapes (validate the fetched JSON response and confirm if errors are returned) — eventually used to route to the Error Page (see section 4.4)
+- [x] Create MasterScoreService (functional: pure selector module + hooks module; see for the extraction/hook pattern, but implemented as free functions rather than a class):
+  - [x] Pure extraction functions (`masterScoreSelectors.ts` — no React, trivially testable):
+    - [x] `getAllTimeRankings(data)` - Rankings Page Section 1: all-time standings table
+    - [x] `getYearChampions(data, year)` - Rankings Page Section 2: year champions table
+    - [x] `getYearRankings(data, year)` - Rankings Page Section 2: per-year player rankings table
+    - [x] `getAllGames(data)` - Games Page: list of all games for grid display
+    - [x] `getGameById(data, id)` - Game Details Page: game name for header
+    - [x] `getGameAllTimeRankings(data, gameId)` - Game Details Page Section 1: all-time leaderboard for game
+    - [x] `getGameYearRankings(data, gameId, year)` - Game Details Page Section 2: per-year leaderboard for game
+    - [x] `getPlayerById(data, id)` - ProfileCard: player name
+    - [x] Write unit tests for all pure extraction methods
+  - [x] Hooks (`useMasterScores.ts` — components call these directly):
+    - [x] One base hook + shared query key `['masterScores']` (the whole dataset is fetched once and cached); derived hooks reuse it via `select` to return their slice, so no redundant refetches
+    - [x] `useAllTimeRankings()` - `select` → all-time standings
+    - [x] `useYearRankings(year)` - `select` → per-year player rankings
+    - [x] `useYearChampions(year)` - `select` → year champions
+    - [x] `useAllGames()` - `select` → all games
+    - [x] `useGame(gameId)` - `select` → single game
+    - [x] `useGameAllTimeRankings(gameId)` - `select` → game all-time leaderboard
+    - [x] `useGameYearRankings(gameId, year)` - `select` → game per-year leaderboard
+    - [x] `usePlayer(playerId)` - `select` → single player
+- [x] React Query handles caching, loading states, and error states automatically
+- [x] Components interact with MasterScoreService directly via hook methods
 
 ---
 

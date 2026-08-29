@@ -1,5 +1,5 @@
 /**
- * Cnversion error factories, so every error object is built in one place.
+ * Conversion error factories, so every error object is built in one place.
  */
 
 import { ConversionErrorCode } from '../shared/enums';
