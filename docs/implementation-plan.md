@@ -124,16 +124,16 @@
   - [ ] Create password entry page UI (`/login`) that calls `/api/login` and persists the returned token
 
 ### 2.2 MUI Theming Engine
-- [ ] Install MUI packages (`@mui/material`, `@mui/icons-material`, `@emotion/react`, `@emotion/styled`)
-- [ ] Install tss-react
-- [ ] Create theme configuration:
-  - [ ] Define light theme color palette (70s British TV show inspired)
-  - [ ] Define dark theme color palette
-  - [ ] Set up typography (italics for nav links)
-  - [ ] Configure component default styles
-- [ ] Create ThemeProvider wrapper
-- [ ] Implement dark mode toggle logic with localStorage persistence
-- [ ] Set up tss-react for custom styles
+- [x] Install MUI packages (`@mui/material`, `@mui/icons-material`, `@emotion/react`, `@emotion/styled`)
+- [x] Install tss-react
+- [x] Create theme configuration:
+  - [x] Define light theme color palette (70s British TV show inspired)
+  - [x] Define dark theme color palette
+  - [x] Set up base typography
+  - [x] Configure component default styles
+- [x] Create ThemeProvider wrapper
+- [x] Implement dark mode toggle logic with localStorage persistence
+- [x] Set up tss-react for custom styles
 
 ### 2.3 Config Setup
 - [ ] Create `/configs` directory with four config files (see `@docs/configShapeExamples/` for shapes):
@@ -204,6 +204,7 @@
 - [ ] Add Logo component (responsive: full text desktop, icon mobile)
 - [ ] Add navigation links (config-driven via `useConfig().getNavLinks()`)
 - [ ] Style links with italics and white separators
+  - [ ] Set up typography (italics for nav links) in the MUI theme
 - [ ] Add dark mode toggle button
 - [ ] Implement responsive behavior (hide links on mobile)
 
