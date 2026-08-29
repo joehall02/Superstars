@@ -5,7 +5,7 @@
 
 import * as XLSX from 'xlsx';
 
-import { invalidCellError } from '../shared/errors';
+import { invalidCellError } from './errors';
 import { type ReadContext } from './types';
 
 /**
