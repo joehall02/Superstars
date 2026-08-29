@@ -96,23 +96,32 @@
 ## Phase 2: Site Setup
 
 ### 2.1 Routing & Authentication
-- [ ] Install React Router
-- [ ] Set up route structure:
-  - [ ] `/rankings` - Rankings page
-  - [ ] `/games` - Games list page
-  - [ ] `/games/:gameId` - Game details page
-  - [ ] `/login` - Password entry page
-  - [ ] `/error` - Error page (data fetch/validation failures)
-  - [ ] `*` - 404/Not Found page (catch-all for invalid routes)
-- [ ] Create 404 page with:
-  - [ ] Clear "Page Not Found" message
-  - [ ] Navigation link back to home/rankings
-  - [ ] Consistent styling with rest of app
-- [ ] Create protected route wrapper component
-- [ ] Implement password authentication logic
-- [ ] Add password storage in localStorage
-- [ ] Create password entry page UI
-- [ ] Set up environment variable for site password
+- [x] Install React Router
+- [x] Set up route structure:
+  - [x] `/rankings` - Rankings page
+  - [x] `/games` - Games list page
+  - [x] `/games/:gameId` - Game details page
+  - [x] `/login` - Password entry page
+  - [x] `/error` - Error page (data fetch/validation failures)
+  - [x] `*` - 404/Not Found page (catch-all for invalid routes)
+
+**Auth model:** a single shared site password gates the app. The real security boundary is the server-side API — the client gate is UX only. Three parts:
+
+- [ ] **(a) Login endpoint (`api/login.ts`)** — server-side password validation:
+  - [ ] `POST /api/login` accepts `{ password }`, compares against `SITE_PASSWORD` (server-only env, no `VITE_` prefix) using a constant-time comparison (`crypto.timingSafeEqual`)
+  - [ ] On success, return an HMAC-signed token (`issued.signature`) signed with a separate server-only secret `AUTH_SECRET` (never sign with the password itself)
+  - [ ] Embed the issued timestamp so tokens can be expired; reject on mismatch with 401
+  - [ ] Add `AUTH_SECRET` and `SITE_PASSWORD` to server env (Vercel), not `VITE_`-prefixed
+- [ ] **(b) Data-endpoint token verification** — the actual gate:
+  - [ ] Shared `verifyToken()` helper: recompute the HMAC from `AUTH_SECRET`, reject invalid/forged/expired tokens
+  - [ ] Require `Authorization: Bearer <token>` on protected endpoints (`/api/`); return 401 when verification fails
+  - [ ] Client sends the stored token on protected data requests; a 401 clears the token and redirects to `/login`
+- [ ] **(c) Client gate (`ProtectedRoute` + login UI)** — UX enforcement:
+  - [ ] `ProtectedRoute` wrapper redirects unauthenticated users to `/login` (already stubbed via `useIsAuthenticated()`)
+  - [ ] `useIsAuthenticated()` returns `true` in dev (`import.meta.env.DEV`, local JSON has no server gate), else requires a **live** token in localStorage — parse the `issued` timestamp from the `issued.signature` token and reject it if older than a shared `MAX_TOKEN_AGE_MS` constant (client reads the timestamp without needing `AUTH_SECRET`; only signature verification is server-side). This is UX only — an expired token routes to `/login` instead of rendering a broken, data-less page
+  - [ ] Keep the 401 → clear token → redirect path (step b) as a backstop for cases the client timestamp check can't catch (clock skew, a rotated `AUTH_SECRET` invalidating tokens before their timestamp expires); clear the stale token outside render (401 handler or effect), not inside `useIsAuthenticated()`
+  - [ ] Store only the server-issued token in localStorage (never the raw password)
+  - [ ] Create password entry page UI (`/login`) that calls `/api/login` and persists the returned token
 
 ### 2.2 MUI Theming Engine
 - [ ] Install MUI packages (`@mui/material`, `@mui/icons-material`, `@emotion/react`, `@emotion/styled`)
@@ -342,6 +351,12 @@
 - [ ] Add navigation back to rankings / retry
 - [ ] Consistent styling with rest of app
 - [ ] Route via `/error`
+
+### 4.5 404 Page
+- [ ] Clear "Page Not Found" message
+- [ ] Navigation link back to home/rankings
+- [ ] Consistent styling with rest of app
+
 ---
 
 ## Phase 5: Polish & Deployment

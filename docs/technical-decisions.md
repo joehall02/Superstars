@@ -139,3 +139,27 @@ Vitest removes the mismatch entirely:
 **Revisit if:** CI wall-clock time becomes a bottleneck, test coverage grows enough to warrant enforcement, the app starts accepting untrusted input, or deployment needs to be gated on CI rather than run independently by Vercel.
 
 ---
+
+## Auth Token Format (raw HMAC token instead of JWT)
+
+**Current approach:** The site-password gate (plan §2.1) issues a self-signed token of the form `issued.signature`, where `signature` is an HMAC-SHA256 of the issued timestamp keyed with a server-only `AUTH_SECRET`. The login endpoint mints it after a constant-time password check; protected endpoints verify it with a shared `verifyToken()` helper that recomputes the HMAC (constant-time compare) and rejects expired tokens. No JWT library is involved.
+
+**Why it works now:**
+- The token carries exactly one bit of state — "someone entered the correct shared password." There are no user identities, roles, or per-user claims, which is the structured payload JWT exists to carry.
+- Zero dependencies: `node:crypto` ships with the Vercel Node runtime, so there's no `jsonwebtoken`/`jose` to install, patch, or audit.
+- Smaller footgun surface: JWT's well-known pitfalls (`alg: none`, HS/RS algorithm confusion) all live in verifier misconfiguration. A hand-rolled verifier that recomputes a single HMAC has no algorithm field for an attacker to manipulate.
+- Expiry is trivial — the issued timestamp is embedded and compared against a max-age, which is all the `exp` machinery would buy us here anyway.
+
+**Trade-offs accepted:**
+- No standard tooling (jwt.io debugging, off-the-shelf middleware) — irrelevant for a single-secret internal gate we own end to end.
+- The token format is bespoke, so any future consumer must understand our scheme rather than reading a JWT out of the box.
+
+**Revisit / migrate to JWT if:**
+- Real per-user accounts, roles, or permissions are introduced (structured claims start earning their keep).
+- Token refresh flows or short-lived/long-lived token pairs are needed.
+- A third-party service or separate backend must validate our tokens (a standard format becomes worth adopting).
+- We move to asymmetric signing (RS/ES) so verifiers can check tokens without holding the signing secret.
+
+The signing/verification lives behind the login endpoint and `verifyToken()` helper, so swapping in JWT later is contained to those two spots.
+
+---
