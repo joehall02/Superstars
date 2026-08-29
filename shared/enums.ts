@@ -17,7 +17,7 @@ export enum GameKind {
 	TotalPoints = 'totalPoints',
 }
 
-/** Machine-readable codes for conversion failures (factories live in `lib/errors.ts`). */
+/** Machine-readable codes for conversion failures (factories live in `shared/errors.ts`). */
 export enum ConversionErrorCode {
 	CorruptWorkbook = 'CORRUPT_WORKBOOK',
 	MissingSheet = 'MISSING_SHEET',

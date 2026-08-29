@@ -1,8 +1,8 @@
 /**
- * Cnversion error factories, so every error object is built in one place.
+ * Conversion error factories, so every error object is built in one place.
  */
 
-import { ConversionErrorCode } from '../shared/enums';
+import { ConversionErrorCode } from './enums';
 import { type ConversionError } from '../shared/types';
 
 /**
