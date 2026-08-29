@@ -368,6 +368,19 @@
 - [ ] Test deployment pipeline
 - [ ] Verify serverless function can access GCS bucket from Vercel
 
+### 5.3.1 Git Branching Strategy (post-deploy)
+
+Set up **after** the first successful Vercel deploy, so day-to-day pushes to GitHub can't break the live production site.
+
+- [ ] Create a long-lived `develop` branch off `main`
+- [ ] Treat `main` as the production branch (Vercel's Production deploys track `main` only)
+- [ ] Do routine work on `develop` (or short-lived feature branches merged into `develop`), never directly on `main`
+- [ ] Release to production by opening a PR from `develop` → `main` and merging once CI is green
+- [ ] Protect `main` with a branch protection rule:
+  - [ ] Require the CI workflow to pass before merging
+  - [ ] Require a PR (disallow direct pushes to `main`)
+- [ ] Confirm `ci.yml` already triggers on both `main` and `develop` (push + PR) so both branches stay verified
+
 ### 5.4 Testing & QA
 - [ ] Test authentication flow
 - [ ] Test all navigation paths
@@ -414,13 +427,13 @@
 - [x] Add `prepare` script to `package.json` (`"prepare": "husky"`) so hooks are installed automatically after `npm install`
 
 **GitHub Actions workflow:**
-- [ ] Create `.github/workflows/ci.yml` workflow file
-- [ ] Configure workflow to run on push and pull requests to main/develop branches
-- [ ] Add linting step using existing ESLint config (`npm run lint`)
-- [ ] Add TypeScript type checking step (`npm run typecheck` or `npx tsc --noEmit`)
-- [ ] Add unit test step (`npm test`)
-- [ ] Add build verification step (`npm run build`)
-- [ ] Configure Node.js version and dependency caching
+- [x] Create `.github/workflows/ci.yml` workflow file
+- [x] Configure workflow to run on push and pull requests to main/develop branches
+- [x] Add linting step using existing ESLint config (`npm run lint`)
+- [x] Add TypeScript type checking step (`npm run typecheck` or `npx tsc --noEmit`)
+- [x] Add unit test step (`npm test`)
+- [x] Add build verification step (`npm run build`)
+- [x] Configure Node.js version and dependency caching
 - [ ] Add status badges to README (build, tests, coverage)
 
 ---

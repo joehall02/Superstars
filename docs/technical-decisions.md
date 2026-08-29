@@ -116,3 +116,26 @@ Vitest removes the mismatch entirely:
 **Revisit if:** `lib/` ever needs to become a standalone/publishable package, or `src/` stops importing `lib/` source directly — that's when the composite split's isolation actually pays for its complexity.
 
 ---
+
+## CI Pipeline Scope (GitHub Actions)
+
+**Current approach:** A single `ci.yml` workflow runs on push and PRs to `main`/`develop`. One `ubuntu-latest` job installs with `npm ci` (Node 24, npm cache) and runs the existing scripts sequentially: `lint` → `typecheck` → `test` → `build`. A `concurrency` group cancels superseded runs on the same ref. This mirrors the Husky `pre-push` hook (`lint` + `test`) and adds the typecheck/build coverage the hook skips.
+
+**Why it works now:**
+- The suite is small — sequential steps in one job finish fast, and fail-fast ordering saves runner minutes versus parallel jobs whose checkout/install overhead would outweigh any speedup.
+- One Node version matches local dev (`v24`); no compatibility matrix is needed for an internally-deployed app.
+- `npm ci` already enforces a frozen lockfile, so builds are reproducible without extra tooling.
+
+**Potential future improvements (revisit as the project grows):**
+
+1. **Status badges in README** — build/test/coverage badges (the one remaining unchecked item in plan §5.7). Cheap once the workflow has run on GitHub at least once.
+2. **Coverage reporting** — `test:coverage` (`vitest run --coverage`) exists but `@vitest/coverage-v8` isn't installed yet. Add the package, then either upload to a service (Codecov) or publish an artifact, and gate on a coverage threshold once meaningful test coverage exists.
+3. **Confirm `build` is data-independent in CI** — `vite build` runs without a spreadsheet in `data/`, and the generated `public/data/master-scores.json` is gitignored. If the build (or a smoke test) ever comes to depend on that JSON, add a `convert-data` step against a committed fixture spreadsheet so CI matches local output.
+4. **Dependabot** — a `.github/dependabot.yml` for weekly bumps, given the number of `^`-ranged devDeps. Note the SheetJS `xlsx` CDN pin is invisible to Dependabot (see the SheetJS decision above) and must still be tracked manually.
+5. **CodeQL / security scanning** — a lightweight `github/codeql-action` workflow for defence-in-depth on a public-facing app.
+6. **Job parallelism / build matrix** — only if the suite grows enough that splitting lint/typecheck/test/build into parallel jobs (or testing multiple Node versions) genuinely reduces wall-clock time; today it would add overhead for no gain.
+7. **Deploy integration** — Vercel handles deploys via its own Git integration today. If deployment ever needs CI-orchestrated gating (deploy only after green CI), wire a deploy job keyed off the CI job's success.
+
+**Revisit if:** CI wall-clock time becomes a bottleneck, test coverage grows enough to warrant enforcement, the app starts accepting untrusted input, or deployment needs to be gated on CI rather than run independently by Vercel.
+
+---
