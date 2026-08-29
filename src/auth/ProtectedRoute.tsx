@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from 'react-router';
 
-import { useIsAuthenticated } from './useAuth';
+import { useIsAuthenticated } from '../hooks/auth';
 
 /**
  * Layout route that gates its children behind authentication.
