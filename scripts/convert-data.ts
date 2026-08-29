@@ -8,9 +8,10 @@ import { isConversionErrors } from '../shared/types';
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const dataDir = join(scriptDir, '..', 'data');
+const publicDataDir = join(scriptDir, '..', 'public', 'data');
 
 const inputPath = join(dataDir, SOURCE_FILE_NAME);
-const outputPath = join(dataDir, 'master-scores.json');
+const outputPath = join(publicDataDir, 'master-scores.json');
 
 /**
  * Local development wrapper around the pure conversion logic.
