@@ -404,6 +404,16 @@
   - [ ] MasterScoreService pure extraction methods
 
 ### 5.7 CI/CD Pipeline (GitHub Actions)
+
+**Husky pre-push hooks:**
+- [x] Install Husky (`husky`)
+- [x] Initialise Husky (`npx husky init`)
+- [x] Create `.husky/pre-push` hook to run on every `git push`:
+  - [x] `npm run lint` — fail the push if linting errors are found
+  - [x] `npm test` — fail the push if any unit tests fail
+- [x] Add `prepare` script to `package.json` (`"prepare": "husky"`) so hooks are installed automatically after `npm install`
+
+**GitHub Actions workflow:**
 - [ ] Create `.github/workflows/ci.yml` workflow file
 - [ ] Configure workflow to run on push and pull requests to main/develop branches
 - [ ] Add linting step using existing ESLint config (`npm run lint`)
