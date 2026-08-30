@@ -8,7 +8,7 @@ import { assertSuperstarsData } from './masterScoresGuard';
 
 /**
  * Resolves where the dataset is fetched from:
- * - `api`   → Vercel serverless function (`/api/data`)
+ * - `api`   → Vercel serverless function (`/api/convert-data`)
  * - `local` → the pre-generated JSON served from `public/` (dev + Docker)
  *
  * Defaults to `local` when `VITE_DATA_SOURCE` is unset.

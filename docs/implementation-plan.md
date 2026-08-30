@@ -24,12 +24,12 @@
 > Do this after section 2.4
 
 **Production wrapper (`api/` folder):**
-- [ ] Create `api/convert-data.ts` Vercel serverless function
-- [ ] Install Google Cloud Storage client library (`@google-cloud/storage`)
-- [ ] Fetch spreadsheet from GCS private bucket
-- [ ] Call `convertMasterScoresToJson()` with buffer
-- [ ] Return JSON directly via HTTP response (no file storage)
-- [ ] Add caching headers (aggressive caching as data changes yearly)
+- [x] Create `api/convert-data.ts` Vercel serverless function (typed with `node:http`; no `@vercel/node` dep)
+- [x] Install Google Cloud Storage client library (`@google-cloud/storage`)
+- [x] Fetch spreadsheet from GCS private bucket
+- [x] Call `convertMasterScoresToJson()` with buffer
+- [x] Return JSON directly via HTTP response (no file storage)
+- [x] Add caching headers (aggressive caching as data changes yearly)
 
 ### 1.2 Data Types & Models
 - [x] Create TypeScript interfaces for:
@@ -62,7 +62,7 @@
 - [x] Set up QueryClient and QueryClientProvider in app root
 - [x] Implement environment-based data fetching:
   - [x] Development/Docker: fetch from `/data/master-scores.json` (local file)
-  - [x] Production: fetch from `/api/data` endpoint (Vercel serverless function)
+  - [x] Production: fetch from `/api/convert-data` endpoint (Vercel serverless function)
   - [x] Use `VITE_DATA_SOURCE` environment variable to switch (`local` vs `api`)
   - [x] Add typed env access via `src/vite-env.d.ts` (augment `ImportMetaEnv` with `VITE_DATA_SOURCE: 'local' | 'api'`); only `VITE_`-prefixed vars reach the browser, everything else (`GCS_*`, `SITE_PASSWORD`) is server-only
   - [x] Use Vite's built-in `import.meta.env.DEV`/`.PROD`/`.MODE` for environment checks (no custom `VITE_ENVIRONMENT` var)
@@ -143,7 +143,7 @@
     - [x] Create stat label mapping (e.g., `goalsFor` → "Goals For", `averagePoints` → "Avg Points")
   - [x] `layout.json` - Navigation links config (drives Navbar and Footer)
 - [x] Local configs are git-tracked (committed, not gitignored) and serve as production fallback (a failed GCS fetch retries the bundled `/configs/*` copy)
-- [ ] Set up environment variables for Google Cloud Buckets (see section 2.4)
+- [x] Set up environment variables for Google Cloud Buckets (see section 2.4)
   - [x] Add browser-exposed `VITE_GCS_PUBLIC_BASE_URL` to `src/vite-env.d.ts` (image URLs + prod config fetches are built client-side, so it **must** be `VITE_`-prefixed — deviates from 2.4's `GCS_PUBLIC_BASE_URL` naming; actual env values set in 2.4)
 - [x] Implement environment-based config fetching using `import.meta.env.DEV` (`getConfigBaseUrl()` in `src/config.ts`):
   - [x] Development (`DEV`): fetch from local `/configs` folder
@@ -171,8 +171,8 @@
   - [ ] `/spreadsheet/` - Superstars data spreadsheet (.xlsx)
   - [ ] Configure IAM: only service account used by Vercel serverless functions can read
   - [ ] Set up service account with read-only access to this bucket
-- [ ] Create serverless function to fetch spreadsheet from Google Cloud Bucket
-- [ ] Set up environment variables for GCS bucket name and credentials
+- [x] Create serverless function to fetch spreadsheet from Google Cloud Bucket (`api/convert-data.ts`)
+- [x] Set up environment variables for GCS bucket name and credentials (documented in `docs/.env.example`)
 - [ ] Create **public** GCS bucket (images + configs):
   - [ ] `/configs/` - Config files (images.json, localisation.json, stats.json)
   - [ ] `/players/` - Player icon/avatar images
@@ -182,11 +182,11 @@
   - [ ] Set up CORS configuration (allow frontend domain to fetch images and configs)
 - [ ] Upload initial assets (spreadsheet to private, images and configs to public)
 - [ ] Document bucket structure and naming conventions
-- [ ] Set up environment variables:
-  - [ ] `GCS_PRIVATE_BUCKET` - private bucket name
-  - [ ] `GCS_PUBLIC_BUCKET` - public bucket name
-  - [ ] `GCS_PUBLIC_BASE_URL` - public bucket base URL for image and config references
-  - [ ] `GCS_SERVICE_ACCOUNT_KEY` - service account credentials (for private bucket access)
+- [x] Set up environment variables:
+  - [x] `GCS_PRIVATE_BUCKET` - private bucket name
+  - [x] `GCS_PUBLIC_BUCKET` - public bucket name
+  - [x] `GCS_PUBLIC_BASE_URL` - public bucket base URL for image and config references (exposed to the browser as `VITE_GCS_PUBLIC_BASE_URL`; see §2.3)
+  - [x] `GCS_SERVICE_ACCOUNT_KEY` - service account credentials (for private bucket access)
 
 ### 2.5 Assets, Fonts & Logo
 - [ ] Set up custom font system for easy font swapping:

@@ -2,7 +2,7 @@ import { ConfigFile, DataSource } from './enums/config';
 
 export const DATA_SOURCE_URLS: Record<DataSource, string> = {
 	[DataSource.Local]: '/data/master-scores.json',
-	[DataSource.Api]: '/api/data',
+	[DataSource.Api]: '/api/convert-data',
 };
 
 /** Path prefix for the git-tracked config JSON served from `public/configs/` (dev + prod fallback). */

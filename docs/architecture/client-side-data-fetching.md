@@ -49,7 +49,7 @@ Where the data comes from is chosen at build time from the `VITE_DATA_SOURCE` en
 | `VITE_DATA_SOURCE` | URL | Used in |
 | --- | --- | --- |
 | `local` (default) | `/data/master-scores.json` | dev + Docker (pre-generated JSON served from `public/`) |
-| `api` | `/api/data` | production (Vercel serverless function) |
+| `api` | `/api/convert-data` | production (Vercel serverless function) |
 
 ```ts
 export const getDataSourceUrl = (): string =>
