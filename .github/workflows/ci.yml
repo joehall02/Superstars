@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   ci:
-    name: Lint, Typecheck, Test & Build
+    name: Lint, Typecheck, Test, Build & Audit
     runs-on: ubuntu-latest
 
     steps:
