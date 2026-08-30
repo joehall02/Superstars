@@ -456,6 +456,7 @@ Set up **after** the first successful Vercel deploy, so day-to-day pushes to Git
 - [x] Add unit test step (`npm test`)
 - [x] Add build verification step (`npm run build`)
 - [x] Configure Node.js version and dependency caching
+- [x] Add dependency audit step (`npm audit --omit=dev`) — fails on any severity, production deps only
 - [ ] Add status badges to README (build, tests, coverage)
 
 ---
