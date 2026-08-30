@@ -1,16 +1,8 @@
-import { DataLoadErrorCode } from './dataLoadErrors';
-import { assertSuperstarsData, MasterScoresError } from './masterScoresGuard';
+import { DataLoadErrorCode } from '../../enums/errors';
+import { captureError } from '../../helpers/tests';
+import { MasterScoresError } from '../loadErrors';
+import { assertSuperstarsData } from './masterScoresGuard';
 import { sampleData } from './testFixtures';
-
-/** Runs `fn`, returning whatever it throws (so assertions stay out of the catch). */
-const captureError = (fn: () => void): unknown => {
-	try {
-		fn();
-	} catch (error) {
-		return error;
-	}
-	return undefined;
-};
 
 describe('assertSuperstarsData', () => {
 	it('returns the data unchanged for a well-shaped payload', () => {

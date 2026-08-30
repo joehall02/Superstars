@@ -1,0 +1,41 @@
+{
+	"statGroups": {
+		"headToHead": {
+			"played": "Played",
+			"wins": "Wins",
+			"goalsFor": "GF",
+			"goalsAgainst": "GA",
+			"goalDifference": "GD"
+		},
+		"pointsOnly": {
+			"played": "Played",
+			"points": "Points"
+		},
+		"averageOnly": {
+			"played": "Played",
+			"averagePoints": "Avg"
+		},
+		"pointsWithAverage": {
+			"played": "Played",
+			"points": "Points",
+			"averagePoints": "Avg"
+		},
+		"bowlsYear": {
+			"played": "Played",
+			"wins": "Wins",
+			"points": "Points"
+		}
+	},
+	"games": {
+		"g_1": { "allTime": "headToHead", "byYear": "headToHead" },
+		"g_2": { "allTime": "headToHead", "byYear": "headToHead" },
+		"g_3": { "allTime": "headToHead", "byYear": "bowlsYear" },
+		"g_4": { "allTime": "averageOnly", "byYear": "pointsOnly" },
+		"g_5": { "allTime": "averageOnly", "byYear": "pointsWithAverage" },
+		"g_6": { "allTime": "averageOnly", "byYear": "pointsOnly" }
+	},
+	"overall": {
+		"allTime": { "score": "Score" },
+		"byYear": { "totalGameRanks": "Total Ranks" }
+	}
+}

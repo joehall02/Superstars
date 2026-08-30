@@ -136,29 +136,35 @@
 - [x] Set up tss-react for custom styles
 
 ### 2.3 Config Setup
-- [ ] Create `/configs` directory with four config files (see `@docs/configShapeExamples/` for shapes):
-  - [ ] `images.json` - Game images and player icons (keyed by ID, paths relative to public GCS bucket)
-  - [ ] `localisation.json` - Game summaries and rules (keyed by game ID)
-  - [ ] `stats.json` - Stat label mappings with reusable stat groups (keyed by game ID)
-    - [ ] Create stat label mapping (e.g., `goalsFor` → "Goals For", `averagePoints` → "Avg Points")
-  - [ ] `layout.json` - Navigation links config (drives Navbar and Footer)
-- [ ] Local configs are git-tracked and serve as production fallback
+- [x] Create `public/configs/` directory with four config files (see `@docs/config-shape-examples/` for shapes; placed under `public/` so Vite serves them at `/configs/*.json` and bundles them into `dist/`):
+  - [x] `images.json` - Game images and player icons (keyed by ID, paths relative to public GCS bucket)
+  - [x] `localisation.json` - Game summaries and rules (keyed by game ID)
+  - [x] `stats.json` - Stat label mappings with reusable stat groups (keyed by game ID)
+    - [x] Create stat label mapping (e.g., `goalsFor` → "Goals For", `averagePoints` → "Avg Points")
+  - [x] `layout.json` - Navigation links config (drives Navbar and Footer)
+- [x] Local configs are git-tracked (committed, not gitignored) and serve as production fallback (a failed GCS fetch retries the bundled `/configs/*` copy)
 - [ ] Set up environment variables for Google Cloud Buckets (see section 2.4)
-- [ ] Implement environment-based config fetching using `import.meta.env.DEV`:
-  - [ ] Development (`DEV`): fetch from local `/configs` folder
-  - [ ] Production (`PROD`): fetch from GCS public bucket
-- [ ] Create ConfigService class with methods:
-  - [ ] `getGameImage(gameId)` - returns full URL for game image
-  - [ ] `getGameIcon(gameId)` - returns full URL for game icon
-  - [ ] `getPlayerIcon(playerId)` - returns full URL for player icon
-  - [ ] `getGameLocalisation(gameId)` - returns summary and rules for game
-  - [ ] `getStatLabels(gameId, type)` - returns stat labels from stat groups for dynamic table columns
-  - [ ] `getNavLinks()` - returns navigation links config for Navbar and Footer
-- [ ] Create ConfigContext provider:
-  - [ ] Fetch all config files (from local or GCS based on environment)
-  - [ ] Instantiate ConfigService with loaded config data
-  - [ ] Add loading and error states
-  - [ ] Create `useConfig()` hook for component access
+  - [x] Add browser-exposed `VITE_GCS_PUBLIC_BASE_URL` to `src/vite-env.d.ts` (image URLs + prod config fetches are built client-side, so it **must** be `VITE_`-prefixed — deviates from 2.4's `GCS_PUBLIC_BASE_URL` naming; actual env values set in 2.4)
+- [x] Implement environment-based config fetching using `import.meta.env.DEV` (`getConfigBaseUrl()` in `src/config.ts`):
+  - [x] Development (`DEV`): fetch from local `/configs` folder
+  - [x] Production (`PROD`): fetch from GCS public bucket (`${VITE_GCS_PUBLIC_BASE_URL}/configs`)
+- [x] Create ConfigService (functional factory `createConfigService(config)` returning arrow getters, not a class — matches the functional `MasterScoreService`) with methods:
+  - [x] `getGameImage(gameId)` - returns full URL for game image
+  - [x] `getGameIcon(gameId)` - returns full URL for game icon
+  - [x] `getPlayerIcon(playerId)` - returns full URL for player icon
+  - [x] `getGameLocalisation(gameId)` - returns summary and rules for game
+  - [x] `getStatLabels(gameId, type)` - returns stat labels from stat groups for dynamic table columns
+  - [x] `getOverallStatLabels(type)` - stat labels for the non-game "overall" rankings (added; the single `getStatLabels(gameId, type)` can't express the overall case)
+  - [x] `getNavLinks()` - returns navigation links config for Navbar and Footer
+  - [x] Getters return `undefined`/empty for missing ids rather than throwing
+  - [x] Validate the fetched shape (`assertAppConfig` in `configsGuard.ts`, mirroring `masterScoresGuard.ts`) and surface a `ConfigError` for the Error Page
+  - [x] Unit tests for every getter (`configService.test.ts`)
+- [x] Create ConfigContext provider (`src/context/configProvider.tsx`):
+  - [x] Fetch all config files (from local or GCS based on environment) via React Query (`useConfigQuery`, key `['config']`)
+  - [x] Instantiate ConfigService with loaded config data (`useMemo`)
+  - [x] Add loading and error states (loading gate + inline error fallback; routing failures to `/error` is deferred to 4.4 since the provider sits above the router)
+  - [x] Create `useConfig()` hook for component access
+  - [x] Add thin per-slice hooks over `useConfig()` (`useNavLinks()`, `useGameImage(id)`, …) returning plain values, so a component depends only on its slice without touching the service surface
 
 ### 2.4 Google Cloud Bucket Setup
 - [ ] Create **private** GCS bucket (spreadsheet only):

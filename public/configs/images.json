@@ -1,0 +1,28 @@
+{
+	"games": {
+		"g_1": { "imageUrl": "/games/air-hockey.jpg", "iconUrl": "/games/icons/air-hockey.png" },
+		"g_2": { "imageUrl": "/games/bar-footy.jpg", "iconUrl": "/games/icons/bar-footy.png" },
+		"g_3": { "imageUrl": "/games/bowls.jpg", "iconUrl": "/games/icons/bowls.png" },
+		"g_4": { "imageUrl": "/games/ten-pin.jpg", "iconUrl": "/games/icons/ten-pin.png" },
+		"g_5": { "imageUrl": "/games/darts.jpg", "iconUrl": "/games/icons/darts.png" },
+		"g_6": { "imageUrl": "/games/cards.jpg", "iconUrl": "/games/icons/cards.png" }
+	},
+	"players": {
+		"p_1": { "imageUrl": "/players/p_1.png" },
+		"p_2": { "imageUrl": "/players/p_2.png" },
+		"p_3": { "imageUrl": "/players/p_3.png" },
+		"p_4": { "imageUrl": "/players/p_4.png" },
+		"p_5": { "imageUrl": "/players/p_5.png" },
+		"p_6": { "imageUrl": "/players/p_6.png" },
+		"p_7": { "imageUrl": "/players/p_7.png" },
+		"p_8": { "imageUrl": "/players/p_8.png" },
+		"p_9": { "imageUrl": "/players/p_9.png" },
+		"p_10": { "imageUrl": "/players/p_10.png" },
+		"p_11": { "imageUrl": "/players/p_11.png" },
+		"p_12": { "imageUrl": "/players/p_12.png" },
+		"p_13": { "imageUrl": "/players/p_13.png" },
+		"p_14": { "imageUrl": "/players/p_14.png" },
+		"p_15": { "imageUrl": "/players/p_15.png" },
+		"p_16": { "imageUrl": "/players/p_16.png" }
+	}
+}

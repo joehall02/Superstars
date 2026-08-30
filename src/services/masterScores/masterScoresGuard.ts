@@ -1,25 +1,7 @@
-import { type ConversionError, type SuperstarsData } from '../../../shared/types';
-import { type DataLoadError, invalidDataShapeError } from './dataLoadErrors';
-
-/**
- * Thrown when the dataset cannot be loaded or fails validation.
- *
- * Carries the underlying errors — converter-origin {@link ConversionError}s (via the
- * fetch passthrough) or frontend {@link DataLoadError}s — so the Error Page can
- * render machine-readable details rather than a bare message.
- */
-export class MasterScoresError extends Error {
-	readonly errors: Array<ConversionError | DataLoadError>;
-
-	constructor(errors: Array<ConversionError | DataLoadError>, message?: string) {
-		super(message ?? errors[0]?.message ?? 'Failed to load Superstars data');
-		this.name = 'MasterScoresError';
-		this.errors = errors;
-	}
-}
-
-const isRecord = (value: unknown): value is Record<string, unknown> =>
-	typeof value === 'object' && value !== null;
+import { type SuperstarsData } from '../../../shared/types';
+import { DataLoadResource } from '../../enums/errors';
+import { isRecord } from '../../helpers/typeGuards';
+import { invalidShapeThrower, MasterScoresError } from '../loadErrors';
 
 /**
  * Pragmatic top-level shape guard for a fetched dataset. It checks the structural
@@ -28,9 +10,7 @@ const isRecord = (value: unknown): value is Record<string, unknown> =>
  * error deep inside a component.
  */
 export const assertSuperstarsData = (json: unknown): SuperstarsData => {
-	const invalid = (detail: string): never => {
-		throw new MasterScoresError([invalidDataShapeError(detail)]);
-	};
+	const invalid = invalidShapeThrower(DataLoadResource.SuperstarsData, MasterScoresError);
 
 	if (!isRecord(json)) return invalid('response is not an object');
 

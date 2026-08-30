@@ -1,0 +1,6 @@
+{
+	"navLinks": [
+		{ "id": "rankings", "label": "Rankings", "path": "/rankings", "icon": "leaderboard" },
+		{ "id": "games", "label": "Games", "path": "/games", "icon": "sports_esports" }
+	]
+}
