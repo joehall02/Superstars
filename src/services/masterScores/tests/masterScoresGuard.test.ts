@@ -1,7 +1,7 @@
-import { DataLoadErrorCode } from '../../enums/errors';
-import { captureError } from '../../helpers/tests';
-import { MasterScoresError } from '../loadErrors';
-import { assertSuperstarsData } from './masterScoresGuard';
+import { DataLoadErrorCode } from '../../../enums/errors';
+import { captureError } from '../../../helpers/tests';
+import { MasterScoresError } from '../../loadErrors';
+import { assertSuperstarsData } from '../masterScoresGuard';
 import { sampleData } from './testFixtures';
 
 describe('assertSuperstarsData', () => {

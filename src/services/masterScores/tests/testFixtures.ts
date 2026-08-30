@@ -1,4 +1,4 @@
-import { type SuperstarsData } from '../../../shared/types';
+import { type SuperstarsData } from '../../../../shared/types';
 
 /**
  * Small but structurally complete {@link SuperstarsData} fixture for selector and

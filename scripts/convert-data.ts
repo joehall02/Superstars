@@ -47,6 +47,7 @@ const main = (): void => {
 	writeFileSync(outputPath, `${JSON.stringify(result, null, 2)}\n`);
 
 	const { totalPlayers, totalGames, availableYears } = result.metadata;
+
 	console.log(`Wrote ${outputPath}`);
 	console.log(`  ${totalPlayers} players, ${totalGames} games, years ${availableYears.join(', ')}`);
 };

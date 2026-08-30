@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { StatType } from '../../enums/config';
-import { type AppConfig } from '../../types/config.types';
-import { createConfigService } from './configService';
+import { StatType } from '../../../enums/config';
+import { type AppConfig } from '../../../types/config.types';
+import { createConfigService } from '../configService';
 
 const config: AppConfig = {
 	images: {

@@ -1,7 +1,7 @@
-import { DataLoadErrorCode } from '../../enums/errors';
-import { captureError } from '../../helpers/tests';
-import { ConfigError } from '../loadErrors';
-import { assertAppConfig } from './configsGuard';
+import { DataLoadErrorCode } from '../../../enums/errors';
+import { captureError } from '../../../helpers/tests';
+import { ConfigError } from '../../loadErrors';
+import { assertAppConfig } from '../configsGuard';
 
 /** Minimal payload that satisfies every skeleton check (empty collections are valid). */
 const validConfig = {

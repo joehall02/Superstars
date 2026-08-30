@@ -1,4 +1,4 @@
-import { getAllGames, getAllTimeRankings, getGameAllTimeRankings, getGameById, getGameYearRankings, getPlayerById, getYearChampions, getYearRankings } from './masterScoreSelectors';
+import { getAllGames, getAllTimeRankings, getGameAllTimeRankings, getGameById, getGameYearRankings, getPlayerById, getYearChampions, getYearRankings } from '../masterScoreSelectors';
 import { sampleData } from './testFixtures';
 
 describe('masterScoreSelectors', () => {
