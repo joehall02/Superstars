@@ -167,21 +167,21 @@
   - [x] Add thin per-slice hooks over `useConfig()` (`useNavLinks()`, `useGameImage(id)`, …) returning plain values, so a component depends only on its slice without touching the service surface
 
 ### 2.4 Google Cloud Bucket Setup
-- [ ] Create **private** GCS bucket (spreadsheet only):
-  - [ ] `/spreadsheet/` - Superstars data spreadsheet (.xlsx)
-  - [ ] Configure IAM: only service account used by Vercel serverless functions can read
-  - [ ] Set up service account with read-only access to this bucket
+- [x] Create **private** GCS bucket (spreadsheet only):
+  - [x] `/spreadsheet/` - Superstars data spreadsheet (.xlsx)
+  - [x] Configure IAM: only service account used by Vercel serverless functions can read
+  - [x] Set up service account with read-only access to this bucket
 - [x] Create serverless function to fetch spreadsheet from Google Cloud Bucket (`api/convert-data.ts`)
 - [x] Set up environment variables for GCS bucket name and credentials (documented in `docs/.env.example`)
-- [ ] Create **public** GCS bucket (images + configs):
-  - [ ] `/configs/` - Config files (images.json, localisation.json, stats.json)
-  - [ ] `/players/` - Player icon/avatar images
-  - [ ] `/games/` - Game images
-  - [ ] `/games/icons/` - Game icon images (for mobile scrollbar indicators)
-  - [ ] Configure bucket for public read access (allUsers read permission)
-  - [ ] Set up CORS configuration (allow frontend domain to fetch images and configs)
-- [ ] Upload initial assets (spreadsheet to private, images and configs to public)
-- [ ] Document bucket structure and naming conventions
+- [x] Create **public** GCS bucket (images + configs):
+  - [x] `/configs/` - Config files (images.json, localisation.json, stats.json)
+  - [x] `/players/` - Player icon/avatar images
+  - [x] `/games/` - Game images
+  - [x] `/games/icons/` - Game icon images (for mobile scrollbar indicators)
+  - [x] Configure bucket for public read access (allUsers read permission)
+  - [x] Set up CORS configuration (allow frontend domain to fetch images and configs)
+- [x] Upload initial assets (spreadsheet to private, images and configs to public)
+- [x] Document bucket structure and naming conventions
 - [x] Set up environment variables:
   - [x] `GCS_PRIVATE_BUCKET` - private bucket name
   - [x] `GCS_PUBLIC_BUCKET` - public bucket name

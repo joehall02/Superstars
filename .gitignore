@@ -14,9 +14,14 @@ dist-ssr
 
 # Environment variables
 .env
+.env.*
 !docs/.env.example
 
 data/*
+assets/**/*.jpg
+assets/**/*.svg
+assets/**/*.JPG
+assets/**/*.jpeg
 
 # Generated data JSON (produced by `npm run convert-data`, served from public/).
 # Keep the folder tracked (so it always exists) but ignore its contents.
