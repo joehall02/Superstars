@@ -10,6 +10,6 @@ export default defineConfig({
 		// Business-logic tests run in node; component tests that need the DOM
 		// can opt in per-file with a `// @vitest-environment jsdom` comment.
 		environment: 'node',
-		include: ['{lib,src}/**/*.{test,spec}.{ts,tsx}'],
+		include: ['{api,lib,src}/**/*.{test,spec}.{ts,tsx}'],
 	},
 });

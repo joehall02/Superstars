@@ -5,17 +5,11 @@ import { Storage } from '@google-cloud/storage';
 import { SOURCE_FILE_NAME } from '../lib/consts';
 import { convertMasterScoresToJson } from '../lib/convertMasterScores';
 import { isConversionErrors } from '../shared/types';
+import { CACHE_CONTROL } from './consts';
+import { type ApiErrors, sourceUnavailableError } from './errors';
 
 /** The spreadsheet's object path inside the private GCS bucket. */
 const SPREADSHEET_OBJECT = `spreadsheet/${SOURCE_FILE_NAME}`;
-
-/**
- * Data changes at most yearly, so cache hard at the CDN edge (`s-maxage`), which a
- * redeploy/purge can bust. `max-age=0` forces browsers to revalidate every load so
- * they never serve a stale copy we can't control; `stale-while-revalidate` lets the
- * edge serve instantly while refreshing in the background.
- */
-const CACHE_CONTROL = 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800';
 
 /** Serialises `body` as a JSON response with the given status and optional cache header. */
 const sendJson = (res: ServerResponse, status: number, body: unknown, cacheControl?: string): void => {
@@ -55,7 +49,8 @@ export default async (_req: IncomingMessage, res: ServerResponse): Promise<void>
 		buffer = await downloadSpreadsheet();
 	} catch (cause) {
 		console.error('Failed to load spreadsheet from GCS:', cause);
-		sendJson(res, 500, { error: 'Failed to load data' });
+		const errors: ApiErrors = { errors: [sourceUnavailableError(cause)] };
+		sendJson(res, 500, errors);
 		return;
 	}
 
