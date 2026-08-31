@@ -189,17 +189,13 @@
   - [x] `GCS_SERVICE_ACCOUNT_KEY` - service account credentials (for private bucket access)
 
 ### 2.5 Assets, Fonts & Logo
-- [ ] Set up custom font system for easy font swapping:
-  - [ ] Create `/src/assets/fonts/` directory
-  - [ ] Extract fonts from .zip files and add to fonts directory
-  - [ ] Create `fonts.css` with `@font-face` declarations for each font
-  - [ ] Register fonts in MUI theme typography (e.g., `fontFamily.display`, `fontFamily.heading`)
-  - [ ] Use font variables in theme so swapping only requires changing one line
-- [ ] Create Superstars logo as a React component (based on original British show logo):
-  - [ ] Use display font from theme
+- [x] Load Big Shoulders Inline (Google Fonts) via `<link>` in `index.html`
+- [x] Override heading variants (`h1`–`h3`) in MUI theme `typography` to use Big Shoulders Inline
+- [x] Create Superstars logo as a React SVG component:
+  - [x] SVG colours adapt to the active MUI theme (reads from `useTheme()`)
   - [ ] Create logo variants (full text for desktop, icon-only for mobile)
-- [ ] Upload game images to public GCS bucket
-- [ ] Upload player icons to public GCS bucket
+- [x] Upload game images to public GCS bucket
+- [x] Upload player icons to public GCS bucket
 
 ---
 

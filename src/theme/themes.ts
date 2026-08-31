@@ -12,6 +12,9 @@ const sharedOptions: ThemeOptions = {
 			'Arial',
 			'sans-serif',
 		].join(', '),
+		h1: { fontFamily: '"Big Shoulders Inline", sans-serif', fontWeight: 900 },
+		h2: { fontFamily: '"Big Shoulders Inline", sans-serif', fontWeight: 900 },
+		h3: { fontFamily: '"Big Shoulders Inline", sans-serif', fontWeight: 900 },
 	},
 	// TODO: Component-wide defaults live here. For future component/page work, the boxy
 	// 3D effect can be baked into MUI components directly via `styleOverrides`
