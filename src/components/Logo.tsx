@@ -2,6 +2,13 @@ import { useTheme } from '@mui/material';
 
 import { useLogoStyles } from './styles';
 
+type LogoProps = {
+	/** Overrides the fill colour. Defaults to `theme.palette.secondary.main`. */
+	color?: string;
+	/** Height in px; width is auto-computed from the viewBox aspect ratio. */
+	height?: number;
+};
+
 const outerPath = [
 	'M 87.38,164.00 L 97.00,150.12 L 104.28,150.15 L 111.55,150.14 L 118.82,150.11 L 126.09,150.07',
 	'L 133.37,150.07 L 140.66,150.13 L 147.95,150.23 L 155.23,150.27 L 162.47,150.16 L 169.63,149.73',
@@ -35,15 +42,15 @@ const innerPath = [
 	'L 107.92,188.33 L 96.14,188.26 L 84.34,188.19 Z',
 ].join(' ');
 
-export const Logo = () => {
-	const { classes } = useLogoStyles();
+export const Logo = ({ color, height = 100 }: LogoProps) => {
+	const { classes } = useLogoStyles({ height });
 	const theme = useTheme();
-	const fill = theme.palette.primary.main;
+	const fill = color ?? theme.palette.secondary.main;
 
 	return (
 		<svg
 			className={classes.svg}
-			viewBox='0 0 300 200'
+			viewBox='73.12 17.98 154.5 170.42'
 			xmlns='http://www.w3.org/2000/svg'
 			aria-label='Superstars Logo'
 		>

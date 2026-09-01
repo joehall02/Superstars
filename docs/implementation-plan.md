@@ -196,19 +196,20 @@
   - [ ] Create logo variants (full text for desktop, icon-only for mobile)
 - [x] Upload game images to public GCS bucket
 - [x] Upload player icons to public GCS bucket
+- [ ] Refine the Logo manually 
 
 ---
 
 ## Phase 3: Components
 
 ### 3.1 Navbar Component
-- [ ] Create Navbar component structure
-- [ ] Add Logo component (responsive: full text desktop, icon mobile)
-- [ ] Add navigation links (config-driven via `useConfig().getNavLinks()`)
-- [ ] Style links with italics and white separators
-  - [ ] Set up typography (italics for nav links) in the MUI theme
-- [ ] Add dark mode toggle button
-- [ ] Implement responsive behavior (hide links on mobile)
+- [x] Create Navbar component structure
+- [x] Add Logo component on the left (responsive: full text desktop, icon mobile. `src/components/Logo.tsx`)
+- [x] Add navigation links in the centre (config-driven via `useConfig().getNavLinks()`)
+- [x] Style links with italics and white separators
+  - [x] Set up typography (italics for nav links) in the MUI theme
+- [x] Add dark mode toggle button on the right (`src/theme/ThemeProvider.tsx`)
+- [x] Implement responsive behavior (hide links on mobile)
 
 ### 3.2 Footer Component (Mobile Only)
 - [ ] Create Footer component

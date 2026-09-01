@@ -39,8 +39,8 @@ export const lightTheme = createTheme({
 	...sharedOptions,
 	palette: {
 		mode: 'light',
-		primary: { main: '#D2691E' },
-		secondary: { main: '#2A9D8F' },
+		primary: { main: '#0A5095' },
+		secondary: { main: '#FFD737' },
 		background: { default: '#F4EAD5', paper: '#FBF3E4' },
 		text: { primary: '#3E2C1C' },
 	},
@@ -50,8 +50,8 @@ export const darkTheme = createTheme({
 	...sharedOptions,
 	palette: {
 		mode: 'dark',
-		primary: { main: '#E0A458' },
-		secondary: { main: '#4DB6A5' },
+		primary: { main: '#000000' },
+		secondary: { main: '#F5DE47' },
 		background: { default: '#1E1710', paper: '#2A2018' },
 		text: { primary: '#F4EAD5' },
 	},
