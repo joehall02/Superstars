@@ -72,3 +72,42 @@ export const useNavbarStyles = makeStyles()((theme) => ({
 		fontWeight: 700,
 	},
 }));
+
+export const useFooterStyles = makeStyles()((theme) => ({
+	// Pinned to the bottom of the viewport and mobile-only — the Navbar links take
+	// over from `md` up
+	footer: {
+		top: 'auto',
+		bottom: 0,
+		[theme.breakpoints.up('md')]: {
+			display: 'none',
+		},
+	},
+	toolbar: {
+		justifyContent: 'space-around',
+	},
+	navLink: {
+		display: 'inline-flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		gap: theme.spacing(0.25),
+		color: 'inherit',
+		textDecoration: 'none',
+		opacity: 0.7,
+		transition: 'opacity 0.2s ease, color 0.2s ease',
+		'&:hover': {
+			opacity: 1,
+		},
+	},
+	navLinkActive: {
+		opacity: 1,
+		color: theme.palette.secondary.main,
+	},
+	icon: {
+		fontSize: '1.5rem',
+	},
+	label: {
+		fontSize: '0.75rem',
+		fontWeight: 500,
+	},
+}));

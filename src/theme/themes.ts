@@ -22,6 +22,15 @@ const sharedOptions: ThemeOptions = {
 	// authoring a shared CSS class and hand-applying it to every element that
 	// needs it — centralising it here keeps the effect consistent and in one place.
 	components: {
+		MuiAppBar: {
+			defaultProps: {
+				// Keep the palette `color` (e.g. `primary`) as the AppBar background in dark
+				// mode. Without this, MUI forces dark-mode AppBars to the flat `background.paper`
+				// surface colour, discarding our themed primary. Applies to every AppBar
+				// (Navbar, Footer) so individual components don't repeat the prop.
+				enableColorOnDark: true,
+			},
+		},
 		MuiButton: {
 			defaultProps: {
 				disableElevation: true,

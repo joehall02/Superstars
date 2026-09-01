@@ -1,6 +1,7 @@
 import { Container } from '@mui/material';
 import { Navigate, Outlet } from 'react-router';
 
+import { Footer } from '../components/Footer';
 import { Navbar } from '../components/Navbar';
 import { Page } from '../enums/pages';
 import { useIsAuthenticated } from '../hooks/auth';
@@ -24,6 +25,7 @@ export const ProtectedRoute = () => {
 			<Container maxWidth='lg'>
 				<Outlet />
 			</Container>
+			<Footer />
 		</>
 	);
 };
