@@ -116,17 +116,16 @@ Objects are now readable at `https://storage.googleapis.com/superstars-public/<p
 
 ## Step 4 — CORS on the public bucket
 
-The browser fetches configs (and image requests) cross-origin, so allow your
-frontend origins. Create `cors.json` (note: an array, **no** `"cors"` wrapper):
+The browser fetches configs (and image requests) cross-origin, so the public
+bucket needs a CORS policy. We allow all origins (`*`) — the bucket is already
+public-read and Vercel preview URLs are dynamic; see the CORS entry in
+[technical-decisions.md](../technical-decisions.md) for the full rationale.
+Create `gcs-cors.json` (an array, **no** `"cors"` wrapper):
 
 ```json
 [
   {
-    "origin": [
-      "https://your-domain.vercel.app",
-      "https://your-custom-domain.com",
-      "http://localhost:5173"
-    ],
+    "origin": ["*"],
     "method": ["GET", "HEAD"],
     "responseHeader": ["Content-Type"],
     "maxAgeSeconds": 3600
@@ -137,7 +136,7 @@ frontend origins. Create `cors.json` (note: an array, **no** `"cors"` wrapper):
 Apply it:
 
 ```bash
-gcloud storage buckets update gs://superstars-public --cors-file=cors.json
+gcloud storage buckets update gs://superstars-public --cors-file=gcs-cors.json
 gcloud storage buckets describe gs://superstars-public --format="default(cors_config)"  # verify
 ```
 

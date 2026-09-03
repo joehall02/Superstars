@@ -379,12 +379,14 @@
 - [ ] Test with invalid/corrupt data
 - [ ] Add user-friendly error messages
 
+> NOTE: Lets do this section early
 ### 5.3 Vercel Deployment
-- [ ] Create Vercel configuration
-- [ ] Set up environment variables in Vercel (GCS bucket name, credentials, site password)
-- [ ] Configure build settings
+- [x] Create Vercel configuration
+- [x] Set up environment variables in Vercel (GCS bucket name, credentials, site password)
+- [ ] Enable Deployment Protection (Vercel Authentication) so Preview/non-production deployments require a Vercel login
+- [x] Configure build settings
 - [ ] Set up custom domain
-- [ ] Test deployment pipeline
+- [x] Test deployment pipeline
 - [ ] Verify serverless function can access GCS bucket from Vercel
 
 ### 5.3.1 Git Branching Strategy (post-deploy)

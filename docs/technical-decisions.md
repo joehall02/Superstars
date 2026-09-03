@@ -163,3 +163,38 @@ Vitest removes the mismatch entirely:
 The signing/verification lives behind the login endpoint and `verifyToken()` helper, so swapping in JWT later is contained to those two spots.
 
 ---
+
+## GCS CORS Allow-List (`*` wildcard on the public bucket)
+
+**Current approach:** The public bucket's CORS policy (`gcs-cors.json`) allows all origins — `"origin": ["*"]` — for `GET`/`HEAD`. It is applied with `gcloud storage buckets update gs://superstars-public --cors-file=gcs-cors.json`. The private bucket has no CORS config (it is never read from a browser — the serverless function reads it server-side with a service account).
+
+**Why `*` rather than an explicit allow-list:**
+- **Nothing is exposed that isn't already public.** The bucket is world-readable (`allUsers: objectViewer`); its configs and images are public by design. CORS is not an auth boundary — it only decides whether *browser JavaScript* may read a cross-origin response. A wildcard origin therefore grants no access that a plain `curl` doesn't already have.
+- **GCS matches origins exactly — no subdomain wildcards.** Vercel Preview deployments get dynamic hostnames (`superstars-git-<branch>-*.vercel.app`, `superstars-<hash>.vercel.app`) that can't be enumerated ahead of time. An explicit list would silently break CORS on every preview, dropping the app back to its bundled `/configs` fallback.
+- **No ops treadmill.** Otherwise the production alias, every preview URL, and any future custom domain would each need adding and re-applying.
+
+**Trade-offs accepted:**
+- Any site can `fetch()` these public assets from a browser. Acceptable: they're already public and non-sensitive, so this adds no exposure beyond what public-read already allows.
+- Doesn't defend against hotlinking / bandwidth use — not a concern at this scale.
+
+**Revisit if:**
+- The public bucket ever holds something that shouldn't be embeddable by arbitrary sites → scope origins to known domains (and accept the preview-CORS limitation, or proxy assets through the app).
+- Hotlinking becomes a real cost → front the bucket with a CDN / signed URLs rather than tightening CORS.
+
+---
+
+## Root `tsconfig.json` carries `compilerOptions` (for Vercel's function compiler)
+
+**Current approach:** The root `tsconfig.json` is a solution file (`files: []` + `references` to `tsconfig.app.json` and `tsconfig.node.json`), but it *also* carries a standalone `compilerOptions` block (`moduleResolution: "bundler"`, `types: ["node"]`, `module: "esnext"`, etc.). The local build never uses these options — `tsc -b` builds through the `references`, and the root project's own `include` is empty.
+
+**Why it's there:** Vercel's serverless-function compiler (`@vercel/node`) type-checks `api/convert-data.ts` and the files it imports (`lib/`, `shared/`), and it reads the **root `tsconfig.json`** to do so. Per Vercel's docs, that compiler **does not support project `references`** — so it ignores `tsconfig.app.json` (where `lib/` is actually configured; see the *`lib/` Typechecking* entry above) and, with no root `compilerOptions`, falls back to TypeScript defaults: `nodenext` resolution (which rejects the codebase's extensionless imports → TS2835) and no Node types (so `Buffer` is undefined → TS2591). The build still *deployed* — `@vercel/node` transpiles with esbuild regardless of type errors — but the log was full of noise. The root `compilerOptions` block mirrors the app config's bundler-mode + Node-types settings just for that compiler's benefit.
+
+**Trade-offs accepted:**
+- The settings are duplicated from `tsconfig.app.json` rather than shared — a `references`-aware tool would make this unnecessary, but Vercel's isn't one. The duplication is small and static (module/resolution/types), so drift risk is low.
+- A reader has to know this block exists *only* to satisfy Vercel; it does nothing for `npm run build` or the editor. Hence this note.
+
+**Revisit if:**
+- Vercel's Node builder gains project-reference support (then the root block can be dropped and it can read `tsconfig.app.json` directly).
+- `api/`/`lib/` move to a dedicated build that no longer depends on the root config being self-sufficient.
+
+---
