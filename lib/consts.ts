@@ -5,9 +5,9 @@
  * player rows, year-block columns and the computed-rank/running-total blocks.
  */
 
-import { GameKind } from '../shared/enums';
-import { GameName } from './enums';
-import { type AllTimeColumns, type GameDefinition, type OverallColumns, type YearBlock, type YearBlockOffsets } from './types';
+import { GameKind } from '../shared/enums.js';
+import { GameName } from './enums.js';
+import { type AllTimeColumns, type GameDefinition, type OverallColumns, type YearBlock, type YearBlockOffsets } from './types.js';
 
 /** Players occupy the same rows on every sheet. */
 export const PLAYER_FIRST_ROW = 7;

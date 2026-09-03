@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import { StatType } from '../../../enums/config';
 import { type AppConfig } from '../../../types/config.types';
@@ -27,15 +27,7 @@ const config: AppConfig = {
 
 const BASE = 'https://cdn.example.com';
 
-const serviceWithBase = () => {
-	vi.stubEnv('VITE_GCS_PUBLIC_BASE_URL', BASE);
-
-	return createConfigService(config);
-};
-
-afterEach(() => {
-	vi.unstubAllEnvs();
-});
+const serviceWithBase = () => createConfigService(config, BASE);
 
 describe('createConfigService', () => {
 	describe('image getters', () => {
@@ -56,7 +48,7 @@ describe('createConfigService', () => {
 		});
 
 		it('falls back to a bare path when no base URL is configured', () => {
-			const service = createConfigService(config);
+			const service = createConfigService(config, '');
 
 			expect(service.getGameImage('g_1')).toBe('/games/air-hockey.jpg');
 		});

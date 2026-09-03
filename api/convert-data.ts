@@ -2,11 +2,11 @@ import type { IncomingMessage, ServerResponse } from 'node:http';
 
 import { Storage } from '@google-cloud/storage';
 
-import { SOURCE_FILE_NAME } from '../lib/consts';
-import { convertMasterScoresToJson } from '../lib/convertMasterScores';
-import { isConversionErrors } from '../shared/types';
-import { CACHE_CONTROL } from './consts';
-import { type ApiErrors, sourceUnavailableError } from './errors';
+import { SOURCE_FILE_NAME } from '../lib/consts.js';
+import { convertMasterScoresToJson } from '../lib/convertMasterScores.js';
+import { isConversionErrors } from '../shared/types.js';
+import { CACHE_CONTROL } from './consts.js';
+import { type ApiErrors, sourceUnavailableError, unexpectedError } from './errors.js';
 
 /** The spreadsheet's object path inside the private GCS bucket. */
 const SPREADSHEET_OBJECT = `spreadsheet/${SOURCE_FILE_NAME}`;
@@ -44,22 +44,33 @@ const downloadSpreadsheet = async (): Promise<Buffer> => {
  * `/api/convert-data`).
  */
 export default async (_req: IncomingMessage, res: ServerResponse): Promise<void> => {
-	let buffer: Buffer;
 	try {
-		buffer = await downloadSpreadsheet();
+		let buffer: Buffer;
+		try {
+			buffer = await downloadSpreadsheet();
+		} catch (cause) {
+			console.error('Failed to load spreadsheet from GCS:', cause);
+			const errors: ApiErrors = { errors: [sourceUnavailableError(cause)] };
+			sendJson(res, 500, errors);
+			return;
+		}
+
+		const result = convertMasterScoresToJson(buffer);
+
+		if (isConversionErrors(result)) {
+			sendJson(res, 200, result);
+			return;
+		}
+
+		sendJson(res, 200, result, CACHE_CONTROL);
 	} catch (cause) {
-		console.error('Failed to load spreadsheet from GCS:', cause);
-		const errors: ApiErrors = { errors: [sourceUnavailableError(cause)] };
-		sendJson(res, 500, errors);
-		return;
+		// Anything past the download — e.g. an unexpected throw from the converter —
+		// is caught here so the endpoint returns a logged JSON 500 instead of a
+		// FUNCTION_INVOCATION_FAILED.
+		console.error('Unexpected error in /api/convert-data:', cause);
+		if (!res.headersSent) {
+			const errors: ApiErrors = { errors: [unexpectedError(cause)] };
+			sendJson(res, 500, errors);
+		}
 	}
-
-	const result = convertMasterScoresToJson(buffer);
-
-	if (isConversionErrors(result)) {
-		sendJson(res, 200, result);
-		return;
-	}
-
-	sendJson(res, 200, result, CACHE_CONTROL);
 };

@@ -1,13 +1,12 @@
-import { getPublicAssetBaseUrl } from '../../config';
 import { type AppConfig, type ConfigService } from '../../types/config.types';
 
 /**
  * Creates the config getter surface: a plain object of pure getters that read from the
- * loaded `config`. Image getters prepend the GCS public base URL, and every getter returns
- * `undefined`/empty for a missing id so a config gap never crashes a page.
+ * loaded `config`. Image getters prepend `assetBase` (the GCS public bucket base URL,
+ * injected by the caller); every getter returns `undefined`/empty for a missing id 
+ * so a config gap never crashes a page.
  */
-export const createConfigService = (config: AppConfig): ConfigService => {
-	const assetBase = getPublicAssetBaseUrl();
+export const createConfigService = (config: AppConfig, assetBase: string): ConfigService => {
 	const toAssetUrl = (path: string | undefined): string | undefined =>
 		path === undefined ? undefined : `${assetBase}${path}`;
 

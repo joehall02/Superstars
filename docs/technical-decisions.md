@@ -198,3 +198,23 @@ The signing/verification lives behind the login endpoint and `verifyToken()` hel
 - `api/`/`lib/` move to a dedicated build that no longer depends on the root config being self-sufficient.
 
 ---
+
+## `.js` Extensions on Relative Imports in `api/`, `lib/`, `shared/`
+
+**Current approach:** Relative imports **within** `api/`, `lib/`, and `shared/` carry explicit `.js` extensions (`import … from './consts.js'`), even though the files are `.ts`. `src/` keeps its extensionless imports, and `*.test.ts` files in these folders also stay extensionless.
+
+**Why:** The `api/convert-data` serverless function runs on Vercel under Node's **native ESM loader** (the project is `"type": "module"`), and Node ESM **requires** explicit file extensions on relative imports. `@vercel/node` transpiles each `.ts` file individually and traces its imports with `@vercel/nft` — it does **not** bundle them into one file — so an extensionless `import '../lib/consts'` survives to runtime and Node throws `ERR_MODULE_NOT_FOUND`. Because the function imports the converter, the entire `api/` → `lib/` → `shared/` graph executes under Node ESM and needs extensions. TypeScript's `bundler` resolution *lets* us omit extensions (which is why the type-checker was happy and the app builds), but omitting them is exactly what breaks at Node runtime — and TS deliberately will **not** add extensions on emit. See the related [root `tsconfig.json`](#root-tsconfigjson-carries-compileroptions-for-vercels-function-compiler) entry: the same folders, two Vercel constraints.
+
+**Why not the alternatives:**
+- **Bundling the function** (an esbuild step / bundler package) would let us keep extensionless imports, but `@vercel/node` has no bundle toggle for standalone `api/` functions, so it means owning extra build tooling outside Vercel's default pipeline.
+- **CommonJS functions** resolve extensionless `require`s, but the project is `"type": "module"` (Vite needs it); making only the functions CJS needs nested `package.json` overrides and hits `ERR_REQUIRE_ESM` against ESM dependencies. Fragile cascade.
+
+**Why `src/` and tests stay extensionless:**
+- `src/` only ever runs **bundled by Vite**, never under Node ESM, so it never hits the rule.
+- `*.test.ts` in these folders run only under **Vitest** (bundler resolution), are excluded from the Vercel deploy (`.vercelignore`), and keeping them extensionless avoids `vi.mock` path-matching friction.
+
+So the rule is: **code that executes under Node ESM (the function's `api`/`lib`/`shared` graph) uses `.js` extensions; code that only runs bundled (`src/`, tests) does not.**
+
+**Revisit if:** the function is ever bundled (a build step, or a future `@vercel/node` bundle option) — extensions become optional again — or the project moves off `"type": "module"`.
+
+---

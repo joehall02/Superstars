@@ -3,9 +3,9 @@
  * its helpers (`utils.ts`) and its layout constants (`consts.ts`),`.
  */
 
-import { type GameKind } from '../shared/enums';
-import { type BowlsYearStats, type ConversionError, type DartsYearStats, type HeadToHeadStats, type PointsYearStats } from '../shared/types';
-import { type GameName } from './enums';
+import { type GameKind } from '../shared/enums.js';
+import { type BowlsYearStats, type ConversionError, type DartsYearStats, type HeadToHeadStats, type PointsYearStats } from '../shared/types.js';
+import { type GameName } from './enums.js';
 
 // ---------------------------------------------------------------------------
 // Conversion internals (used by convertMasterScores / utils, not the frontend)

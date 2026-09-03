@@ -5,8 +5,8 @@
 
 import * as XLSX from 'xlsx';
 
-import { invalidCellError } from './errors';
-import { type ReadContext } from './types';
+import { invalidCellError } from './errors.js';
+import { type ReadContext } from './types.js';
 
 /**
  * Rounds away float noise in cached formula results (e.g. 8.8800000000000008).

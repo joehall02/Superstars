@@ -6,4 +6,5 @@
 /** Machine-readable codes for API-layer failures in the data endpoint (`api/convert-data.ts`). */
 export enum ApiErrorCode {
 	SourceUnavailable = 'SOURCE_UNAVAILABLE',
+	Unexpected = 'UNEXPECTED_ERROR',
 }

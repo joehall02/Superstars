@@ -2,6 +2,7 @@ import { type ReactNode, useMemo } from 'react';
 
 import { Error } from '../components/Error';
 import { Loading } from '../components/Loading';
+import { getPublicAssetBaseUrl } from '../config';
 import { createConfigService, useConfigQuery } from '../services/config';
 import { ConfigContext } from './configContext';
 
@@ -13,7 +14,7 @@ import { ConfigContext } from './configContext';
 export const ConfigProvider = ({ children }: { children: ReactNode }) => {
 	const { data, isPending, isError } = useConfigQuery();
 
-	const service = useMemo(() => (data ? createConfigService(data) : null), [data]);
+	const service = useMemo(() => (data ? createConfigService(data, getPublicAssetBaseUrl()) : null), [data]);
 
 	if (isPending) return <Loading />;
 

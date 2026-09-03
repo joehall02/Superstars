@@ -6,7 +6,7 @@
  * `lib/errors.ts` (spreadsheet-content conversion failures).
  */
 
-import { ApiErrorCode } from './enums';
+import { ApiErrorCode } from './enums.js';
 
 export interface ApiError {
 	code: ApiErrorCode;
@@ -31,5 +31,20 @@ export interface ApiErrors {
 export const sourceUnavailableError = (cause: unknown): ApiError => ({
 	code: ApiErrorCode.SourceUnavailable,
 	message: 'The data source could not be reached — the spreadsheet could not be loaded.',
+	context: { cause: cause instanceof Error ? cause.message : String(cause) },
+});
+
+/**
+ * An unexpected failure occurred *after* the spreadsheet loaded — e.g. the
+ * converter threw. Distinct from {@link sourceUnavailableError}: the bytes
+ * arrived, but processing them crashed. Catching this keeps the endpoint from
+ * failing as an opaque `FUNCTION_INVOCATION_FAILED`.
+ *
+ * @param cause - The underlying error.
+ * @returns The UNEXPECTED_ERROR API error.
+ */
+export const unexpectedError = (cause: unknown): ApiError => ({
+	code: ApiErrorCode.Unexpected,
+	message: 'An unexpected error occurred while preparing the data.',
 	context: { cause: cause instanceof Error ? cause.message : String(cause) },
 });

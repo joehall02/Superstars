@@ -1,0 +1,11 @@
+# Keep colocated test files out of the Vercel deployment.
+#
+# Every file under api/ is treated by Vercel as a serverless function and
+# type-checked with the root tsconfig.json — which has no test-runner globals
+# (`test`, `expect`, `describe`), so api/*.test.ts breaks the build. Test files
+# aren't part of the deployed app anyway (CI runs them separately), so exclude
+# them from the upload entirely.
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx

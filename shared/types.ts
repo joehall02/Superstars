@@ -4,7 +4,7 @@
  * This is the shape of the JSON the converter produces and the frontend consumes.
  */
 
-import { type ConversionErrorCode } from './enums';
+import { type ConversionErrorCode } from './enums.js';
 
 // ---------------------------------------------------------------------------
 // Metadata & entities
