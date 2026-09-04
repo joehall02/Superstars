@@ -83,31 +83,16 @@ export const useFooterStyles = makeStyles()((theme) => ({
 			display: 'none',
 		},
 	},
-	toolbar: {
-		justifyContent: 'space-around',
+	nav: {
+		backgroundColor: 'transparent',
 	},
 	navLink: {
-		display: 'inline-flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		gap: theme.spacing(0.25),
 		color: 'inherit',
-		textDecoration: 'none',
 		opacity: 0.7,
 		transition: 'opacity 0.2s ease, color 0.2s ease',
-		'&:hover': {
+		'&.Mui-selected': {
 			opacity: 1,
+			color: theme.palette.secondary.main,
 		},
-	},
-	navLinkActive: {
-		opacity: 1,
-		color: theme.palette.secondary.main,
-	},
-	icon: {
-		fontSize: '1.5rem',
-	},
-	label: {
-		fontSize: '0.75rem',
-		fontWeight: 500,
 	},
 }));

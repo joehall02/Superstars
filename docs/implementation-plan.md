@@ -387,7 +387,7 @@
 - [x] Configure build settings
 - [ ] Set up custom domain
 - [x] Test deployment pipeline
-- [ ] Verify serverless function can access GCS bucket from Vercel
+- [x] Verify serverless function can access GCS bucket from Vercel
 
 ### 5.3.1 Git Branching Strategy (post-deploy)
 

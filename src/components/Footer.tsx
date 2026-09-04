@@ -1,8 +1,8 @@
 import { type SvgIconComponent } from '@mui/icons-material';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
-import { AppBar, Toolbar } from '@mui/material';
-import { NavLink } from 'react-router';
+import { AppBar, BottomNavigation, BottomNavigationAction } from '@mui/material';
+import { NavLink, useLocation } from 'react-router';
 
 import { useNavLinks } from '../hooks/config';
 import { useFooterStyles } from './styles';
@@ -19,27 +19,34 @@ const NAV_ICONS: Record<string, SvgIconComponent> = {
  * Navbar's centre links take over.
  */
 export const Footer = () => {
-	const { classes, cx } = useFooterStyles();
+	const { classes } = useFooterStyles();
 	const navLinks = useNavLinks();
+	const { pathname } = useLocation();
+
+	// Highlight the deepest link whose path prefixes the current route so nested
+	// pages still light up their top-level nav entry. `false` = no selection.
+	const current =
+		navLinks.find((link) => pathname === link.path || pathname.startsWith(`${link.path}/`))?.path ?? false;
 
 	return (
 		<AppBar position='fixed' color='primary' className={classes.footer}>
-			<Toolbar className={classes.toolbar}>
+			<BottomNavigation value={current} showLabels className={classes.nav}>
 				{navLinks.map((link) => {
 					const Icon = NAV_ICONS[link.icon];
 
 					return (
-						<NavLink
+						<BottomNavigationAction
 							key={link.id}
+							value={link.path}
+							component={NavLink}
 							to={link.path}
-							className={({ isActive }) => cx(classes.navLink, isActive && classes.navLinkActive)}
-						>
-							{Icon && <Icon className={classes.icon} />}
-							<span className={classes.label}>{link.label}</span>
-						</NavLink>
+							label={link.label}
+							icon={Icon ? <Icon /> : undefined}
+							className={classes.navLink}
+						/>
 					);
 				})}
-			</Toolbar>
+			</BottomNavigation>
 		</AppBar>
 	);
 };
