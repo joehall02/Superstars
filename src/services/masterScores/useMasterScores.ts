@@ -2,7 +2,7 @@ import { useQuery, type UseQueryResult } from '@tanstack/react-query';
 
 import { type Game, type GameAllTimeRanking, type GameYearRanking, type OverallAllTimeRanking, type OverallYearRanking, type Player, type SuperstarsData, type YearChampion } from '../../../shared/types';
 import { fetchMasterScores } from './fetchMasterScores';
-import { getAllGames, getAllTimeRankings, getGameAllTimeRankings, getGameById, getGameYearRankings, getPlayerById, getYearChampions, getYearRankings } from './masterScoreSelectors';
+import { getAllGames, getAllTimeRankings, getGameAllTimeRankings, getGameById, getGameYearRankings, getPlayerById, getPlayers, getYearChampions, getYearRankings } from './masterScoreSelectors';
 
 /**
  * The whole dataset is fetched once under a single query key; every hook below
@@ -39,3 +39,6 @@ export const useGameYearRankings = (
 
 export const usePlayer = (playerId: string): UseQueryResult<Player | undefined> =>
 	useMasterScoresQuery((data) => getPlayerById(data, playerId));
+
+export const usePlayers = (): UseQueryResult<Record<string, Player>> =>
+	useMasterScoresQuery(getPlayers);

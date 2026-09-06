@@ -73,6 +73,21 @@ export const useNavbarStyles = makeStyles()((theme) => ({
 	},
 }));
 
+export const useTableStyles = makeStyles()((theme) => ({
+	container: {
+		width: '100%',
+	},
+	// Shrinks cell text on narrow screens rather than forcing horizontal scroll first.
+	table: {
+		[theme.breakpoints.down('sm')]: {
+			fontSize: '0.8125rem',
+		},
+	},
+	clickableRow: {
+		cursor: 'pointer',
+	},
+}));
+
 export const useFooterStyles = makeStyles()((theme) => ({
 	// Pinned to the bottom of the viewport and mobile-only — the Navbar links take
 	// over from `md` up

@@ -43,3 +43,7 @@ export const getGameYearRankings = (
 /** ProfileCard — player name. */
 export const getPlayerById = (data: SuperstarsData, id: string): Player | undefined =>
 	data.entities.players[id];
+
+/** Leaderboards — every player, keyed by id. */
+export const getPlayers = (data: SuperstarsData): Record<string, Player> =>
+	data.entities.players;

@@ -3,6 +3,12 @@ export enum StatType {
 	ByYear = 'byYear',
 }
 
+/** Sort direction for a sortable table column. */
+export enum SortDirection {
+	Asc = 'asc',
+	Desc = 'desc',
+}
+
 /** Where the app fetches the dataset from. */
 export enum DataSource {
 	Local = 'local',

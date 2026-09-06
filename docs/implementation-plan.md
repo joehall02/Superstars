@@ -218,19 +218,31 @@
 - [x] Implement mobile-only display logic
 
 ### 3.3 Table Component
-- [ ] Create reusable Table component with dynamic column rendering
-- [ ] Discover columns from data keys (excluding rank, playerId)
-  - [ ] Create utility to extract stat field names from game ranking data (excluding rank, playerId)
-- [ ] Use `useConfig().getStatLabels(gameId, type)` to look up column labels
-- [ ] Support flexible data shapes (props for columns, rows)
-- [ ] Add sorting functionality
-- [ ] Add clickable row support (for player selection)
-- [ ] Style with MUI Table components
-- [ ] Add responsive design (mobile-friendly)
-- [ ] Add loading skeleton state (table rows with skeleton placeholders)
+- [x] Create reusable Table component with dynamic column rendering (`src/components/table/Table.tsx`, generic `columns`/`rows`)
+- [x] Discover columns from config (excluding rank, playerId)
+  - [x] `buildStatColumns()` + `getStat()` in `src/helpers/tableColumns.ts` (columns driven by config `StatLabels` order, not raw data keys)
+- [x] Use `useConfig().getStatLabels(gameId, type)` to look up column labels (`LeaderboardTable` wrapper)
+- [x] Support flexible data shapes (props for columns, rows)
+- [x] Add sorting functionality (click-to-sort headers; `sortRows()`, nulls last)
+- [x] Add clickable row support (for player selection) (`onRowClick`/`onSelectPlayer`)
+- [x] Style with MUI Table components
+- [x] Add responsive design (mobile-friendly)
+- [x] Add loading skeleton state (table rows with skeleton placeholders)
 - [ ] Create table variants:
-  - [ ] Leaderboard table (rankings)
-  - [ ] Year selector table (with year navigation)
+  - [x] Leaderboard table (rankings) (`src/components/table/LeaderboardTable.tsx`)
+  - [ ] Year selector table (with year navigation) — deferred to Rankings/GameDetails pages (§4.1/§4.3) where year state lives
+
+### 3.3.1 Column Header Legend / Tooltip
+
+Column headers show abbreviated stat labels (GF, GA, GD, Avg); this adds a legend so users can decode them.
+
+- [ ] Add full stat descriptions to `localisation.json` (flat `statDescriptions` map, e.g. `goalsFor` → "Goals For"; keyed by stat property, reused across all games/groups)
+- [ ] Extend `LocalisationConfig` type + `assertAppConfig` guard for the new `statDescriptions` field
+- [ ] Add `getStatDescription(key)` to ConfigService (+ `useStatDescription(key)` hook)
+- [ ] Add optional `tooltip?: string` to `ColumnDef`; `buildStatColumns()` populates it from descriptions
+- [ ] Wrap abbreviated header labels in an MUI `<Tooltip>` in `Table.tsx` when `tooltip` is set
+- [ ] Add a touch-friendly `<Legend>` fallback (abbreviation → description list) since hover tooltips don't work on mobile
+- [ ] Unit-test the new getter and the `tooltip` wiring in `buildStatColumns()`
 
 ### 3.4 Custom Scrollbar Component
 - [ ] Create Scrollbar component
