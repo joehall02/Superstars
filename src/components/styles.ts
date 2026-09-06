@@ -88,6 +88,22 @@ export const useTableStyles = makeStyles()((theme) => ({
 	},
 }));
 
+export const usePlayerCellStyles = makeStyles()((theme) => ({
+	cell: {
+		display: 'flex',
+		alignItems: 'center',
+		gap: theme.spacing(1),
+	},
+	// Square (24px) icon; `cover` crops non-square sources rather than distorting them.
+	icon: {
+		width: theme.spacing(3),
+		height: theme.spacing(3),
+		objectFit: 'cover',
+		display: 'block',
+		flexShrink: 0,
+	},
+}));
+
 export const useFooterStyles = makeStyles()((theme) => ({
 	// Pinned to the bottom of the viewport and mobile-only — the Navbar links take
 	// over from `md` up
