@@ -32,6 +32,7 @@ export const LeaderboardTable = ({ gameId, type, rows, onSelectPlayer, isLoading
 			getRowKey={(row) => row.playerId}
 			onRowClick={onSelectPlayer ? (row) => onSelectPlayer(row.playerId) : undefined}
 			isLoading={isLoading}
+			skeletonRows={15}
 			defaultSort={{ key: 'rank', direction: SortDirection.Asc }}
 			ariaLabel='Leaderboard'
 		/>

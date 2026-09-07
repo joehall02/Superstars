@@ -8,9 +8,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Inline:wght@100..900&display=swap" rel="stylesheet" />
+    <link href="/loader.css" rel="stylesheet" />
+    <script src="/loader.js"></script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="app-loader">
+        <div class="app-loader__spinner"></div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
