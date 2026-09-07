@@ -10,6 +10,8 @@ export type ColumnAlign = 'left' | 'right' | 'center';
 export interface ColumnDef<Row> {
 	key: string;
 	label: string;
+	/** Rich header content (e.g. an icon + label); falls back to `label` when unset. */
+	header?: ReactNode;
 	align?: ColumnAlign;
 	sortable?: boolean;
 	getValue?: (row: Row) => number | string | null;

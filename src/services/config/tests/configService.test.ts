@@ -12,7 +12,7 @@ const config: AppConfig = {
 	},
 	localisation: {
 		pages: { [PageNames.Rankings]: { title: 'Rankings' } },
-		games: { g_1: { summary: 'Air hockey.', rules: 'First to 5.' } },
+		games: { g_1: { abbreviation: 'AIR', summary: 'Air hockey.', rules: 'First to 5.' } },
 	},
 	stats: {
 		statGroups: {
@@ -82,10 +82,17 @@ describe('createConfigService', () => {
 		});
 	});
 
+	it('getGameAbbreviation returns the short code, or undefined when missing', () => {
+		const service = serviceWithBase();
+
+		expect(service.getGameAbbreviation('g_1')).toBe('AIR');
+		expect(service.getGameAbbreviation('nope')).toBeUndefined();
+	});
+
 	it('getGameLocalisation returns the summary/rules, or undefined when missing', () => {
 		const service = serviceWithBase();
 
-		expect(service.getGameLocalisation('g_1')).toEqual({ summary: 'Air hockey.', rules: 'First to 5.' });
+		expect(service.getGameLocalisation('g_1')).toEqual({ abbreviation: 'AIR', summary: 'Air hockey.', rules: 'First to 5.' });
 		expect(service.getGameLocalisation('nope')).toBeUndefined();
 	});
 

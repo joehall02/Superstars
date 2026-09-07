@@ -90,10 +90,10 @@ export const Table = <Row,>({
 								<TableCell key={column.key} align={column.align}>
 									{column.sortable ? (
 										<TableSortLabel active={isActive} direction={direction} onClick={() => handleSort(column)}>
-											{column.label}
+											{column.header ?? column.label}
 										</TableSortLabel>
 									) : (
-										column.label
+										column.header ?? column.label
 									)}
 								</TableCell>
 							);

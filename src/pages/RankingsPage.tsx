@@ -1,30 +1,36 @@
 import { Box, Typography } from '@mui/material';
+import { useState } from 'react';
 
-import { LeaderboardTable } from '../components/table/LeaderboardTable';
+import { OverallLeaderboardTable } from '../components/table/OverallLeaderboardTable';
 import { StatType } from '../enums/config';
 import { PageNames } from '../enums/pages';
 import { usePageLocalisation } from '../hooks/config';
-import { useGameAllTimeRankings } from '../services/masterScores/useMasterScores';
-
-// TEMP: example wiring of LeaderboardTable to real master-scores data (Air Hockey, g_1).
-// Remove once the Rankings page sections (§4.1) are built.
-const EXAMPLE_GAME_ID = 'g_1';
+import { useAllTimeRankings } from '../services/masterScores/useMasterScores';
+import { useRankingsPageStyles } from './styles';
 
 export const RankingsPage = () => {
-	const { data: rankings = [], isLoading } = useGameAllTimeRankings(EXAMPLE_GAME_ID);
+	const { data: rankings = [], isLoading } = useAllTimeRankings();
 	const page = usePageLocalisation(PageNames.Rankings);
+	const { classes } = useRankingsPageStyles();
+	// Selected player drives the ProfileCard slot below — wired now, consumed when the
+	// ProfileCard lands (§4.1).
+	const [, setSelectedPlayerId] = useState<string | undefined>();
 
 	return (
 		<Box>
 			<Typography variant='h1'>{page?.title}</Typography>
-			<LeaderboardTable
-				gameId={EXAMPLE_GAME_ID}
-				type={StatType.AllTime}
-				rows={rankings}
-				isLoading={isLoading}
-				// eslint-disable-next-line no-console
-				onSelectPlayer={(playerId) => console.log('selected player', playerId)}
-			/>
+			<Typography variant='h2'>All-time Standings</Typography>
+			<Box className={classes.layout}>
+				<Box className={classes.main}>
+					<OverallLeaderboardTable
+						type={StatType.AllTime}
+						rows={rankings}
+						isLoading={isLoading}
+						onSelectPlayer={setSelectedPlayerId}
+					/>
+				</Box>
+				<Box className={classes.aside}>{/* ProfileCard slot — §4.1 */}</Box>
+			</Box>
 		</Box>
 	);
 };

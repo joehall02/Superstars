@@ -18,6 +18,8 @@ export interface ImagesConfig {
 
 /** A game's summary and rules text. */
 export interface GameLocalisation {
+	/** Short code for compact column headers (e.g. "AIR"); the full name comes from master-scores. */
+	abbreviation: string;
 	summary: string;
 	rules: string;
 }
@@ -85,6 +87,7 @@ export interface ConfigService {
 	getGameImage: (gameId: string) => string | undefined;
 	getGameIcon: (gameId: string) => string | undefined;
 	getPlayerIcon: (playerId: string) => string | undefined;
+	getGameAbbreviation: (gameId: string) => string | undefined;
 	getGameLocalisation: (gameId: string) => GameLocalisation | undefined;
 	getPageLocalisation: (pageId: string) => PageLocalisation | undefined;
 	getStatLabels: (gameId: string, type: StatType) => StatLabels;

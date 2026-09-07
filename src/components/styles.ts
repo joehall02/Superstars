@@ -104,6 +104,28 @@ export const usePlayerCellStyles = makeStyles()((theme) => ({
 	},
 }));
 
+export const useGameHeaderCellStyles = makeStyles()((theme) => ({
+	cell: {
+		display: 'inline-flex',
+		alignItems: 'center',
+		gap: theme.spacing(1),
+	},
+	// SVG game icon; `contain` keeps the whole glyph visible without cropping.
+	icon: {
+		width: theme.spacing(3),
+		height: theme.spacing(3),
+		objectFit: 'contain',
+		display: 'block',
+		flexShrink: 0,
+	},
+	// Game abbreviation on desktop; icon-only below `md`.
+	abbreviation: {
+		[theme.breakpoints.down('md')]: {
+			display: 'none',
+		},
+	},
+}));
+
 export const useFooterStyles = makeStyles()((theme) => ({
 	// Pinned to the bottom of the viewport and mobile-only — the Navbar links take
 	// over from `md` up

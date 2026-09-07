@@ -241,7 +241,9 @@ Column headers show abbreviated stat labels (GF, GA, GD, Avg); this adds a legen
 - [ ] Add `getStatDescription(key)` to ConfigService (+ `useStatDescription(key)` hook)
 - [ ] Add optional `tooltip?: string` to `ColumnDef`; `buildStatColumns()` populates it from descriptions
 - [ ] Wrap abbreviated header labels in an MUI `<Tooltip>` in `Table.tsx` when `tooltip` is set
+- [ ] Wrap `GameHeaderCell`'s game abbreviation (Rankings all-time table, e.g. `AIR`, `BAR`) in a `<Tooltip>` showing the full game name (available via the `name` prop)
 - [ ] Add a touch-friendly `<Legend>` fallback (abbreviation → description list) since hover tooltips don't work on mobile
+  - [ ] Include the per-game rank column headers (game abbreviations) in the same legend, decoding each to its full game name
 - [ ] Unit-test the new getter and the `tooltip` wiring in `buildStatColumns()`
 
 ### 3.4 Custom Scrollbar Component
@@ -311,10 +313,10 @@ Column headers show abbreviated stat labels (GF, GA, GD, Avg); this adds a legen
 | **Error Page** | — (consumes the error result returned by the data fetch) | — |
 
 ### 4.1 Rankings Page
-- [ ] Create Rankings page layout
+- [x] Create Rankings page layout
 - [ ] Implement Section 1: All-time standings
-  - [ ] Add leaderboard table
-  - [ ] Make player rows clickable
+  - [x] Add leaderboard table
+  - [x] Make player rows clickable
   - [ ] Integrate ProfileCard (side panel on desktop)
   - [ ] Add ProfileCard overlay for mobile
 - [ ] Implement Section 2: Year-based rankings

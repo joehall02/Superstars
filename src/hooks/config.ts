@@ -26,6 +26,8 @@ export const useGameIcon = (gameId: string): string | undefined => useConfig().g
 
 export const usePlayerIcon = (playerId: string): string | undefined => useConfig().getPlayerIcon(playerId);
 
+export const useGameAbbreviation = (gameId: string): string | undefined => useConfig().getGameAbbreviation(gameId);
+
 export const useGameLocalisation = (gameId: string): GameLocalisation | undefined =>
 	useConfig().getGameLocalisation(gameId);
 
