@@ -1,15 +1,9 @@
-import { type Game, type GameAllTimeRanking, type GameYearRanking, type OverallAllTimeRanking, type OverallYearRanking, type Player } from '../../shared/types';
+import { type Game, type Player } from '../../shared/types';
 import { GameHeaderCell } from '../components/table/GameHeaderCell';
 import { PlayerCell } from '../components/table/PlayerCell';
 import { type StatLabels } from '../types/config.types';
-import { type ColumnDef } from '../types/table.types';
+import { type ColumnDef, type LeaderboardRow, type OverallLeaderboardRow, type RankedRow } from '../types/table.types';
 import { buildStatColumns } from './tableColumns';
-
-export type LeaderboardRow = GameAllTimeRanking | GameYearRanking;
-export type OverallLeaderboardRow = OverallAllTimeRanking | OverallYearRanking;
-
-/** Any ranking row — every one carries a `rank` and a `playerId`. */
-type RankedRow = LeaderboardRow | OverallLeaderboardRow;
 
 /**
  * The fixed leaderboard prefix shared by game and overall tables: a rank column and a

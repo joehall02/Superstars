@@ -1,6 +1,6 @@
-import { Typography } from '@mui/material';
 import { Link } from 'react-router';
 
+import { PageHeader } from '../components/PageHeader';
 import { Page, PageNames } from '../enums/pages';
 import { usePageLocalisation } from '../hooks/config';
 
@@ -9,7 +9,7 @@ export const GamesPage = () => {
 
 	return (
 		<main>
-			<Typography variant='h1'>{page?.title}</Typography>
+			<PageHeader title={page?.title} />
 			<Link to={Page.Rankings}>Back to rankings</Link>
 		</main>
 	);

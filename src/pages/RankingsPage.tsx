@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import { useState } from 'react';
 
+import { PageHeader } from '../components/PageHeader';
 import { OverallLeaderboardTable } from '../components/table/OverallLeaderboardTable';
 import { StatType } from '../enums/config';
 import { PageNames } from '../enums/pages';
@@ -18,8 +19,8 @@ export const RankingsPage = () => {
 
 	return (
 		<Box>
-			<Typography variant='h1'>{page?.title}</Typography>
-			<Typography variant='h2'>All-time Standings</Typography>
+			<PageHeader title={page?.title} />
+			<Typography variant='h2'>{page?.allTimeStandings}</Typography>
 			<Box className={classes.layout}>
 				<Box className={classes.main}>
 					<OverallLeaderboardTable
@@ -27,6 +28,7 @@ export const RankingsPage = () => {
 						rows={rankings}
 						isLoading={isLoading}
 						onSelectPlayer={setSelectedPlayerId}
+						ariaLabel={page?.allTimeStandings}
 					/>
 				</Box>
 				<Box className={classes.aside}>{/* ProfileCard slot — §4.1 */}</Box>

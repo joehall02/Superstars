@@ -11,7 +11,7 @@ const config: AppConfig = {
 		players: { p_1: { imageUrl: '/players/p_1.png' } },
 	},
 	localisation: {
-		pages: { [PageNames.Rankings]: { title: 'Rankings' } },
+		pages: { [PageNames.Rankings]: { title: 'Rankings', allTimeStandings: 'All-time Standings' } },
 		games: { g_1: { abbreviation: 'AIR', summary: 'Air hockey.', rules: 'First to 5.' } },
 	},
 	stats: {
@@ -99,7 +99,7 @@ describe('createConfigService', () => {
 	it('getPageLocalisation returns the page title, or undefined when missing', () => {
 		const service = serviceWithBase();
 
-		expect(service.getPageLocalisation(PageNames.Rankings)).toEqual({ title: 'Rankings' });
+		expect(service.getPageLocalisation(PageNames.Rankings)).toEqual({ title: 'Rankings', allTimeStandings: 'All-time Standings' });
 		expect(service.getPageLocalisation('nope')).toBeUndefined();
 	});
 

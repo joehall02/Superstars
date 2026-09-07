@@ -27,6 +27,8 @@ export interface GameLocalisation {
 /** A page's UI text. */
 export interface PageLocalisation {
 	title: string;
+	/** Heading for the all-time standings section (Rankings page). */
+	allTimeStandings?: string;
 }
 
 /** `localisation.json` — per-page and per-game text content. */

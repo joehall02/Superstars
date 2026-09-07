@@ -3,6 +3,12 @@ import { makeStyles } from 'tss-react/mui';
 /** Component-local styles for `src/components/`. */
 export const useStyles = makeStyles()(() => ({}));
 
+export const usePageHeaderStyles = makeStyles()(() => ({
+	title: {
+		textDecoration: 'underline',
+	},
+}));
+
 export const useLogoStyles = makeStyles<{ height: number }>()((_theme, { height }) => ({
 	svg: {
 		display: 'block',

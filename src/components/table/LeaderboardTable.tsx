@@ -1,9 +1,10 @@
 import { useMemo } from 'react';
 
 import { SortDirection, type StatType } from '../../enums/config';
-import { buildLeaderboardColumns, type LeaderboardRow } from '../../helpers/table';
+import { buildLeaderboardColumns } from '../../helpers/table';
 import { useStatLabels } from '../../hooks/config';
 import { usePlayers } from '../../services/masterScores/useMasterScores';
+import { type LeaderboardRow } from '../../types/table.types';
 import { Table } from './Table';
 
 interface ILeaderboardTableProps {

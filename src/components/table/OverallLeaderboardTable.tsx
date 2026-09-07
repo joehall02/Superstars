@@ -1,9 +1,10 @@
 import { useMemo } from 'react';
 
 import { SortDirection, StatType } from '../../enums/config';
-import { buildGameRankColumns, buildOverallColumns, type OverallLeaderboardRow } from '../../helpers/table';
+import { buildGameRankColumns, buildOverallColumns } from '../../helpers/table';
 import { useOverallStatLabels } from '../../hooks/config';
 import { useAllGames, usePlayers } from '../../services/masterScores/useMasterScores';
+import { type OverallLeaderboardRow } from '../../types/table.types';
 import { Table } from './Table';
 
 interface IOverallLeaderboardTableProps {
@@ -11,6 +12,7 @@ interface IOverallLeaderboardTableProps {
 	rows: OverallLeaderboardRow[];
 	onSelectPlayer?: (playerId: string) => void;
 	isLoading?: boolean;
+	ariaLabel?: string;
 }
 
 /**
@@ -21,7 +23,7 @@ interface IOverallLeaderboardTableProps {
  * {@link buildGameRankColumns}). Serves both all-time (`score`) and per-year
  * (`totalGameRanks`) standings via {@link StatType}.
  */
-export const OverallLeaderboardTable = ({ type, rows, onSelectPlayer, isLoading }: IOverallLeaderboardTableProps) => {
+export const OverallLeaderboardTable = ({ type, rows, onSelectPlayer, isLoading, ariaLabel }: IOverallLeaderboardTableProps) => {
 	const labels = useOverallStatLabels(type);
 	const { data: players = {} } = usePlayers();
 	const { data: games = [] } = useAllGames();
@@ -43,7 +45,7 @@ export const OverallLeaderboardTable = ({ type, rows, onSelectPlayer, isLoading 
 			isLoading={isLoading}
 			skeletonRows={15}
 			defaultSort={{ key: 'rank', direction: SortDirection.Asc }}
-			ariaLabel='All-time standings'
+			ariaLabel={ariaLabel}
 		/>
 	);
 };

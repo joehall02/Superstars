@@ -1,6 +1,6 @@
 {
 	"pages": {
-		"rankings": { "title": "Rankings" },
+		"rankings": { "title": "Rankings", "allTimeStandings": "All-time Standings" },
 		"games": { "title": "Games" }
 	},
 	"games": {
