@@ -5,6 +5,7 @@ import { Footer } from '../components/Footer';
 import { Navbar } from '../components/Navbar';
 import { Page } from '../enums/pages';
 import { useIsAuthenticated } from '../hooks/auth';
+import { useProtectedRouteStyles } from './styles';
 
 /**
  * Layout route that gates its children behind authentication.
@@ -14,6 +15,7 @@ import { useIsAuthenticated } from '../hooks/auth';
  */
 export const ProtectedRoute = () => {
 	const isAuthenticated = useIsAuthenticated();
+	const { classes } = useProtectedRouteStyles();
 
 	if (!isAuthenticated) {
 		return <Navigate to={Page.Login} replace />;
@@ -22,7 +24,7 @@ export const ProtectedRoute = () => {
 	return (
 		<>
 			<Navbar />
-			<Container maxWidth='lg'>
+			<Container maxWidth='lg' className={classes.container}>
 				<Outlet />
 			</Container>
 			<Footer />

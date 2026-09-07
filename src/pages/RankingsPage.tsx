@@ -20,7 +20,7 @@ export const RankingsPage = () => {
 	return (
 		<Box>
 			<PageHeader title={page?.title} />
-			<Typography variant='h2'>{page?.allTimeStandings}</Typography>
+			<Typography variant='h3' className={classes.standingsHeading}>{page?.allTimeStandings}</Typography>
 			<Box className={classes.layout}>
 				<Box className={classes.main}>
 					<OverallLeaderboardTable

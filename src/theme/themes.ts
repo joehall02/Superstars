@@ -13,9 +13,9 @@ const sharedOptions: ThemeOptions = {
 			'sans-serif',
 		].join(', '),
 		// Fluid header sizing: scales smoothly with the viewport 
-		h1: { fontFamily: '"Big Shoulders Inline", sans-serif', fontWeight: 900, fontSize: 'clamp(3.5rem, 7vw, 8rem)' },
-		h2: { fontFamily: '"Big Shoulders Inline", sans-serif', fontWeight: 900 },
-		h3: { fontFamily: '"Big Shoulders Inline", sans-serif', fontWeight: 900 },
+		h1: { fontFamily: '"Big Shoulders Inline", sans-serif', fontWeight: 900, fontSize: 'clamp(3.5rem, 5vw, 5.5rem)' },
+		h2: { fontFamily: '"Big Shoulders Inline", sans-serif', fontWeight: 900, fontSize: 'clamp(2.5rem, 3.5vw, 3.75rem)' },
+		h3: { fontSize: 'clamp(1.75rem, 2.5vw, 2.5rem)' },
 	},
 	// TODO: Component-wide defaults live here. For future component/page work, the boxy
 	// 3D effect can be baked into MUI components directly via `styleOverrides`

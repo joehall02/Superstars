@@ -1,5 +1,7 @@
 import { makeStyles } from 'tss-react/mui';
 
+import { FOOTER_HEIGHT } from '../theme/layout';
+
 /** Component-local styles for `src/components/`. */
 export const useStyles = makeStyles()(() => ({}));
 
@@ -144,6 +146,7 @@ export const useFooterStyles = makeStyles()((theme) => ({
 	},
 	nav: {
 		backgroundColor: 'transparent',
+		height: FOOTER_HEIGHT,
 	},
 	navLink: {
 		color: 'inherit',

@@ -2,6 +2,9 @@ import { makeStyles } from 'tss-react/mui';
 
 /** Component-local styles for `src/pages/`. */
 export const useRankingsPageStyles = makeStyles()((theme) => ({
+	standingsHeading: {
+		padding: theme.spacing(1, 0),
+	},
 	layout: {
 		display: 'flex',
 		alignItems: 'flex-start',
