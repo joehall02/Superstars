@@ -1,4 +1,8 @@
 {
+	"pages": {
+		"rankings": { "title": "Rankings" },
+		"games": { "title": "Games" }
+	},
 	"games": {
 		"g_1": {
 			"summary": "Fast-paced 1v1 air hockey matches. First to 5 goals wins.",

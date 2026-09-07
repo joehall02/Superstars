@@ -23,7 +23,9 @@ export const assertAppConfig = (config: {
 		invalid('missing images.games / images.players');
 	}
 
-	if (!isRecord(localisation) || !isRecord(localisation.games)) invalid('missing localisation.games');
+	if (!isRecord(localisation) || !isRecord(localisation.pages) || !isRecord(localisation.games)) {
+		invalid('missing localisation.pages / localisation.games');
+	}
 
 	if (!isRecord(stats) || !isRecord(stats.statGroups) || !isRecord(stats.games) || !isRecord(stats.overall)) {
 		invalid('missing stats.{statGroups,games,overall}');

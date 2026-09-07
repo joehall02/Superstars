@@ -15,6 +15,7 @@ export const createConfigService = (config: AppConfig, assetBase: string): Confi
 		getGameIcon: (gameId) => toAssetUrl(config.images.games[gameId]?.iconUrl),
 		getPlayerIcon: (playerId) => toAssetUrl(config.images.players[playerId]?.imageUrl),
 		getGameLocalisation: (gameId) => config.localisation.games[gameId],
+		getPageLocalisation: (pageId) => config.localisation.pages[pageId],
 		getStatLabels: (gameId, type) => {
 			const groupId = config.stats.games[gameId]?.[type];
 

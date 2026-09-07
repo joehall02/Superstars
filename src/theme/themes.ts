@@ -12,7 +12,8 @@ const sharedOptions: ThemeOptions = {
 			'Arial',
 			'sans-serif',
 		].join(', '),
-		h1: { fontFamily: '"Big Shoulders Inline", sans-serif', fontWeight: 900 },
+		// Fluid header sizing: scales smoothly with the viewport 
+		h1: { fontFamily: '"Big Shoulders Inline", sans-serif', fontWeight: 900, fontSize: 'clamp(3.5rem, 7vw, 8rem)' },
 		h2: { fontFamily: '"Big Shoulders Inline", sans-serif', fontWeight: 900 },
 		h3: { fontFamily: '"Big Shoulders Inline", sans-serif', fontWeight: 900 },
 	},

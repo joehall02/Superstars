@@ -22,8 +22,14 @@ export interface GameLocalisation {
 	rules: string;
 }
 
-/** `localisation.json` — per-game text content. */
+/** A page's UI text. */
+export interface PageLocalisation {
+	title: string;
+}
+
+/** `localisation.json` — per-page and per-game text content. */
 export interface LocalisationConfig {
+	pages: Record<string, PageLocalisation>;
 	games: Record<string, GameLocalisation>;
 }
 
@@ -80,6 +86,7 @@ export interface ConfigService {
 	getGameIcon: (gameId: string) => string | undefined;
 	getPlayerIcon: (playerId: string) => string | undefined;
 	getGameLocalisation: (gameId: string) => GameLocalisation | undefined;
+	getPageLocalisation: (pageId: string) => PageLocalisation | undefined;
 	getStatLabels: (gameId: string, type: StatType) => StatLabels;
 	getOverallStatLabels: (type: StatType) => StatLabels;
 	getNavLinks: () => NavLink[];

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { StatType } from '../../../enums/config';
+import { Page, PageNames } from '../../../enums/pages';
 import { type AppConfig } from '../../../types/config.types';
 import { createConfigService } from '../configService';
 
@@ -10,6 +11,7 @@ const config: AppConfig = {
 		players: { p_1: { imageUrl: '/players/p_1.png' } },
 	},
 	localisation: {
+		pages: { [PageNames.Rankings]: { title: 'Rankings' } },
 		games: { g_1: { summary: 'Air hockey.', rules: 'First to 5.' } },
 	},
 	stats: {
@@ -21,7 +23,7 @@ const config: AppConfig = {
 		overall: { allTime: { score: 'Score' }, byYear: { totalGameRanks: 'Total Ranks' } },
 	},
 	layout: {
-		navLinks: [{ id: 'rankings', label: 'Rankings', path: '/rankings', icon: 'leaderboard' }],
+		navLinks: [{ id: PageNames.Rankings, label: 'Rankings', path: Page.Rankings, icon: 'leaderboard' }],
 	},
 };
 
@@ -85,6 +87,13 @@ describe('createConfigService', () => {
 
 		expect(service.getGameLocalisation('g_1')).toEqual({ summary: 'Air hockey.', rules: 'First to 5.' });
 		expect(service.getGameLocalisation('nope')).toBeUndefined();
+	});
+
+	it('getPageLocalisation returns the page title, or undefined when missing', () => {
+		const service = serviceWithBase();
+
+		expect(service.getPageLocalisation(PageNames.Rankings)).toEqual({ title: 'Rankings' });
+		expect(service.getPageLocalisation('nope')).toBeUndefined();
 	});
 
 	it('getNavLinks returns the configured links', () => {

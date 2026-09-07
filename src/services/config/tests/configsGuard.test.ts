@@ -6,7 +6,7 @@ import { assertAppConfig } from '../configsGuard';
 /** Minimal payload that satisfies every skeleton check (empty collections are valid). */
 const validConfig = {
 	images: { games: {}, players: {} },
-	localisation: { games: {} },
+	localisation: { pages: {}, games: {} },
 	stats: { statGroups: {}, games: {}, overall: {} },
 	layout: { navLinks: [] },
 };
@@ -21,8 +21,9 @@ describe('assertAppConfig', () => {
 		expect(() => assertAppConfig({ ...validConfig, images: null })).toThrow(ConfigError);
 	});
 
-	it('throws ConfigError when localisation.games is missing', () => {
+	it('throws ConfigError when localisation.pages/games is missing', () => {
 		expect(() => assertAppConfig({ ...validConfig, localisation: {} })).toThrow(ConfigError);
+		expect(() => assertAppConfig({ ...validConfig, localisation: { pages: {} } })).toThrow(ConfigError);
 	});
 
 	it('throws ConfigError when a stats section is missing', () => {

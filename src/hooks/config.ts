@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import { ConfigContext } from '../context/configContext';
 import { type StatType } from '../enums/config';
-import type { ConfigService, GameLocalisation, NavLink, StatLabels } from '../types/config.types';
+import type { ConfigService, GameLocalisation, NavLink, PageLocalisation, StatLabels } from '../types/config.types';
 
 /**
  * Access the loaded {@link ConfigService}. The provider gates render until config is
@@ -28,6 +28,9 @@ export const usePlayerIcon = (playerId: string): string | undefined => useConfig
 
 export const useGameLocalisation = (gameId: string): GameLocalisation | undefined =>
 	useConfig().getGameLocalisation(gameId);
+
+export const usePageLocalisation = (pageId: string): PageLocalisation | undefined =>
+	useConfig().getPageLocalisation(pageId);
 
 export const useStatLabels = (gameId: string, type: StatType): StatLabels => useConfig().getStatLabels(gameId, type);
 

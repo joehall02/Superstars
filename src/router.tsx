@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate } from 'react-router';
 
 import { ProtectedRoute } from './auth/ProtectedRoute';
+import { Page } from './enums/pages';
 import { ErrorPage } from './pages/ErrorPage';
 import { GameDetailsPage } from './pages/GameDetailsPage';
 import { GamesPage } from './pages/GamesPage';
@@ -35,18 +36,18 @@ const masterScoresLoader  = () => {
 export const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <Navigate to='/rankings' replace />,
+		element: <Navigate to={Page.Rankings} replace />,
 	},
 	{
 		element: <ProtectedRoute />,
 		loader: masterScoresLoader,
 		children: [
-			{ path: '/rankings', element: <RankingsPage /> },
-			{ path: '/games', element: <GamesPage /> },
-			{ path: '/games/:gameId', element: <GameDetailsPage /> },
+			{ path: Page.Rankings, element: <RankingsPage /> },
+			{ path: Page.Games, element: <GamesPage /> },
+			{ path: `${Page.Games}/:gameId`, element: <GameDetailsPage /> },
 		],
 	},
-	{ path: '/login', element: <LoginPage /> },
-	{ path: '/error', element: <ErrorPage /> },
+	{ path: Page.Login, element: <LoginPage /> },
+	{ path: Page.Error, element: <ErrorPage /> },
 	{ path: '*', element: <NotFoundPage /> },
 ]);
