@@ -255,16 +255,16 @@ Column headers show abbreviated stat labels (GF, GA, GD, Avg); this adds a legen
 - [ ] Add smooth scrolling behavior
 
 ### 3.5 Profile Card Component
-- [ ] Create ProfileCard component
-- [ ] Display player information:
-  - [ ] Player icon/avatar (use `useConfig().getPlayerIcon(playerId)`)
-  - [ ] Player name (from MasterScoreService)
-  - [ ] Player stats/rankings (from MasterScoreService)
-- [ ] Add loading skeleton state (placeholder for avatar, name, and stats)
-- [ ] Add responsive behavior:
-  - [ ] Desktop: Side panel layout
-  - [ ] Mobile: Overlay/popup modal
-- [ ] Add close/dismiss functionality for mobile
+- [x] Create ProfileCard component (`src/components/ProfileCard.tsx`; self-fetches by `playerId`)
+- [x] Display player information:
+  - [x] Player icon/avatar (`usePlayerIcon(playerId)` → `useCachedImage` blob cache; plain `<img>`, name-only fallback)
+  - [x] Player name (`usePlayer(playerId)`)
+  - [x] Player stats/rankings (overall all-time rank & score + per-game ranks from `useAllTimeRankings()`/`useAllGames()`, null → em dash)
+- [x] Add loading skeleton state (inline `Skeleton` for avatar, name, and stat rows)
+- [x] Add responsive behavior:
+  - [x] Desktop: Side panel layout (Rankings `aside` slot)
+  - [x] Mobile: bottom `Drawer` overlay (lifted above the Footer; backdrop trimmed to match)
+- [x] Add close/dismiss functionality for mobile (✕ `IconButton` + backdrop tap)
 
 ### 3.6 Game Box Component
 - [ ] Create GameBox component
@@ -314,11 +314,11 @@ Column headers show abbreviated stat labels (GF, GA, GD, Avg); this adds a legen
 
 ### 4.1 Rankings Page
 - [x] Create Rankings page layout
-- [ ] Implement Section 1: All-time standings
+- [x] Implement Section 1: All-time standings
   - [x] Add leaderboard table
   - [x] Make player rows clickable
-  - [ ] Integrate ProfileCard (side panel on desktop)
-  - [ ] Add ProfileCard overlay for mobile
+  - [x] Integrate ProfileCard (side panel on desktop)
+  - [x] Add ProfileCard overlay for mobile
 - [ ] Implement Section 2: Year-based rankings
   - [ ] Add overall year champion table
   - [ ] Add per-year player rankings table

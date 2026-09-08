@@ -1,5 +1,7 @@
 import { makeStyles } from 'tss-react/mui';
 
+import { FOOTER_HEIGHT } from '../theme/layout';
+
 /** Component-local styles for `src/pages/`. */
 export const useRankingsPageStyles = makeStyles()((theme) => ({
 	standingsHeading: {
@@ -25,5 +27,19 @@ export const useRankingsPageStyles = makeStyles()((theme) => ({
 		[theme.breakpoints.down('md')]: {
 			display: 'none',
 		},
+	},
+	// Bottom-anchored ProfileCard drawer on mobile: rounded top, capped height, and
+	// lifted to sit above the fixed mobile Footer rather than behind it.
+	drawerPaper: {
+		bottom: FOOTER_HEIGHT,
+		maxHeight: `calc(80vh - ${FOOTER_HEIGHT}px)`,
+		borderTopLeftRadius: theme.shape.borderRadius * 2,
+		borderTopRightRadius: theme.shape.borderRadius * 2,
+		// The paper's elevation shadow spills below onto the Footer — drop it.
+		boxShadow: 'none',
+	},
+	// Stop the greyed overlay at the footer so the Footer bar stays uncovered.
+	drawerBackdrop: {
+		bottom: FOOTER_HEIGHT,
 	},
 }));

@@ -134,6 +134,51 @@ export const useGameHeaderCellStyles = makeStyles()((theme) => ({
 	},
 }));
 
+export const useProfileCardStyles = makeStyles()((theme) => ({
+	card: {
+		position: 'relative',
+		display: 'flex',
+		flexDirection: 'column',
+		gap: theme.spacing(2),
+		padding: theme.spacing(2),
+	},
+	header: {
+		display: 'flex',
+		alignItems: 'center',
+		gap: theme.spacing(2),
+	},
+	// Larger sibling of the player-cell icon; `cover` crops non-square sources.
+	avatar: {
+		width: theme.spacing(7),
+		height: theme.spacing(7),
+		objectFit: 'cover',
+		display: 'block',
+		flexShrink: 0,
+		borderRadius: '50%',
+	},
+	overall: {
+		display: 'flex',
+		alignItems: 'baseline',
+		gap: theme.spacing(1),
+	},
+	gameList: {
+		display: 'flex',
+		flexDirection: 'column',
+	},
+	gameRow: {
+		display: 'flex',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		padding: theme.spacing(0.5, 0),
+	},
+	// Top-right dismiss button, only rendered in the mobile drawer.
+	closeButton: {
+		position: 'absolute',
+		top: theme.spacing(1),
+		right: theme.spacing(1),
+	},
+}));
+
 export const useFooterStyles = makeStyles()((theme) => ({
 	// Pinned to the bottom of the viewport and mobile-only — the Navbar links take
 	// over from `md` up
