@@ -33,8 +33,8 @@ export const useRankingsPageStyles = makeStyles()((theme) => ({
 	drawerPaper: {
 		bottom: FOOTER_HEIGHT,
 		maxHeight: `calc(80vh - ${FOOTER_HEIGHT}px)`,
-		borderTopLeftRadius: theme.shape.borderRadius * 2,
-		borderTopRightRadius: theme.shape.borderRadius * 2,
+		borderTopLeftRadius: theme.spacing(1),
+		borderTopRightRadius: theme.spacing(1),
 		// The paper's elevation shadow spills below onto the Footer — drop it.
 		boxShadow: 'none',
 	},
