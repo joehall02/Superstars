@@ -185,6 +185,10 @@ export const useFooterStyles = makeStyles()((theme) => ({
 	footer: {
 		top: 'auto',
 		bottom: 0,
+		// Sit above the ProfileCard Drawer's Modal (z-index `modal`). Its full-viewport
+		// fixed container would otherwise layer over the footer's band, and on iOS Safari
+		// that steals the bottom safe-area colour 
+		zIndex: theme.zIndex.modal + 1,
 		[theme.breakpoints.up('md')]: {
 			display: 'none',
 		},
