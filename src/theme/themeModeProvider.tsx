@@ -13,10 +13,8 @@ const getInitialMode = (): ThemeMode => {
 
 	if (savedMode === ThemeMode.Light || savedMode === ThemeMode.Dark) return savedMode;
 
-	// First visit: follow the OS colour-scheme, falling back to light.
-	const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-	return prefersDark ? ThemeMode.Dark : ThemeMode.Light;
+	// First visit: default to light.
+	return ThemeMode.Light;
 };
 
 export const ThemeModeProvider = ({ children }: { children: ReactNode }) => {
