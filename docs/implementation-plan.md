@@ -321,11 +321,11 @@ Column headers show abbreviated stat labels (GF, GA, GD, Avg); this adds a legen
   - [x] Add ProfileCard overlay for mobile
 - [ ] Implement Section 2: Year-based rankings
   - [ ] Add overall year champion table
-  - [ ] Add per-year player rankings table
-  - [ ] Implement year navigation (arrows/buttons at bottom)
-  - [ ] Add year state management
-- [ ] Connect to MasterScoreService for data fetching
-- [ ] Add loading skeletons for tables and profile card during initial load
+  - [x] Add per-year player rankings table
+  - [x] Implement year navigation (arrows/buttons at bottom) — `YearNavigator` in table footer
+  - [x] Add year state management — ascending years, defaults to latest
+- [x] Connect to MasterScoreService for data fetching
+- [x] Add loading skeletons for tables and profile card during initial load
 - [ ] Add error handling
 
 ### 4.2 Games Page (Layer 1)

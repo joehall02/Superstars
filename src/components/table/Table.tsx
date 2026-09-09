@@ -110,7 +110,7 @@ export const Table = <Row,>({
 					<TableBody>
 						{isLoading
 							? Array.from({ length: skeletonRows }, (_, rowIndex) => (
-								<TableRow key={rowIndex}>
+								<TableRow key={rowIndex} className={classes.bodyRow}>
 									{columns.map((column) => (
 										<TableCell key={column.key} align={column.align}>
 											<Skeleton />
@@ -123,7 +123,7 @@ export const Table = <Row,>({
 									key={getRowKey(row)}
 									hover={Boolean(onRowClick)}
 									onClick={onRowClick ? () => onRowClick(row) : undefined}
-									className={cx(onRowClick && classes.clickableRow)}
+									className={cx(classes.bodyRow, onRowClick && classes.clickableRow)}
 								>
 									{columns.map((column) => (
 										<TableCell key={column.key} align={column.align}>

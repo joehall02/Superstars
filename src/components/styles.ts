@@ -112,6 +112,11 @@ export const useTableStyles = makeStyles<{ height: number }>()((theme, { height 
 			fontSize: '0.8125rem',
 		},
 	},
+	// Fixed height so a missing player icon (shorter cell) doesn't shrink the row
+	// relative to rows that have one.
+	bodyRow: {
+		height: theme.spacing(5),
+	},
 	clickableRow: {
 		cursor: 'pointer',
 	},

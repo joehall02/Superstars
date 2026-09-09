@@ -60,7 +60,7 @@ export const RankingsPage = () => {
 						isLoading={isLoading}
 						onSelectPlayer={setManualSelection}
 						ariaLabel={page?.allTimeStandings}
-						height={500}
+						height={isMobile ? 400 : 500}
 					/>
 				</Box>
 				<Box className={classes.aside}>
