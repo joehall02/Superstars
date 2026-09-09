@@ -4,14 +4,12 @@ import { FOOTER_HEIGHT } from '../theme/layout';
 
 /** Component-local styles for `src/pages/`. */
 export const useRankingsPageStyles = makeStyles()((theme) => ({
-	standingsHeading: {
-		padding: theme.spacing(1, 0),
-	},
 	// Separates the per-year standings section from the all-time section above it.
 	yearSection: {
 		marginTop: theme.spacing(4),
 	},
 	layout: {
+		marginTop: theme.spacing(3),
 		display: 'flex',
 		alignItems: 'flex-start',
 		gap: theme.spacing(3),

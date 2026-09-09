@@ -128,6 +128,17 @@ export const useTableStyles = makeStyles<{ height: number }>()((theme, { height 
 	},
 }));
 
+export const useTableHeaderStyles = makeStyles()((theme) => ({
+	// Full-width title bar above the column headers — stays put while columns scroll.
+	bar: {
+		width: '100%',
+		padding: theme.spacing(1, 2),
+		textAlign: 'center',
+		backgroundColor: theme.palette.primary.main,
+		color: theme.palette.primary.contrastText,
+	},
+}));
+
 export const useYearNavigatorStyles = makeStyles()((theme) => ({
 	bar: {
 		display: 'flex',

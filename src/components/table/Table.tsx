@@ -22,6 +22,8 @@ interface TableProps<Row> {
 	skeletonRows?: number;
 	defaultSort?: SortState;
 	ariaLabel?: string;
+	/** Full-width title region rendered above the column headers. */
+	header?: ReactNode;
 	/** Full-width region rendered below the scroll containe. */
 	footer?: ReactNode;
 	/** Fixed container height in px; content beyond it scrolls vertically. */
@@ -53,6 +55,7 @@ export const Table = <Row,>({
 	skeletonRows = 5,
 	defaultSort,
 	ariaLabel,
+	header,
 	footer,
 	height = 400,
 }: TableProps<Row>) => {
@@ -85,6 +88,7 @@ export const Table = <Row,>({
 
 	return (
 		<Box className={classes.root}>
+			{header}
 			<TableContainer className={classes.container}>
 				<MuiTable size='small' aria-label={ariaLabel} className={classes.table}>
 					<TableHead>

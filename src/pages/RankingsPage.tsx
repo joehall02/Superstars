@@ -1,8 +1,9 @@
-import { Box, Drawer, Typography } from '@mui/material';
+import { Box, Drawer } from '@mui/material';
 import { useState } from 'react';
 
 import { PageHeader } from '../components/PageHeader';
 import { ProfileCard } from '../components/ProfileCard';
+import { Header } from '../components/table/Header';
 import { OverallLeaderboardTable } from '../components/table/OverallLeaderboardTable';
 import { YearNavigator } from '../components/table/YearNavigator';
 import { StatType } from '../enums/config';
@@ -51,7 +52,6 @@ export const RankingsPage = () => {
 	return (
 		<Box>
 			<PageHeader title={page?.title} />
-			<Typography variant='h3' className={classes.standingsHeading}>{page?.allTimeStandings}</Typography>
 			<Box className={classes.layout}>
 				<Box className={classes.main}>
 					<OverallLeaderboardTable
@@ -60,6 +60,7 @@ export const RankingsPage = () => {
 						isLoading={isLoading}
 						onSelectPlayer={setManualSelection}
 						ariaLabel={page?.allTimeStandings}
+						header={<Header title={page?.allTimeStandings} />}
 						height={isMobile ? 400 : 500}
 					/>
 				</Box>
@@ -68,12 +69,12 @@ export const RankingsPage = () => {
 				</Box>
 			</Box>
 			<Box className={classes.yearSection}>
-				<Typography variant='h3' className={classes.standingsHeading}>{page?.yearStandings}</Typography>
 				<OverallLeaderboardTable
 					type={StatType.ByYear}
 					rows={yearRankings}
 					isLoading={yearLoading}
 					ariaLabel={page?.yearStandings}
+					header={<Header title={page?.yearStandings} />}
 					footer={activeYear !== undefined && (
 						<YearNavigator
 							year={activeYear}
