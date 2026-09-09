@@ -1,3 +1,4 @@
+import { alpha } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 
 import { FOOTER_HEIGHT } from '../theme/layout';
@@ -184,11 +185,22 @@ export const useProfileCardStyles = makeStyles()((theme) => ({
 		flexDirection: 'column',
 		gap: theme.spacing(2),
 		padding: theme.spacing(2),
+		backgroundColor: theme.palette.primary.main,
+		color: theme.palette.primary.contrastText,
 	},
 	header: {
 		display: 'flex',
 		alignItems: 'center',
 		gap: theme.spacing(2),
+	},
+	// Secondary text on the primary surface — dimmed contrastText, not the theme's
+	// text.secondary (which is tuned for the paper background).
+	muted: {
+		color: alpha(theme.palette.primary.contrastText, 0.7),
+	},
+	// Divider needs to show on the primary fill; theme divider is too faint here.
+	divider: {
+		borderColor: alpha(theme.palette.primary.contrastText, 0.2),
 	},
 	// Larger sibling of the player-cell icon; `cover` crops non-square sources.
 	avatar: {
@@ -198,6 +210,11 @@ export const useProfileCardStyles = makeStyles()((theme) => ({
 		display: 'block',
 		flexShrink: 0,
 		borderRadius: '50%',
+		border: `2px solid ${theme.palette.secondary.main}`,
+	},
+	// Loading placeholders on the primary fill — MUI's default tint is too faint here.
+	skeleton: {
+		backgroundColor: alpha(theme.palette.primary.contrastText, 0.15),
 	},
 	overall: {
 		display: 'flex',
@@ -219,6 +236,7 @@ export const useProfileCardStyles = makeStyles()((theme) => ({
 		position: 'absolute',
 		top: theme.spacing(1),
 		right: theme.spacing(1),
+		color: theme.palette.primary.contrastText,
 	},
 }));
 
@@ -232,6 +250,7 @@ export const useFooterStyles = makeStyles()((theme) => ({
 		// fixed container would otherwise layer over the footer's band, and on iOS Safari
 		// that steals the bottom safe-area colour 
 		zIndex: theme.zIndex.modal + 1,
+		boxShadow: 'none',
 		[theme.breakpoints.up('md')]: {
 			display: 'none',
 		},

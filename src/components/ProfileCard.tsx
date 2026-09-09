@@ -1,7 +1,8 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { Divider, IconButton, Paper, Skeleton, Typography } from '@mui/material';
 
-import { usePlayerIcon } from '../hooks/config';
+import { PageNames } from '../enums/pages';
+import { usePageLocalisation, usePlayerIcon } from '../hooks/config';
 import { useCachedImage } from '../hooks/image';
 import { useAllGames, useAllTimeRankings, usePlayer } from '../services/masterScores/useMasterScores';
 import { useProfileCardStyles } from './styles';
@@ -39,30 +40,30 @@ export const ProfileCard = ({ playerId, onClose }: IProfileCardProps) => {
 			)}
 			<div className={classes.header}>
 				{isLoading ? (
-					<Skeleton variant='circular' width={56} height={56} />
+					<Skeleton variant='circular' width={56} height={56} className={classes.skeleton} />
 				) : (
 					avatarUrl && <img className={classes.avatar} src={avatarUrl} alt='' />
 				)}
-				<Typography variant='h5'>{isLoading ? <Skeleton width={140} /> : player?.name}</Typography>
+				<Typography variant='h5'>{isLoading ? <Skeleton width={140} className={classes.skeleton} /> : player?.name}</Typography>
 			</div>
 			<div className={classes.overall}>
 				{isLoading ? (
-					<Skeleton width={120} />
+					<Skeleton width={120} className={classes.skeleton} />
 				) : (
 					<>
 						<Typography variant='subtitle1'>Overall</Typography>
 						<Typography variant='subtitle1'>#{ranking?.rank ?? '—'}</Typography>
-						<Typography variant='body2' color='text.secondary'>· {ranking?.score ?? '—'}</Typography>
+						<Typography variant='body2' className={classes.muted}>· {ranking?.score ?? '—'}</Typography>
 					</>
 				)}
 			</div>
-			<Divider />
+			<Divider className={classes.divider} />
 			<div className={classes.gameList}>
 				{isLoading
 					? Array.from({ length: 6 }, (_, index) => (
 						<div key={index} className={classes.gameRow}>
-							<Skeleton width={120} />
-							<Skeleton width={24} />
+							<Skeleton width={120} className={classes.skeleton} />
+							<Skeleton width={24} className={classes.skeleton} />
 						</div>
 					))
 					: games.map((game) => (

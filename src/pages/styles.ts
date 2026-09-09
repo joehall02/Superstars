@@ -41,6 +41,10 @@ export const useRankingsPageStyles = makeStyles()((theme) => ({
 		borderTopRightRadius: theme.spacing(1),
 		// The paper's elevation shadow spills below onto the Footer — drop it.
 		boxShadow: 'none',
+		'& > .MuiPaper-root': {
+			borderBottomLeftRadius: 0,
+			borderBottomRightRadius: 0,
+		},
 	},
 	// Stop the greyed overlay at the footer so the Footer bar stays uncovered.
 	drawerBackdrop: {
