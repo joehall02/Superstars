@@ -24,6 +24,10 @@ export const getYearRankings = (data: SuperstarsData, year: number): OverallYear
 export const getYearChampions = (data: SuperstarsData, year: number): YearChampion | undefined =>
 	data.rankings.overall.champions.find((champion) => champion.year === year);
 
+/** Rankings Page — every year's champions podium, for the all-years champions table. */
+export const getAllYearChampions = (data: SuperstarsData): YearChampion[] =>
+	data.rankings.overall.champions;
+
 /** Games Page — every game, for the grid display. */
 export const getAllGames = (data: SuperstarsData): Game[] => Object.values(data.entities.games);
 

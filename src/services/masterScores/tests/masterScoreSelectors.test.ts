@@ -1,4 +1,4 @@
-import { getAllGames, getAllTimeRankings, getGameAllTimeRankings, getGameById, getGameYearRankings, getPlayerById, getYearChampions, getYearRankings } from '../masterScoreSelectors';
+import { getAllGames, getAllTimeRankings, getAllYearChampions, getGameAllTimeRankings, getGameById, getGameYearRankings, getPlayerById, getYearChampions, getYearRankings } from '../masterScoreSelectors';
 import { sampleData } from './testFixtures';
 
 describe('masterScoreSelectors', () => {
@@ -28,6 +28,14 @@ describe('masterScoreSelectors', () => {
 
 		it('returns undefined for an unknown year', () => {
 			expect(getYearChampions(sampleData, 1999)).toBeUndefined();
+		});
+	});
+
+	describe('getAllYearChampions', () => {
+		it('returns every year\'s champions podium', () => {
+			const champions = getAllYearChampions(sampleData);
+			expect(champions).toHaveLength(1);
+			expect(champions[0].year).toBe(2024);
 		});
 	});
 

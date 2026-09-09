@@ -31,6 +31,8 @@ export interface PageLocalisation {
 	allTimeStandings?: string;
 	/** Heading for the per-year standings section (Rankings page). */
 	yearStandings?: string;
+	/** Heading for the all-years champions table (Rankings page). */
+	yearChampions?: string;
 	/** Heading for the overall rank/score row in the player ProfileCard (Rankings page). */
 	overall?: string;
 }
