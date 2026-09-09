@@ -4,11 +4,12 @@ import { useState } from 'react';
 import { PageHeader } from '../components/PageHeader';
 import { ProfileCard } from '../components/ProfileCard';
 import { OverallLeaderboardTable } from '../components/table/OverallLeaderboardTable';
+import { YearNavigator } from '../components/table/YearNavigator';
 import { StatType } from '../enums/config';
 import { PageNames } from '../enums/pages';
 import { usePageLocalisation } from '../hooks/config';
 import { useScreenDetection } from '../hooks/theme';
-import { useAllTimeRankings } from '../services/masterScores/useMasterScores';
+import { useAllTimeRankings, useAvailableYears, useYearRankings } from '../services/masterScores/useMasterScores';
 import { useRankingsPageStyles } from './styles';
 
 export const RankingsPage = () => {
@@ -38,6 +39,15 @@ export const RankingsPage = () => {
 
 	const closeProfile = () => setManualSelection(undefined);
 
+	// Section 2: per-year standings. Years ascending; default to the latest until the user
+	// picks one via the switcher.
+	const { data: years = [] } = useAvailableYears();
+	const sortedYears = [...years].sort((a, b) => a - b);
+	const [selectedYear, setSelectedYear] = useState<number>();
+	const activeYear = selectedYear ?? sortedYears.at(-1);
+	const yearIndex = activeYear === undefined ? -1 : sortedYears.indexOf(activeYear);
+	const { data: yearRankings = [], isLoading: yearLoading } = useYearRankings(activeYear ?? 0);
+
 	return (
 		<Box>
 			<PageHeader title={page?.title} />
@@ -50,11 +60,30 @@ export const RankingsPage = () => {
 						isLoading={isLoading}
 						onSelectPlayer={setManualSelection}
 						ariaLabel={page?.allTimeStandings}
+						height={500}
 					/>
 				</Box>
 				<Box className={classes.aside}>
 					{!isMobile && selectedPlayerId && <ProfileCard playerId={selectedPlayerId} />}
 				</Box>
+			</Box>
+			<Box className={classes.yearSection}>
+				<Typography variant='h3' className={classes.standingsHeading}>{page?.yearStandings}</Typography>
+				<OverallLeaderboardTable
+					type={StatType.ByYear}
+					rows={yearRankings}
+					isLoading={yearLoading}
+					ariaLabel={page?.yearStandings}
+					footer={activeYear !== undefined && (
+						<YearNavigator
+							year={activeYear}
+							onPrevious={() => setSelectedYear(sortedYears[yearIndex - 1])}
+							onNext={() => setSelectedYear(sortedYears[yearIndex + 1])}
+							canGoPrevious={yearIndex > 0}
+							canGoNext={yearIndex >= 0 && yearIndex < sortedYears.length - 1}
+						/>
+					)}
+				/>
 			</Box>
 			<Drawer
 				anchor='bottom'

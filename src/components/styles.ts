@@ -81,9 +81,30 @@ export const useNavbarStyles = makeStyles()((theme) => ({
 	},
 }));
 
-export const useTableStyles = makeStyles()((theme) => ({
+export const useTableStyles = makeStyles<{ height: number }>()((theme, { height }) => ({
+	root: {
+		width: '100%',
+	},
 	container: {
 		width: '100%',
+		height,
+		overflowY: 'auto',
+		// Slim, muted scrollbar so it recedes rather than dominating the table edge.
+		scrollbarWidth: 'thin',
+		scrollbarColor: `${theme.palette.divider} transparent`,
+		'&::-webkit-scrollbar': {
+			width: 8,
+		},
+		'&::-webkit-scrollbar-track': {
+			background: 'transparent',
+		},
+		'&::-webkit-scrollbar-thumb': {
+			backgroundColor: theme.palette.divider,
+			borderRadius: 8,
+		},
+		'&::-webkit-scrollbar-thumb:hover': {
+			backgroundColor: theme.palette.action.disabled,
+		},
 	},
 	// Shrinks cell text on narrow screens rather than forcing horizontal scroll first.
 	table: {
@@ -93,6 +114,23 @@ export const useTableStyles = makeStyles()((theme) => ({
 	},
 	clickableRow: {
 		cursor: 'pointer',
+	},
+	// Full-width region below the scroll container — stays put while columns scroll.
+	footer: {
+		width: '100%',
+		borderTop: `1px solid ${theme.palette.divider}`,
+	},
+}));
+
+export const useYearNavigatorStyles = makeStyles()((theme) => ({
+	bar: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		padding: theme.spacing(0.5, 1),
+	},
+	year: {
+		fontWeight: 700,
 	},
 }));
 

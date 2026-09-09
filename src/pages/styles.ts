@@ -7,6 +7,10 @@ export const useRankingsPageStyles = makeStyles()((theme) => ({
 	standingsHeading: {
 		padding: theme.spacing(1, 0),
 	},
+	// Separates the per-year standings section from the all-time section above it.
+	yearSection: {
+		marginTop: theme.spacing(4),
+	},
 	layout: {
 		display: 'flex',
 		alignItems: 'flex-start',

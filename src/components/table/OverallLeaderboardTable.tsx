@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { type ReactNode, useMemo } from 'react';
 
 import { SortDirection, StatType } from '../../enums/config';
 import { buildGameRankColumns, buildOverallColumns } from '../../helpers/table';
@@ -13,6 +13,8 @@ interface IOverallLeaderboardTableProps {
 	onSelectPlayer?: (playerId: string) => void;
 	isLoading?: boolean;
 	ariaLabel?: string;
+	footer?: ReactNode;
+	height?: number;
 }
 
 /**
@@ -23,7 +25,7 @@ interface IOverallLeaderboardTableProps {
  * {@link buildGameRankColumns}). Serves both all-time (`score`) and per-year
  * (`totalGameRanks`) standings via {@link StatType}.
  */
-export const OverallLeaderboardTable = ({ type, rows, onSelectPlayer, isLoading, ariaLabel }: IOverallLeaderboardTableProps) => {
+export const OverallLeaderboardTable = ({ type, rows, onSelectPlayer, isLoading, ariaLabel, footer, height }: IOverallLeaderboardTableProps) => {
 	const labels = useOverallStatLabels(type);
 	const { data: players = {} } = usePlayers();
 	const { data: games = [] } = useAllGames();
@@ -46,6 +48,8 @@ export const OverallLeaderboardTable = ({ type, rows, onSelectPlayer, isLoading,
 			skeletonRows={15}
 			defaultSort={{ key: 'rank', direction: SortDirection.Asc }}
 			ariaLabel={ariaLabel}
+			footer={footer}
+			height={height}
 		/>
 	);
 };

@@ -1,4 +1,4 @@
-import { Skeleton, Table as MuiTable, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel } from '@mui/material';
+import { Box, Skeleton, Table as MuiTable, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel } from '@mui/material';
 import { type ReactNode, useMemo, useState } from 'react';
 
 import { SortDirection } from '../../enums/config';
@@ -22,6 +22,10 @@ interface TableProps<Row> {
 	skeletonRows?: number;
 	defaultSort?: SortState;
 	ariaLabel?: string;
+	/** Full-width region rendered below the scroll containe. */
+	footer?: ReactNode;
+	/** Fixed container height in px; content beyond it scrolls vertically. */
+	height?: number;
 }
 
 /** Renders a cell's content: an explicit `render`, else the `getValue` (null → em dash). */
@@ -49,8 +53,10 @@ export const Table = <Row,>({
 	skeletonRows = 5,
 	defaultSort,
 	ariaLabel,
+	footer,
+	height = 400,
 }: TableProps<Row>) => {
-	const { classes, cx } = useTableStyles();
+	const { classes, cx } = useTableStyles({ height });
 	const [sort, setSort] = useState<SortState | undefined>(
 		() => defaultSort ?? (columns[0] ? { key: columns[0].key, direction: SortDirection.Asc } : undefined),
 	);
@@ -78,55 +84,58 @@ export const Table = <Row,>({
 	};
 
 	return (
-		<TableContainer className={classes.container}>
-			<MuiTable size='small' aria-label={ariaLabel} className={classes.table}>
-				<TableHead>
-					<TableRow>
-						{columns.map((column) => {
-							const isActive = Boolean(sort && sort.key === column.key);
-							const direction = sort && sort.key === column.key ? sort.direction : SortDirection.Asc;
+		<Box className={classes.root}>
+			<TableContainer className={classes.container}>
+				<MuiTable size='small' aria-label={ariaLabel} className={classes.table}>
+					<TableHead>
+						<TableRow>
+							{columns.map((column) => {
+								const isActive = Boolean(sort && sort.key === column.key);
+								const direction = sort && sort.key === column.key ? sort.direction : SortDirection.Asc;
 
-							return (
-								<TableCell key={column.key} align={column.align}>
-									{column.sortable ? (
-										<TableSortLabel active={isActive} direction={direction} onClick={() => handleSort(column)}>
-											{column.header ?? column.label}
-										</TableSortLabel>
-									) : (
-										column.header ?? column.label
-									)}
-								</TableCell>
-							);
-						})}
-					</TableRow>
-				</TableHead>
-				<TableBody>
-					{isLoading
-						? Array.from({ length: skeletonRows }, (_, rowIndex) => (
-							<TableRow key={rowIndex}>
-								{columns.map((column) => (
+								return (
 									<TableCell key={column.key} align={column.align}>
-										<Skeleton />
+										{column.sortable ? (
+											<TableSortLabel active={isActive} direction={direction} onClick={() => handleSort(column)}>
+												{column.header ?? column.label}
+											</TableSortLabel>
+										) : (
+											column.header ?? column.label
+										)}
 									</TableCell>
-								))}
-							</TableRow>
-						))
-						: sortedRows.map((row) => (
-							<TableRow
-								key={getRowKey(row)}
-								hover={Boolean(onRowClick)}
-								onClick={onRowClick ? () => onRowClick(row) : undefined}
-								className={cx(onRowClick && classes.clickableRow)}
-							>
-								{columns.map((column) => (
-									<TableCell key={column.key} align={column.align}>
-										{renderCell(column, row)}
-									</TableCell>
-								))}
-							</TableRow>
-						))}
-				</TableBody>
-			</MuiTable>
-		</TableContainer>
+								);
+							})}
+						</TableRow>
+					</TableHead>
+					<TableBody>
+						{isLoading
+							? Array.from({ length: skeletonRows }, (_, rowIndex) => (
+								<TableRow key={rowIndex}>
+									{columns.map((column) => (
+										<TableCell key={column.key} align={column.align}>
+											<Skeleton />
+										</TableCell>
+									))}
+								</TableRow>
+							))
+							: sortedRows.map((row) => (
+								<TableRow
+									key={getRowKey(row)}
+									hover={Boolean(onRowClick)}
+									onClick={onRowClick ? () => onRowClick(row) : undefined}
+									className={cx(onRowClick && classes.clickableRow)}
+								>
+									{columns.map((column) => (
+										<TableCell key={column.key} align={column.align}>
+											{renderCell(column, row)}
+										</TableCell>
+									))}
+								</TableRow>
+							))}
+					</TableBody>
+				</MuiTable>
+			</TableContainer>
+			{footer && <Box className={classes.footer}>{footer}</Box>}
+		</Box>
 	);
 };
