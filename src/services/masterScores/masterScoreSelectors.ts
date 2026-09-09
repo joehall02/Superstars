@@ -8,6 +8,10 @@ import { type Game, type GameAllTimeRanking, type GameYearRanking, type OverallA
  * years, so we index with `String(year)`.
  */
 
+/** Rankings Page — the years that have standings, for the year switcher. */
+export const getAvailableYears = (data: SuperstarsData): number[] =>
+	data.metadata.availableYears;
+
 /** Rankings Page — all-time standings table. */
 export const getAllTimeRankings = (data: SuperstarsData): OverallAllTimeRanking[] =>
 	data.rankings.overall.allTime;

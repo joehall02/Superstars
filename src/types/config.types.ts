@@ -29,6 +29,8 @@ export interface PageLocalisation {
 	title: string;
 	/** Heading for the all-time standings section (Rankings page). */
 	allTimeStandings?: string;
+	/** Heading for the per-year standings section (Rankings page). */
+	yearStandings?: string;
 }
 
 /** `localisation.json` — per-page and per-game text content. */
