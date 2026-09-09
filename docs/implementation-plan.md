@@ -319,14 +319,13 @@ Column headers show abbreviated stat labels (GF, GA, GD, Avg); this adds a legen
   - [x] Make player rows clickable
   - [x] Integrate ProfileCard (side panel on desktop)
   - [x] Add ProfileCard overlay for mobile
-- [ ] Implement Section 2: Year-based rankings
-  - [ ] Add overall year champion table
+- [x] Implement Section 2: Year-based rankings
+  - [x] Add overall year champion table
   - [x] Add per-year player rankings table
   - [x] Implement year navigation (arrows/buttons at bottom) — `YearNavigator` in table footer
   - [x] Add year state management — ascending years, defaults to latest
 - [x] Connect to MasterScoreService for data fetching
 - [x] Add loading skeletons for tables and profile card during initial load
-- [ ] Add error handling
 
 ### 4.2 Games Page (Layer 1)
 - [ ] Create Games page layout
@@ -359,7 +358,6 @@ Column headers show abbreviated stat labels (GF, GA, GD, Avg); this adds a legen
   - [ ] Format and display content
 - [ ] Connect to MasterScoreService with gameId parameter
 - [ ] Add loading skeletons for tables and game image during initial load
-- [ ] Add error handling
 - [ ] Add back navigation to Games list
 
 ### 4.4 Error Page
@@ -369,6 +367,7 @@ Column headers show abbreviated stat labels (GF, GA, GD, Avg); this adds a legen
 - [ ] Add navigation back to rankings / retry
 - [ ] Consistent styling with rest of app
 - [ ] Route via `/error`
+- [ ] Central data-load error gate: consume the shared `useMasterScores` error state (`MasterScoresError` from the one `['masterScores']` fetch) and route to `/error`. Handle once for all data-backed pages (Rankings, Games, Game Details), mirroring `configProvider`'s central config-error handling — no per-page duplication.
 
 ### 4.5 404 Page
 - [ ] Clear "Page Not Found" message

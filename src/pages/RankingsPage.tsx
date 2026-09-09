@@ -5,12 +5,13 @@ import { PageHeader } from '../components/PageHeader';
 import { ProfileCard } from '../components/ProfileCard';
 import { Header } from '../components/table/Header';
 import { OverallLeaderboardTable } from '../components/table/OverallLeaderboardTable';
+import { YearChampionTable } from '../components/table/YearChampionTable';
 import { YearNavigator } from '../components/table/YearNavigator';
 import { StatType } from '../enums/config';
 import { PageNames } from '../enums/pages';
 import { usePageLocalisation } from '../hooks/config';
 import { useScreenDetection } from '../hooks/theme';
-import { useAllTimeRankings, useAvailableYears, useYearRankings } from '../services/masterScores/useMasterScores';
+import { useAllTimeRankings, useAllYearChampions, useAvailableYears, useYearRankings } from '../services/masterScores/useMasterScores';
 import { useRankingsPageStyles } from './styles';
 
 export const RankingsPage = () => {
@@ -49,6 +50,9 @@ export const RankingsPage = () => {
 	const yearIndex = activeYear === undefined ? -1 : sortedYears.indexOf(activeYear);
 	const { data: yearRankings = [], isLoading: yearLoading } = useYearRankings(activeYear ?? 0);
 
+	// Champions table lists every year at once, so it's independent of the active year.
+	const { data: champions = [], isLoading: championsLoading } = useAllYearChampions();
+
 	return (
 		<Box>
 			<PageHeader title={page?.title} />
@@ -69,22 +73,32 @@ export const RankingsPage = () => {
 				</Box>
 			</Box>
 			<Box className={classes.yearSection}>
-				<OverallLeaderboardTable
-					type={StatType.ByYear}
-					rows={yearRankings}
-					isLoading={yearLoading}
-					ariaLabel={page?.yearStandings}
-					header={<Header title={page?.yearStandings} />}
-					footer={activeYear !== undefined && (
-						<YearNavigator
-							year={activeYear}
-							onPrevious={() => setSelectedYear(sortedYears[yearIndex - 1])}
-							onNext={() => setSelectedYear(sortedYears[yearIndex + 1])}
-							canGoPrevious={yearIndex > 0}
-							canGoNext={yearIndex >= 0 && yearIndex < sortedYears.length - 1}
-						/>
-					)}
-				/>
+				<Box className={classes.yearColumn}>
+					<OverallLeaderboardTable
+						type={StatType.ByYear}
+						rows={yearRankings}
+						isLoading={yearLoading}
+						ariaLabel={page?.yearStandings}
+						header={<Header title={page?.yearStandings} />}
+						footer={activeYear !== undefined && (
+							<YearNavigator
+								year={activeYear}
+								onPrevious={() => setSelectedYear(sortedYears[yearIndex - 1])}
+								onNext={() => setSelectedYear(sortedYears[yearIndex + 1])}
+								canGoPrevious={yearIndex > 0}
+								canGoNext={yearIndex >= 0 && yearIndex < sortedYears.length - 1}
+							/>
+						)}
+					/>
+				</Box>
+				<Box className={classes.yearColumn}>
+					<YearChampionTable
+						champions={champions}
+						isLoading={championsLoading}
+						ariaLabel={page?.yearChampions}
+						header={<Header title={page?.yearChampions} />}
+					/>
+				</Box>
 			</Box>
 			<Drawer
 				anchor='bottom'

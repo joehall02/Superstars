@@ -1,6 +1,7 @@
-import { type Game, type Player } from '../../shared/types';
+import { type Game, type Player, type YearChampion } from '../../shared/types';
 import { GameHeaderCell } from '../components/table/GameHeaderCell';
 import { PlayerCell } from '../components/table/PlayerCell';
+import { PlayersCell } from '../components/table/PlayersCell';
 import { type StatLabels } from '../types/config.types';
 import { type ColumnDef, type LeaderboardRow, type OverallLeaderboardRow, type RankedRow } from '../types/table.types';
 import { buildStatColumns } from './tableColumns';
@@ -53,4 +54,16 @@ export const buildLeaderboardColumns = (labels: StatLabels, players: Record<stri
 export const buildOverallColumns = (labels: StatLabels, players: Record<string, Player>): ColumnDef<OverallLeaderboardRow>[] => [
 	...buildPlayerColumns<OverallLeaderboardRow>(players),
 	...buildStatColumns<OverallLeaderboardRow>(labels),
+];
+
+/**
+ * Builds the columns for the all-years champions table: the year followed by the 1st/2nd/3rd
+ * podium places. Each place renders every player who holds it (ties stack) via
+ * {@link PlayersCell}; only the year sorts (the places are player lists, not scalars).
+ */
+export const buildYearChampionColumns = (players: Record<string, Player>): ColumnDef<YearChampion>[] => [
+	{ key: 'year', label: 'Year', sortable: true, getValue: (row) => row.year },
+	{ key: 'first', label: '1st', render: (row) => <PlayersCell playerIds={row.playerIds} players={players} /> },
+	{ key: 'second', label: '2nd', render: (row) => <PlayersCell playerIds={row.runnerUpIds} players={players} /> },
+	{ key: 'third', label: '3rd', render: (row) => <PlayersCell playerIds={row.thirdIds} players={players} /> },
 ];

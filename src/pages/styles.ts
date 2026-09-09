@@ -4,9 +4,22 @@ import { FOOTER_HEIGHT } from '../theme/layout';
 
 /** Component-local styles for `src/pages/`. */
 export const useRankingsPageStyles = makeStyles()((theme) => ({
-	// Separates the per-year standings section from the all-time section above it.
+	// Separates the year section from the all-time section above it, and lays its two
+	// tables (standings + champions) side by side at equal width on desktop, stacked on mobile.
 	yearSection: {
 		marginTop: theme.spacing(4),
+		display: 'flex',
+		alignItems: 'flex-start',
+		gap: theme.spacing(3),
+		[theme.breakpoints.down('md')]: {
+			flexDirection: 'column',
+			alignItems: 'stretch',
+		},
+	},
+	// Each year-section table takes an equal half of the row (minWidth:0 prevents overflow).
+	yearColumn: {
+		flex: 1,
+		minWidth: 0,
 	},
 	layout: {
 		marginTop: theme.spacing(3),

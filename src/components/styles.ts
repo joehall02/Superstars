@@ -167,6 +167,14 @@ export const usePlayerCellStyles = makeStyles()((theme) => ({
 	},
 }));
 
+export const usePlayersCellStyles = makeStyles()((theme) => ({
+	stack: {
+		display: 'flex',
+		flexDirection: 'column',
+		gap: theme.spacing(0.5),
+	},
+}));
+
 export const useGameHeaderCellStyles = makeStyles()((theme) => ({
 	cell: {
 		display: 'inline-flex',
