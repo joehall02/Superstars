@@ -23,6 +23,7 @@ interface IProfileCardProps {
  */
 export const ProfileCard = ({ playerId, onClose }: IProfileCardProps) => {
 	const { classes } = useProfileCardStyles();
+	const page = usePageLocalisation(PageNames.Rankings);
 	const { data: player, isLoading: playerLoading } = usePlayer(playerId);
 	const { data: rankings = [], isLoading: rankingsLoading } = useAllTimeRankings();
 	const { data: games = [] } = useAllGames();
@@ -51,7 +52,7 @@ export const ProfileCard = ({ playerId, onClose }: IProfileCardProps) => {
 					<Skeleton width={120} className={classes.skeleton} />
 				) : (
 					<>
-						<Typography variant='subtitle1'>Overall</Typography>
+						<Typography variant='subtitle1'>{page?.overall}</Typography>
 						<Typography variant='subtitle1'>#{ranking?.rank ?? '—'}</Typography>
 						<Typography variant='body2' className={classes.muted}>· {ranking?.score ?? '—'}</Typography>
 					</>
