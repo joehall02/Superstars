@@ -22,7 +22,6 @@ export const useRankingsPageStyles = makeStyles()((theme) => ({
 		minWidth: 0,
 	},
 	layout: {
-		marginTop: theme.spacing(3),
 		display: 'flex',
 		alignItems: 'flex-start',
 		gap: theme.spacing(3),

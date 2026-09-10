@@ -27,7 +27,7 @@ export const ProtectedRoute = () => {
 	}
 
 	return (
-		<>
+		<Box className={classes.root}>
 			<Navbar />
 			<Container maxWidth='lg' className={classes.container}>
 				{heading && <PageHeader title={heading} />}
@@ -36,6 +36,6 @@ export const ProtectedRoute = () => {
 				</Box>
 			</Container>
 			<Footer />
-		</>
+		</Box>
 	);
 };

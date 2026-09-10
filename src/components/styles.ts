@@ -6,9 +6,13 @@ import { FOOTER_HEIGHT } from '../theme/layout';
 /** Component-local styles for `src/components/`. */
 export const useStyles = makeStyles()(() => ({}));
 
-export const usePageHeaderStyles = makeStyles()(() => ({
+export const usePageHeaderStyles = makeStyles()((theme) => ({
 	title: {
-		textDecoration: 'underline',
+		color: theme.palette.mode === 'dark' ? theme.palette.common.white : theme.palette.primary.main,
+		lineHeight: 1,
+		paddingLeft: theme.spacing(2),
+		borderLeft: `${theme.spacing(1)} solid ${theme.palette.secondary.main}`,
+		marginBottom: theme.spacing(3),
 	},
 }));
 
