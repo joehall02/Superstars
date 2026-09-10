@@ -11,8 +11,12 @@ export const usePageHeaderStyles = makeStyles()((theme) => ({
 		color: theme.palette.mode === 'dark' ? theme.palette.common.white : theme.palette.primary.main,
 		lineHeight: 1,
 		paddingLeft: theme.spacing(2),
-		borderLeft: `${theme.spacing(1)} solid ${theme.palette.secondary.main}`,
+		borderLeft: `${theme.spacing(1.75)} solid ${theme.palette.secondary.main}`,
 		marginBottom: theme.spacing(3),
+		[theme.breakpoints.down('md')]: {
+			paddingLeft: theme.spacing(1.25),
+			borderLeftWidth: theme.spacing(0.5),
+		},
 	},
 }));
 
