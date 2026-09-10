@@ -145,6 +145,9 @@ export const useTableHeaderStyles = makeStyles()((theme) => ({
 		backgroundColor: theme.palette.primary.main,
 		color: theme.palette.primary.contrastText,
 	},
+	title: {
+		fontWeight: 700,
+	},
 }));
 
 export const useYearNavigatorStyles = makeStyles()((theme) => ({
@@ -220,6 +223,9 @@ export const useProfileCardStyles = makeStyles()((theme) => ({
 		alignItems: 'center',
 		height: 56,
 		gap: theme.spacing(2),
+	},
+	name: {
+		fontWeight: 700,
 	},
 	// Secondary text on the primary surface — dimmed contrastText, not the theme's
 	// text.secondary (which is tuned for the paper background).

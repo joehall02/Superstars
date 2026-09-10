@@ -16,7 +16,7 @@ export const Header = ({ title }: IHeaderProps) => {
 
 	return (
 		<div className={classes.bar}>
-			<Typography variant='subtitle1'>{title}</Typography>
+			<Typography variant='subtitle1' className={classes.title}>{title}</Typography>
 		</div>
 	);
 };
