@@ -210,6 +210,7 @@ export const useProfileCardStyles = makeStyles()((theme) => ({
 	header: {
 		display: 'flex',
 		alignItems: 'center',
+		height: 56,
 		gap: theme.spacing(2),
 	},
 	// Secondary text on the primary surface — dimmed contrastText, not the theme's

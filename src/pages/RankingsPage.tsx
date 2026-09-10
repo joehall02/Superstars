@@ -1,7 +1,6 @@
 import { Box, Drawer } from '@mui/material';
 import { useState } from 'react';
 
-import { PageHeader } from '../components/PageHeader';
 import { ProfileCard } from '../components/ProfileCard';
 import { Header } from '../components/table/Header';
 import { OverallLeaderboardTable } from '../components/table/OverallLeaderboardTable';
@@ -55,7 +54,6 @@ export const RankingsPage = () => {
 
 	return (
 		<Box>
-			<PageHeader title={page?.title} />
 			<Box className={classes.layout}>
 				<Box className={classes.main}>
 					<OverallLeaderboardTable
