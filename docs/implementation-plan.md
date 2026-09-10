@@ -267,12 +267,12 @@ Column headers show abbreviated stat labels (GF, GA, GD, Avg); this adds a legen
 - [x] Add close/dismiss functionality for mobile (✕ `IconButton` + backdrop tap)
 
 ### 3.6 Game Box Component
-- [ ] Create GameBox component
-- [ ] Add game image with grey overlay (use `useConfig().getGameImage(gameId)`)
-- [ ] Display game name at top (from MasterScoreService)
+- [x] Create GameBox component (`src/components/GameBox.tsx`; presentational, parent owns navigation)
+- [x] Add game image with grey overlay (`useGameImage(gameId)` → `useCachedImage` blob cache; `alpha` black overlay)
+- [x] Display game name at top (from MasterScoreService via `useAllGames()`)
 - [ ] Implement hover effect (boxy 3D effect)
-- [ ] Add click handler for navigation
-- [ ] Create responsive grid layout (6 boxes)
+- [x] Add click handler for navigation
+- [x] Create responsive grid layout (6 boxes)
 
 ### 3.7 Styling Architecture & Boxy 3D Effects
 - [ ] Set up styling conventions:
@@ -328,14 +328,14 @@ Column headers show abbreviated stat labels (GF, GA, GD, Avg); this adds a legen
 - [x] Add loading skeletons for tables and profile card during initial load
 
 ### 4.2 Games Page (Layer 1)
-- [ ] Create Games page layout
-- [ ] Display 6 GameBox components in grid
+- [x] Create Games page layout
+- [x] Display 6 GameBox components in grid
 - [ ] Implement custom scrollbar with circle indicators
 - [ ] Add scroll tracking for active game indicator
-- [ ] Use MasterScoreService for game names and ConfigService for game images
-- [ ] Add loading skeletons for game boxes during initial load
+- [x] Use MasterScoreService for game names and ConfigService for game images
+- [x] Add loading skeletons for game boxes during initial load
 - [ ] Add responsive layout:
-  - [ ] Desktop: grid layout with standard scrollbar
+  - [x] Desktop: grid layout with standard scrollbar
   - [ ] Mobile: vertical scroll with custom indicator circles
     - [ ] Fixed position indicator column on right side of screen
     - [ ] One circle per game, stacked vertically

@@ -3,6 +3,21 @@ import { makeStyles } from 'tss-react/mui';
 import { FOOTER_HEIGHT } from '../theme/layout';
 
 /** Component-local styles for `src/pages/`. */
+export const useGamesPageStyles = makeStyles()((theme) => ({
+	// Responsive grid, capped at 3 columns: 3 on desktop, 2 on tablet, 1 on mobile.
+	grid: {
+		display: 'grid',
+		gap: theme.spacing(3),
+		gridTemplateColumns: 'repeat(3, 1fr)',
+		[theme.breakpoints.down('lg')]: {
+			gridTemplateColumns: 'repeat(2, 1fr)',
+		},
+		[theme.breakpoints.down('sm')]: {
+			gridTemplateColumns: '1fr',
+		},
+	},
+}));
+
 export const useRankingsPageStyles = makeStyles()((theme) => ({
 	// Separates the year section from the all-time section above it, and lays its two
 	// tables (standings + champions) side by side at equal width on desktop, stacked on mobile.

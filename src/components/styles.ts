@@ -274,6 +274,57 @@ export const useProfileCardStyles = makeStyles()((theme) => ({
 	},
 }));
 
+export const useGameBoxStyles = makeStyles<void, 'image'>()((theme, _params, classes) => ({
+	// Clickable image tile: fixed 4:3 area, image and overlay stacked absolutely inside.
+	card: {
+		position: 'relative',
+		aspectRatio: '4 / 3',
+		overflow: 'hidden',
+		cursor: 'pointer',
+		borderRadius: theme.shape.borderRadius,
+		backgroundColor: theme.palette.background.paper,
+		border: `1px solid ${theme.palette.divider}`,
+		// Zoom the image slightly on hover; `overflow: hidden` above crops the overflow.
+		[`&:hover .${classes.image}`]: {
+			transform: 'scale(1.05)',
+		},
+	},
+	// Fills the tile; `cover` crops non-4:3 sources rather than distorting them.
+	image: {
+		position: 'absolute',
+		inset: 0,
+		width: '100%',
+		height: '100%',
+		objectFit: 'cover',
+		display: 'block',
+		transition: 'transform 0.3s ease',
+	},
+	// Grey wash over the image
+	overlay: {
+		position: 'absolute',
+		inset: 0,
+		backgroundColor: alpha(theme.palette.common.black, 0.4),
+	},
+	// Game name anchored to the top, above the overlay.
+	name: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		right: 0,
+		padding: theme.spacing(1.5, 2),
+		color: theme.palette.common.white,
+		fontWeight: 700,
+	},
+	// Loading placeholder matching the tile's footprint (stands alone in the grid cell,
+	// so it carries its own aspect ratio rather than absolute-filling the card).
+	skeleton: {
+		width: '100%',
+		height: '100%',
+		aspectRatio: '4 / 3',
+		borderRadius: theme.shape.borderRadius,
+	},
+}));
+
 export const useFooterStyles = makeStyles()((theme) => ({
 	// Pinned to the bottom of the viewport and mobile-only — the Navbar links take
 	// over from `md` up
