@@ -45,7 +45,9 @@ export const ProfileCard = ({ playerId, onClose }: IProfileCardProps) => {
 				) : (
 					avatarUrl && <img className={classes.avatar} src={avatarUrl} alt='' />
 				)}
-				<Typography variant='h5' className={classes.name}>{isLoading ? <Skeleton width={140} className={classes.skeleton} /> : player?.name}</Typography>
+				<Typography variant='h5' className={classes.name}>
+					{isLoading ? <Skeleton width={140} className={classes.skeleton} /> : player?.name}
+				</Typography>
 			</div>
 			<div className={classes.overall}>
 				{isLoading ? (
