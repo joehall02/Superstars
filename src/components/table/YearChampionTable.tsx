@@ -12,7 +12,7 @@ interface IYearChampionTableProps {
 	ariaLabel?: string;
 	header?: ReactNode;
 	footer?: ReactNode;
-	height?: number;
+	height?: number | 'auto';
 }
 
 /**
@@ -20,7 +20,7 @@ interface IYearChampionTableProps {
  * (see {@link buildYearChampionColumns}), newest year first. Resolves player names via
  * {@link usePlayers} and renders the shared {@link Table}.
  */
-export const YearChampionTable = ({ champions, isLoading, ariaLabel, header, footer, height }: IYearChampionTableProps) => {
+export const YearChampionTable = ({ champions, isLoading, ariaLabel, header, footer, height = 'auto' }: IYearChampionTableProps) => {
 	const { data: players = {} } = usePlayers();
 
 	const columns = useMemo(() => buildYearChampionColumns(players), [players]);

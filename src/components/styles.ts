@@ -90,7 +90,7 @@ export const useNavbarStyles = makeStyles()((theme) => ({
 	},
 }));
 
-export const useTableStyles = makeStyles<{ height: number }>()((theme, { height }) => ({
+export const useTableStyles = makeStyles<{ height: number | 'auto' }>()((theme, { height }) => ({
 	root: {
 		width: '100%',
 	},

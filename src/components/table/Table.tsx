@@ -26,8 +26,8 @@ interface TableProps<Row> {
 	header?: ReactNode;
 	/** Full-width region rendered below the scroll containe. */
 	footer?: ReactNode;
-	/** Fixed container height in px; content beyond it scrolls vertically. */
-	height?: number;
+	/** Fixed container height in px; content beyond it scrolls vertically. `'auto'` sizes to content. */
+	height?: number | 'auto';
 }
 
 /** Renders a cell's content: an explicit `render`, else the `getValue` (null → em dash). */
