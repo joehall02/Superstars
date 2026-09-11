@@ -9,8 +9,8 @@ import { YearNavigator } from '../components/table/YearNavigator';
 import { StatType } from '../enums/config';
 import { PageNames } from '../enums/pages';
 import { usePageLocalisation } from '../hooks/config';
-import { useScreenDetection } from '../hooks/theme';
 import { useYearNavigation } from '../hooks/table';
+import { useScreenDetection } from '../hooks/theme';
 import { useAllTimeRankings, useAllYearChampions, useAvailableYears, useYearRankings } from '../services/masterScores/useMasterScores';
 import { useRankingsPageStyles } from './styles';
 
