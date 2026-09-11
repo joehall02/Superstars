@@ -1,5 +1,6 @@
 import { makeStyles } from 'tss-react/mui';
 
+import { cardSurface, imageTile, imageTileImage, imageTileOverlay } from '../styles';
 import { FOOTER_HEIGHT } from '../theme/layout';
 
 /** Component-local styles for `src/pages/`. */
@@ -105,28 +106,25 @@ export const useGameDetailsPageStyles = makeStyles()((theme) => ({
 		flex: 1,
 		minWidth: 0,
 	},
-	// Game image: same 4:3 framed tile as the Games grid, minus the overlay/hover.
-	imagePanel: {
-		aspectRatio: '4 / 3',
-		width: '100%',
-		overflow: 'hidden',
-		borderRadius: theme.shape.borderRadius,
-		border: `1px solid ${theme.palette.divider}`,
-		backgroundColor: theme.palette.background.paper,
-	},
-	image: {
-		width: '100%',
-		height: '100%',
-		objectFit: 'cover',
-		display: 'block',
-	},
+	// Game image: the same 4:3 framed tile as the Games grid, grey wash and hover zoom included.
+	imagePanel: imageTile(theme),
+	image: imageTileImage,
+	// Grey wash over the image, matching the Games grid tiles.
+	overlay: imageTileOverlay(theme),
 	// Summary/Rules: stacked Header-bar + body blocks, matching the table cards beside them.
 	summaryPanel: {
 		display: 'flex',
 		flexDirection: 'column',
 		gap: theme.spacing(3),
 	},
+	// Each block is a framed paper card — same treatment as the tables — with the primary
+	// Header bar clipped to the top corners, so they read as finished panels rather than
+	// loose text on the page.
+	summaryCard: cardSurface(theme),
 	summaryBody: {
-		padding: theme.spacing(1.5, 2),
+		padding: theme.spacing(2, 2.5),
+		lineHeight: 1.7,
+		borderLeft: `${theme.spacing(0.5)} solid ${theme.palette.secondary.main}`,
+		color: theme.palette.text.secondary,
 	},
 }));

@@ -1,8 +1,21 @@
-import { useMatches } from 'react-router';
+import { useEffect } from 'react';
+import { useLocation, useMatches } from 'react-router';
 
 import { isRouteHandle } from '../helpers/typeGuards';
 import { useGame } from '../services/masterScores/useMasterScores';
 import { usePageLocalisation } from './config';
+
+/**
+ * Jumps the window back to the top whenever the path changes, so a new page always
+ * opens at its start rather than inheriting the previous page's scroll position.
+ */
+export const useScrollToTop = (): void => {
+	const { pathname } = useLocation();
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, [pathname]);
+};
 
 /**
  * Resolves the current route's page-header title from the leaf match's `handle`.

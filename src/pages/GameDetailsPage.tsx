@@ -39,6 +39,7 @@ export const GameDetailsPage = () => {
 						{imageUrl
 							? <img className={classes.image} src={imageUrl} alt='' />
 							: <Skeleton variant='rectangular' height='100%' />}
+						<Box className={classes.overlay} />
 					</Box>
 				</Box>
 				<Box className={classes.column}>
@@ -66,11 +67,11 @@ export const GameDetailsPage = () => {
 				</Box>
 				<Box className={classes.column}>
 					<Box className={classes.summaryPanel}>
-						<Box>
+						<Box className={classes.summaryCard}>
 							<Header title={page?.summary} />
 							<Typography className={classes.summaryBody}>{localisation?.summary}</Typography>
 						</Box>
-						<Box>
+						<Box className={classes.summaryCard}>
 							<Header title={page?.rules} />
 							<Typography className={classes.summaryBody}>{localisation?.rules}</Typography>
 						</Box>

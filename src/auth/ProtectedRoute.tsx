@@ -6,7 +6,7 @@ import { Navbar } from '../components/Navbar';
 import { PageHeader } from '../components/PageHeader';
 import { Page } from '../enums/pages';
 import { useIsAuthenticated } from '../hooks/auth';
-import { useRouteTitle } from '../hooks/route';
+import { useRouteTitle, useScrollToTop } from '../hooks/route';
 import { useProtectedRouteStyles } from './styles';
 
 /**
@@ -21,6 +21,8 @@ export const ProtectedRoute = () => {
 	const isAuthenticated = useIsAuthenticated();
 	const { classes } = useProtectedRouteStyles();
 	const heading = useRouteTitle();
+
+	useScrollToTop();
 
 	if (!isAuthenticated) {
 		return <Navigate to={Page.Login} replace />;

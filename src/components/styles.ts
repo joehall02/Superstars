@@ -1,6 +1,7 @@
 import { alpha } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 
+import { cardSurface, imageTile, imageTileImage, imageTileOverlay } from '../styles';
 import { FOOTER_HEIGHT } from '../theme/layout';
 
 /** Component-local styles for `src/components/`. */
@@ -93,11 +94,15 @@ export const useNavbarStyles = makeStyles()((theme) => ({
 export const useTableStyles = makeStyles<{ height: number | 'auto' }>()((theme, { height }) => ({
 	root: {
 		width: '100%',
+		...cardSurface(theme),
 	},
 	container: {
 		width: '100%',
 		height,
 		overflowY: 'auto',
+		// Secondary-colour spine down the body's left edge — starts below the Header bar (its
+		// own element above) and is clipped to the card's rounded bottom-left corner.
+		borderLeft: `${theme.spacing(0.5)} solid ${theme.palette.secondary.main}`,
 		// Slim, muted scrollbar so it recedes rather than dominating the table edge.
 		scrollbarWidth: 'thin',
 		scrollbarColor: `${theme.palette.divider} transparent`,
@@ -133,6 +138,8 @@ export const useTableStyles = makeStyles<{ height: number | 'auto' }>()((theme, 
 	footer: {
 		width: '100%',
 		borderTop: `1px solid ${theme.palette.divider}`,
+		// Continue the container's left spine through the footer so it runs unbroken to the bottom.
+		borderLeft: `${theme.spacing(0.5)} solid ${theme.palette.secondary.main}`,
 	},
 }));
 
@@ -274,37 +281,13 @@ export const useProfileCardStyles = makeStyles()((theme) => ({
 	},
 }));
 
-export const useGameBoxStyles = makeStyles<void, 'image'>()((theme, _params, classes) => ({
-	// Clickable image tile: fixed 4:3 area, image and overlay stacked absolutely inside.
+export const useGameBoxStyles = makeStyles()((theme) => ({
 	card: {
-		position: 'relative',
-		aspectRatio: '4 / 3',
-		overflow: 'hidden',
+		...imageTile(theme),
 		cursor: 'pointer',
-		borderRadius: theme.shape.borderRadius,
-		backgroundColor: theme.palette.background.paper,
-		border: `1px solid ${theme.palette.divider}`,
-		// Zoom the image slightly on hover; `overflow: hidden` above crops the overflow.
-		[`&:hover .${classes.image}`]: {
-			transform: 'scale(1.05)',
-		},
 	},
-	// Fills the tile; `cover` crops non-4:3 sources rather than distorting them.
-	image: {
-		position: 'absolute',
-		inset: 0,
-		width: '100%',
-		height: '100%',
-		objectFit: 'cover',
-		display: 'block',
-		transition: 'transform 0.3s ease',
-	},
-	// Grey wash over the image
-	overlay: {
-		position: 'absolute',
-		inset: 0,
-		backgroundColor: alpha(theme.palette.common.black, 0.4),
-	},
+	image: imageTileImage,
+	overlay: imageTileOverlay(theme),
 	// Game name anchored to the top, above the overlay.
 	name: {
 		position: 'absolute',
