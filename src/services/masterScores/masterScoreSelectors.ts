@@ -41,6 +41,17 @@ export const getGameAllTimeRankings = (
 	gameId: string,
 ): GameAllTimeRanking[] => data.rankings.byGame[gameId]?.allTime ?? [];
 
+/**
+ * Game Details Page — the years this game actually has rankings for, ascending.
+ * Unlike {@link getAvailableYears} (the global metadata list), this is derived from
+ * the game's own `byYear` map so the year switcher skips years with no data.
+ */
+export const getGameAvailableYears = (data: SuperstarsData, gameId: string): number[] =>
+	Object.entries(data.rankings.byGame[gameId]?.byYear ?? {})
+		.filter(([, rankings]) => rankings.length > 0)
+		.map(([year]) => Number(year))
+		.sort((a, b) => a - b);
+
 /** Game Details Page — per-year leaderboard for a game. */
 export const getGameYearRankings = (
 	data: SuperstarsData,

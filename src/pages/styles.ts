@@ -76,3 +76,57 @@ export const useRankingsPageStyles = makeStyles()((theme) => ({
 		bottom: FOOTER_HEIGHT,
 	},
 }));
+
+export const useGameDetailsPageStyles = makeStyles()((theme) => ({
+	// Section 1 (image + all-time leaderboard) and Section 2 (per-year leaderboard +
+	// summary/rules) both lay their two halves side by side on desktop and stack on mobile.
+	// DOM order puts the image / per-year table first so each lands on top when stacked.
+	section1: {
+		display: 'flex',
+		alignItems: 'flex-start',
+		gap: theme.spacing(3),
+		[theme.breakpoints.down('md')]: {
+			flexDirection: 'column',
+			alignItems: 'stretch',
+		},
+	},
+	section2: {
+		marginTop: theme.spacing(4),
+		display: 'flex',
+		alignItems: 'flex-start',
+		gap: theme.spacing(3),
+		[theme.breakpoints.down('md')]: {
+			flexDirection: 'column',
+			alignItems: 'stretch',
+		},
+	},
+	// Equal halves (minWidth:0 prevents the table from overflowing its column).
+	column: {
+		flex: 1,
+		minWidth: 0,
+	},
+	// Game image: same 4:3 framed tile as the Games grid, minus the overlay/hover.
+	imagePanel: {
+		aspectRatio: '4 / 3',
+		width: '100%',
+		overflow: 'hidden',
+		borderRadius: theme.shape.borderRadius,
+		border: `1px solid ${theme.palette.divider}`,
+		backgroundColor: theme.palette.background.paper,
+	},
+	image: {
+		width: '100%',
+		height: '100%',
+		objectFit: 'cover',
+		display: 'block',
+	},
+	// Summary/Rules: stacked Header-bar + body blocks, matching the table cards beside them.
+	summaryPanel: {
+		display: 'flex',
+		flexDirection: 'column',
+		gap: theme.spacing(3),
+	},
+	summaryBody: {
+		padding: theme.spacing(1.5, 2),
+	},
+}));

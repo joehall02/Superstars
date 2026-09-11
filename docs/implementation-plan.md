@@ -346,18 +346,18 @@ Column headers show abbreviated stat labels (GF, GA, GD, Avg); this adds a legen
     - [ ] Clicking a circle scrolls to that game box
 
 ### 4.3 Game Details Page (Layer 2)
-- [ ] Create GameDetails page layout
+- [x] Create GameDetails page layout
 - [ ] Add Breadcrumbs component at top (Games > Game Name with icon)
-- [ ] Add game image with 3D effect (use `useConfig().getGameImage(gameId)`)
-- [ ] Implement Section 1: All-time leaderboard for game (dynamic columns via ConfigService)
-- [ ] Implement Section 2: Per-year leaderboard (dynamic columns via ConfigService)
-  - [ ] Add year navigation arrows
-  - [ ] Display year-specific rankings
-- [ ] Add Summary & Rules section
-  - [ ] Use `useConfig().getGameLocalisation(gameId)` to fetch summary and rules
-  - [ ] Format and display content
-- [ ] Connect to MasterScoreService with gameId parameter
-- [ ] Add loading skeletons for tables and game image during initial load
+- [x] Add game image (use `useConfig().getGameImage(gameId)`)
+- [x] Implement Section 1: All-time leaderboard for game (dynamic columns via ConfigService)
+- [x] Implement Section 2: Per-year leaderboard (dynamic columns via ConfigService)
+  - [x] Add year navigation arrows
+  - [x] Display year-specific rankings
+- [x] Add Summary & Rules section
+  - [x] Use `useConfig().getGameLocalisation(gameId)` to fetch summary and rules
+  - [x] Format and display content
+- [x] Connect to MasterScoreService with gameId parameter
+- [x] Add loading skeletons for tables and game image during initial load
 - [ ] Add back navigation to Games list
 
 ### 4.4 Error Page

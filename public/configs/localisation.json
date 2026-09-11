@@ -1,7 +1,7 @@
 {
 	"pages": {
 		"rankings": { "title": "Rankings", "allTimeStandings": "All-time Standings", "yearStandings": "Year Standings", "yearChampions": "Year Champions", "overall": "Overall" },
-		"games": { "title": "Games" }
+		"games": { "title": "Games", "allTimeLeaderboard": "All-time Leaderboard", "yearLeaderboard": "Year Leaderboard", "summary": "Summary", "rules": "Rules" }
 	},
 	"games": {
 		"g_1": {

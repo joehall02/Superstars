@@ -35,6 +35,14 @@ export interface PageLocalisation {
 	yearChampions?: string;
 	/** Heading for the overall rank/score row in the player ProfileCard (Rankings page). */
 	overall?: string;
+	/** Heading for the all-time leaderboard section (Game Details page). */
+	allTimeLeaderboard?: string;
+	/** Heading for the per-year leaderboard section (Game Details page). */
+	yearLeaderboard?: string;
+	/** Heading for the game summary block (Game Details page). */
+	summary?: string;
+	/** Heading for the game rules block (Game Details page). */
+	rules?: string;
 }
 
 /** `localisation.json` — per-page and per-game text content. */

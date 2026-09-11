@@ -10,6 +10,7 @@ import { StatType } from '../enums/config';
 import { PageNames } from '../enums/pages';
 import { usePageLocalisation } from '../hooks/config';
 import { useScreenDetection } from '../hooks/theme';
+import { useYearNavigation } from '../hooks/table';
 import { useAllTimeRankings, useAllYearChampions, useAvailableYears, useYearRankings } from '../services/masterScores/useMasterScores';
 import { useRankingsPageStyles } from './styles';
 
@@ -40,13 +41,10 @@ export const RankingsPage = () => {
 
 	const closeProfile = () => setManualSelection(undefined);
 
-	// Section 2: per-year standings. Years ascending; default to the latest until the user
-	// picks one via the switcher.
+	// Section 2: per-year standings. Defaults to the latest year until the user picks one
+	// via the switcher.
 	const { data: years = [] } = useAvailableYears();
-	const sortedYears = [...years].sort((a, b) => a - b);
-	const [selectedYear, setSelectedYear] = useState<number>();
-	const activeYear = selectedYear ?? sortedYears.at(-1);
-	const yearIndex = activeYear === undefined ? -1 : sortedYears.indexOf(activeYear);
+	const { activeYear, yearNavigator } = useYearNavigation(years);
 	const { data: yearRankings = [], isLoading: yearLoading } = useYearRankings(activeYear ?? 0);
 
 	// Champions table lists every year at once, so it's independent of the active year.
@@ -78,15 +76,7 @@ export const RankingsPage = () => {
 						isLoading={yearLoading}
 						ariaLabel={page?.yearStandings}
 						header={<Header title={page?.yearStandings} />}
-						footer={activeYear !== undefined && (
-							<YearNavigator
-								year={activeYear}
-								onPrevious={() => setSelectedYear(sortedYears[yearIndex - 1])}
-								onNext={() => setSelectedYear(sortedYears[yearIndex + 1])}
-								canGoPrevious={yearIndex > 0}
-								canGoNext={yearIndex >= 0 && yearIndex < sortedYears.length - 1}
-							/>
-						)}
+						footer={activeYear !== undefined && <YearNavigator year={activeYear} {...yearNavigator} />}
 					/>
 				</Box>
 				<Box className={classes.yearColumn}>

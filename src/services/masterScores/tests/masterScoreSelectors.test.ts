@@ -1,4 +1,4 @@
-import { getAllGames, getAllTimeRankings, getAllYearChampions, getGameAllTimeRankings, getGameById, getGameYearRankings, getPlayerById, getYearChampions, getYearRankings } from '../masterScoreSelectors';
+import { getAllGames, getAllTimeRankings, getAllYearChampions, getGameAllTimeRankings, getGameAvailableYears, getGameById, getGameYearRankings, getPlayerById, getYearChampions, getYearRankings } from '../masterScoreSelectors';
 import { sampleData } from './testFixtures';
 
 describe('masterScoreSelectors', () => {
@@ -73,6 +73,16 @@ describe('masterScoreSelectors', () => {
 		it('returns an empty array for an unknown game or year', () => {
 			expect(getGameYearRankings(sampleData, 'g_99', 2024)).toEqual([]);
 			expect(getGameYearRankings(sampleData, 'g_2', 1999)).toEqual([]);
+		});
+	});
+
+	describe('getGameAvailableYears', () => {
+		it('returns the years a game has rankings for, ascending', () => {
+			expect(getGameAvailableYears(sampleData, 'g_1')).toEqual([2024]);
+		});
+
+		it('returns an empty array for an unknown game', () => {
+			expect(getGameAvailableYears(sampleData, 'g_99')).toEqual([]);
 		});
 	});
 
