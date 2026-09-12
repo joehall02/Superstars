@@ -3,6 +3,7 @@ import { type ReactNode, useMemo, useState } from 'react';
 
 import { SortDirection } from '../../enums/config';
 import { sortRows } from '../../helpers/tableColumns';
+import { DEFAULT_TABLE_HEIGHT } from '../../theme/layout';
 import { type ColumnDef } from '../../types/table.types';
 import { useTableStyles } from '../styles';
 
@@ -57,7 +58,7 @@ export const Table = <Row,>({
 	ariaLabel,
 	header,
 	footer,
-	height = 400,
+	height = DEFAULT_TABLE_HEIGHT,
 }: TableProps<Row>) => {
 	const { classes, cx } = useTableStyles({ height });
 	const [sort, setSort] = useState<SortState | undefined>(

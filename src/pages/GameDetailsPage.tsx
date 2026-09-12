@@ -10,6 +10,7 @@ import { useGameImage, useGameLocalisation, usePageLocalisation } from '../hooks
 import { useCachedImage } from '../hooks/image';
 import { useYearNavigation } from '../hooks/table';
 import { useGame, useGameAllTimeRankings, useGameAvailableYears, useGameYearRankings } from '../services/masterScores/useMasterScores';
+import { DEFAULT_TABLE_HEIGHT, YEAR_NAVIGATOR_HEIGHT } from '../theme/layout';
 import { useGameDetailsPageStyles } from './styles';
 
 export const GameDetailsPage = () => {
@@ -59,22 +60,23 @@ export const GameDetailsPage = () => {
 				<Box className={classes.column}>
 					<LeaderboardTable
 						gameId={gameId}
+						type={StatType.AllTime}
+						rows={allTimeRankings}
+						isLoading={allTimeLoading}
+						ariaLabel={allTimeTitle}
+						header={<Header title={allTimeTitle} />}
+						height={DEFAULT_TABLE_HEIGHT + YEAR_NAVIGATOR_HEIGHT}
+					/>
+				</Box>
+				<Box className={classes.column}>
+					<LeaderboardTable
+						gameId={gameId}
 						type={StatType.ByYear}
 						rows={yearRankings}
 						isLoading={yearLoading}
 						ariaLabel={page?.yearLeaderboard}
 						header={<Header title={page?.yearLeaderboard} />}
 						footer={activeYear !== undefined && <YearNavigator year={activeYear} {...yearNavigator} />}
-					/>
-				</Box>
-				<Box className={classes.column}>
-					<LeaderboardTable
-						gameId={gameId}
-						type={StatType.AllTime}
-						rows={allTimeRankings}
-						isLoading={allTimeLoading}
-						ariaLabel={allTimeTitle}
-						header={<Header title={allTimeTitle} />}
 					/>
 				</Box>
 			</Box>

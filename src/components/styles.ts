@@ -2,7 +2,7 @@ import { alpha } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 
 import { cardSurface, imageTile, imageTileImage, imageTileOverlay, primarySurface } from '../styles';
-import { FOOTER_HEIGHT } from '../theme/layout';
+import { FOOTER_HEIGHT, YEAR_NAVIGATOR_HEIGHT } from '../theme/layout';
 
 /** Component-local styles for `src/components/`. */
 export const useStyles = makeStyles()(() => ({}));
@@ -195,7 +195,8 @@ export const useYearNavigatorStyles = makeStyles()((theme) => ({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		padding: theme.spacing(0.5, 1),
+		height: YEAR_NAVIGATOR_HEIGHT,
+		padding: theme.spacing(0, 1),
 	},
 	year: {
 		fontWeight: 700,
