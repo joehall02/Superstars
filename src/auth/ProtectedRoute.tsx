@@ -20,7 +20,7 @@ import { useProtectedRouteStyles } from './styles';
 export const ProtectedRoute = () => {
 	const isAuthenticated = useIsAuthenticated();
 	const { classes } = useProtectedRouteStyles();
-	const heading = useRouteTitle();
+	const { title, iconUrl } = useRouteTitle();
 
 	useScrollToTop();
 
@@ -32,7 +32,7 @@ export const ProtectedRoute = () => {
 		<Box className={classes.root}>
 			<Navbar />
 			<Container maxWidth='lg' className={classes.container}>
-				{heading && <PageHeader title={heading} />}
+				{title && <PageHeader title={title} iconUrl={iconUrl} />}
 				<Box className={classes.border}>
 					<Outlet />
 				</Box>

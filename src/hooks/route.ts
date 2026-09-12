@@ -3,7 +3,7 @@ import { useLocation, useMatches } from 'react-router';
 
 import { isRouteHandle } from '../helpers/typeGuards';
 import { useGame } from '../services/masterScores/useMasterScores';
-import { usePageLocalisation } from './config';
+import { useGameIcon, usePageLocalisation } from './config';
 
 /**
  * Jumps the window back to the top whenever the path changes, so a new page always
@@ -23,16 +23,19 @@ export const useScrollToTop = (): void => {
  * The `handle.title` declares the source: static localisation text (`page`), or the
  * game name resolved from the `:gameId` param via master-scores (`gameParam`). Both
  * lookups run unconditionally (hooks rules); the inapplicable one gets an empty key
- * and resolves to `undefined` without fetching anything real. Returns `undefined`
- * for routes without a title handle, so the caller can skip rendering a header.
+ * and resolves to `undefined` without fetching anything real. Game-param routes also
+ * carry the game's config icon to prefix the header. Returns an empty object for
+ * routes without a title handle, so the caller can skip rendering a header.
  */
-export const useRouteTitle = (): string | undefined => {
+export const useRouteTitle = (): { title?: string; iconUrl?: string } => {
 	const leaf = useMatches().at(-1);
 	const handle = isRouteHandle(leaf?.handle) ? leaf.handle : undefined;
 	const title = handle?.title;
 
+	const gameId = title?.source === 'gameParam' ? leaf?.params.gameId ?? '' : '';
 	const page = usePageLocalisation(title?.source === 'page' ? title.page : '');
-	const game = useGame(title?.source === 'gameParam' ? leaf?.params.gameId ?? '' : '');
+	const game = useGame(gameId);
+	const iconUrl = useGameIcon(gameId);
 
-	return title?.source === 'gameParam' ? game.data?.name : page?.title;
+	return title?.source === 'gameParam' ? { title: game.data?.name, iconUrl } : { title: page?.title };
 };

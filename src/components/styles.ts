@@ -7,13 +7,42 @@ import { FOOTER_HEIGHT } from '../theme/layout';
 /** Component-local styles for `src/components/`. */
 export const useStyles = makeStyles()(() => ({}));
 
-export const usePageHeaderStyles = makeStyles()((theme) => ({
+export const usePageHeaderStyles = makeStyles<{ iconUrl?: string }>()((theme, { iconUrl }) => ({
+	root: {
+		display: 'flex',
+		alignItems: 'center',
+		gap: theme.spacing(2),
+		marginBottom: theme.spacing(3),
+		[theme.breakpoints.down('md')]: {
+			gap: theme.spacing(1.25),
+			paddingLeft: theme.spacing(2),
+		},
+	},
+	// External monochrome-black SVG masked so its fill takes an exact theme colour (its own
+	// fill isn't reachable): title blue in light mode, white in dark.
+	icon: {
+		height: theme.spacing(6),
+		width: theme.spacing(6),
+		flexShrink: 0,
+		backgroundColor: theme.palette.mode === 'dark' ? theme.palette.common.white : theme.palette.primary.main,
+		maskImage: iconUrl ? `url(${iconUrl})` : undefined,
+		maskRepeat: 'no-repeat',
+		maskPosition: 'center',
+		maskSize: 'contain',
+		WebkitMaskImage: iconUrl ? `url(${iconUrl})` : undefined,
+		WebkitMaskRepeat: 'no-repeat',
+		WebkitMaskPosition: 'center',
+		WebkitMaskSize: 'contain',
+		[theme.breakpoints.down('md')]: {
+			height: theme.spacing(4.5),
+			width: theme.spacing(4.5),
+		},
+	},
 	title: {
 		color: theme.palette.mode === 'dark' ? theme.palette.common.white : theme.palette.primary.main,
 		lineHeight: 1,
 		paddingLeft: theme.spacing(2),
 		borderLeft: `${theme.spacing(1.75)} solid ${theme.palette.secondary.main}`,
-		marginBottom: theme.spacing(3),
 		[theme.breakpoints.down('md')]: {
 			paddingLeft: theme.spacing(1.25),
 			borderLeftWidth: theme.spacing(0.5),
