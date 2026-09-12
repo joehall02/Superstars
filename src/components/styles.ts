@@ -264,8 +264,13 @@ export const useProfileCardStyles = makeStyles()((theme) => ({
 	},
 	overall: {
 		display: 'flex',
-		alignItems: 'baseline',
+		alignItems: 'center',
 		gap: theme.spacing(1),
+		// Collapse each variant's leading so the differing subtitle1/body2 line-heights
+		// don't leave the smaller score sitting off-centre against the rank.
+		'& > *': {
+			lineHeight: 1,
+		},
 	},
 	gameList: {
 		display: 'flex',
