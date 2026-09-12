@@ -25,18 +25,29 @@ export const cardSurface = (theme: Theme): CSSObject => ({
 });
 
 /**
+ * Primary-filled surface matching the Navbar/Footer AppBars. In dark mode MUI lays a
+ * translucent white overlay over an AppBar's `primary.main` (its elevation-4 Paper overlay),
+ * so a bare `primary.main` fill reads as a flatter, blacker surface. Reproduce that same
+ * overlay here so every primary surface (table Header, ProfileCard) shares one muted black.
+ */
+export const primarySurface = (theme: Theme): CSSObject => ({
+	backgroundColor: theme.palette.primary.main,
+	color: theme.palette.primary.contrastText,
+	...(theme.palette.mode === 'dark' && {
+		backgroundImage: `linear-gradient(${alpha(theme.palette.common.white, 0.09)}, ${alpha(theme.palette.common.white, 0.09)})`,
+	}),
+});
+
+/**
  * 4:3 framed image tile shared by the Games grid tiles and the Game Details image panel:
  * a bordered, rounded surface that crops a `cover` image and zooms it slightly on hover
  * (`overflow: hidden` crops the overflow). Pair with {@link imageTileImage} on the `<img>`
  * and {@link imageTileOverlay} for the grey wash.
  */
 export const imageTile = (theme: Theme): CSSObject => ({
+	...cardSurface(theme),
 	position: 'relative',
 	aspectRatio: '4 / 3',
-	overflow: 'hidden',
-	borderRadius: theme.shape.borderRadius,
-	border: `1px solid ${theme.palette.divider}`,
-	backgroundColor: theme.palette.background.paper,
 	'&:hover img': {
 		transform: 'scale(1.05)',
 	},

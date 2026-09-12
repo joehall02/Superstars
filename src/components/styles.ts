@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 
-import { cardSurface, imageTile, imageTileImage, imageTileOverlay } from '../styles';
+import { cardSurface, imageTile, imageTileImage, imageTileOverlay, primarySurface } from '../styles';
 import { FOOTER_HEIGHT } from '../theme/layout';
 
 /** Component-local styles for `src/components/`. */
@@ -95,6 +95,7 @@ export const useTableStyles = makeStyles<{ height: number | 'auto' }>()((theme, 
 	root: {
 		width: '100%',
 		...cardSurface(theme),
+		borderRadius: 0,
 	},
 	container: {
 		width: '100%',
@@ -149,8 +150,7 @@ export const useTableHeaderStyles = makeStyles()((theme) => ({
 		width: '100%',
 		padding: theme.spacing(1, 2),
 		textAlign: 'center',
-		backgroundColor: theme.palette.primary.main,
-		color: theme.palette.primary.contrastText,
+		...primarySurface(theme),
 	},
 	title: {
 		fontWeight: 700,
@@ -222,8 +222,8 @@ export const useProfileCardStyles = makeStyles()((theme) => ({
 		flexDirection: 'column',
 		gap: theme.spacing(2),
 		padding: theme.spacing(2),
-		backgroundColor: theme.palette.primary.main,
-		color: theme.palette.primary.contrastText,
+		...primarySurface(theme),
+		borderRadius: 0,
 	},
 	header: {
 		display: 'flex',
@@ -239,9 +239,8 @@ export const useProfileCardStyles = makeStyles()((theme) => ({
 	muted: {
 		color: alpha(theme.palette.primary.contrastText, 0.7),
 	},
-	// Divider needs to show on the primary fill; theme divider is too faint here.
 	divider: {
-		borderColor: alpha(theme.palette.primary.contrastText, 0.2),
+		borderColor: theme.palette.secondary.main,
 	},
 	// Larger sibling of the player-cell icon; `cover` crops non-square sources.
 	avatar: {
@@ -285,6 +284,7 @@ export const useGameBoxStyles = makeStyles()((theme) => ({
 	card: {
 		...imageTile(theme),
 		cursor: 'pointer',
+		borderRadius: 0,
 	},
 	image: imageTileImage,
 	overlay: imageTileOverlay(theme),
@@ -304,7 +304,6 @@ export const useGameBoxStyles = makeStyles()((theme) => ({
 		width: '100%',
 		height: '100%',
 		aspectRatio: '4 / 3',
-		borderRadius: theme.shape.borderRadius,
 	},
 }));
 

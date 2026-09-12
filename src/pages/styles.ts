@@ -107,7 +107,10 @@ export const useGameDetailsPageStyles = makeStyles()((theme) => ({
 		minWidth: 0,
 	},
 	// Game image: the same 4:3 framed tile as the Games grid, grey wash and hover zoom included.
-	imagePanel: imageTile(theme),
+	imagePanel: {
+		...imageTile(theme),
+		borderRadius: 0,
+	},
 	image: imageTileImage,
 	// Grey wash over the image, matching the Games grid tiles.
 	overlay: imageTileOverlay(theme),
