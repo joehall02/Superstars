@@ -25,17 +25,13 @@ export const cardSurface = (theme: Theme): CSSObject => ({
 });
 
 /**
- * Primary-filled surface matching the Navbar/Footer AppBars. In dark mode MUI lays a
- * translucent white overlay over an AppBar's `primary.main` (its elevation-4 Paper overlay),
- * so a bare `primary.main` fill reads as a flatter, blacker surface. Reproduce that same
- * overlay here so every primary surface (table Header, ProfileCard) shares one muted black.
+ * Solid primary fill shared by the Navbar, Footer, table Header and ProfileCard. Clears
+ * `backgroundImage` so iOS Safari safe areas match the bars (elevation overlays don't).
  */
 export const primarySurface = (theme: Theme): CSSObject => ({
-	backgroundColor: theme.palette.primary.main,
 	color: theme.palette.primary.contrastText,
-	...(theme.palette.mode === 'dark' && {
-		backgroundImage: `linear-gradient(${alpha(theme.palette.common.white, 0.09)}, ${alpha(theme.palette.common.white, 0.09)})`,
-	}),
+	backgroundColor: theme.palette.primarySurface,
+	backgroundImage: 'none',
 });
 
 /**

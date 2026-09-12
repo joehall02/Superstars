@@ -31,6 +31,9 @@ export const useLogoStyles = makeStyles<{ height: number }>()((_theme, { height 
 }));
 
 export const useNavbarStyles = makeStyles()((theme) => ({
+	// Solid primary fill (shared with Footer/Header/ProfileCard) so the sticky bar and the
+	// safe area above it read as one colour on iOS Safari.
+	bar: primarySurface(theme),
 	// Equal-width left/right sides so the centre section lands on the page centre,
 	// regardless of the logo vs. toggle widths.
 	side: {
@@ -154,6 +157,7 @@ export const useTableHeaderStyles = makeStyles()((theme) => ({
 	},
 	title: {
 		fontWeight: 700,
+		fontStyle: 'italic',
 	},
 }));
 
@@ -200,12 +204,14 @@ export const useGameHeaderCellStyles = makeStyles()((theme) => ({
 		gap: theme.spacing(1),
 	},
 	// SVG game icon; `contain` keeps the whole glyph visible without cropping.
+	// Icons are external monochrome-black SVGs, so recolour via filter (their fill isn't reachable): invert to white in dark mode.
 	icon: {
 		width: theme.spacing(3),
 		height: theme.spacing(3),
 		objectFit: 'contain',
 		display: 'block',
 		flexShrink: 0,
+		filter: theme.palette.mode === 'dark' ? 'invert(1)' : 'none',
 	},
 	// Game abbreviation on desktop; icon-only below `md`.
 	abbreviation: {
@@ -297,6 +303,7 @@ export const useGameBoxStyles = makeStyles()((theme) => ({
 		padding: theme.spacing(1.5, 2),
 		color: theme.palette.common.white,
 		fontWeight: 700,
+		fontStyle: 'italic',
 	},
 	// Loading placeholder matching the tile's footprint (stands alone in the grid cell,
 	// so it carries its own aspect ratio rather than absolute-filling the card).
@@ -313,9 +320,12 @@ export const useFooterStyles = makeStyles()((theme) => ({
 	footer: {
 		top: 'auto',
 		bottom: 0,
+		// Solid primary fill (shared with Navbar/Header/ProfileCard) so the fixed bar and the
+		// safe area below it read as one colour on iOS Safari.
+		...primarySurface(theme),
 		// Sit above the ProfileCard Drawer's Modal (z-index `modal`). Its full-viewport
 		// fixed container would otherwise layer over the footer's band, and on iOS Safari
-		// that steals the bottom safe-area colour 
+		// that steals the bottom safe-area colour
 		zIndex: theme.zIndex.modal + 1,
 		boxShadow: 'none',
 		[theme.breakpoints.up('md')]: {

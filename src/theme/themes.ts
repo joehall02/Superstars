@@ -1,5 +1,17 @@
 import { createTheme, type ThemeOptions } from '@mui/material';
 
+// Solid fill for primary surfaces — see `primarySurface` in src/styles.ts.
+declare module '@mui/material/styles' {
+	interface Palette {
+		primarySurface: string;
+	}
+	interface PaletteOptions {
+		primarySurface?: string;
+	}
+}
+
+const lightPrimary = '#0A5095';
+
 /** Shared, mode-agnostic theme configuration. */
 const sharedOptions: ThemeOptions = {
 	typography: {
@@ -49,7 +61,8 @@ export const lightTheme = createTheme({
 	...sharedOptions,
 	palette: {
 		mode: 'light',
-		primary: { main: '#0A5095' },
+		primary: { main: lightPrimary },
+		primarySurface: lightPrimary,
 		secondary: { main: '#FFD737' },
 		background: { default: '#F4EAD5', paper: '#FBF3E4' },
 		text: { primary: '#3E2C1C' },
@@ -61,13 +74,14 @@ export const darkTheme = createTheme({
 	palette: {
 		mode: 'dark',
 		primary: { main: '#000000' },
+		primarySurface: '#171717', // muted black — #000 lightened ~9%
 		secondary: { main: '#F5DE47' },
 		// background: { default: '#1E1710', paper: '#2A2018' }, // Warm brown (original)
 		// background: { default: '#121212', paper: '#1E1E1E' }, // Neutral charcoal
 		// background: { default: '#14171C', paper: '#1F242D' }, // Cool slate (blue-grey)
-		// background: { default: '#0D1522', paper: '#16202F' }, // Deep navy (ties to light primary)
+		background: { default: '#0D1522', paper: '#16202F' }, // Deep navy (ties to light primary)
 		// background: { default: '#0F1210', paper: '#191E1A' }, // Forest (green-tinted)
-		background: { default: '#16121B', paper: '#221A2A' }, // Aubergine (purple-tinted)
+		// background: { default: '#16121B', paper: '#221A2A' }, // Aubergine (purple-tinted)
 		// background: { default: '#0A0A0A', paper: '#161616' }, // Near-black ink
 		// background: { default: '#1A1614', paper: '#262019' }, // Warm graphite (subtle warmth, less brown)
 		text: { primary: '#F4EAD5' },

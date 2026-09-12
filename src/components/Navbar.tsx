@@ -17,7 +17,7 @@ export const Navbar = () => {
 	const { mode, toggleMode } = useThemeMode();
 
 	return (
-		<AppBar position='sticky' color='primary'>
+		<AppBar position='sticky' color='primary' className={classes.bar}>
 			<Toolbar>
 				<Box className={classes.side}>
 					<NavLink to={Page.Rankings} className={classes.logoLink}>
