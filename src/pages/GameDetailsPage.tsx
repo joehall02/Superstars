@@ -43,14 +43,16 @@ export const GameDetailsPage = () => {
 					</Box>
 				</Box>
 				<Box className={classes.column}>
-					<LeaderboardTable
-						gameId={gameId}
-						type={StatType.AllTime}
-						rows={allTimeRankings}
-						isLoading={allTimeLoading}
-						ariaLabel={allTimeTitle}
-						header={<Header title={allTimeTitle} />}
-					/>
+					<Box className={classes.summaryPanel}>
+						<Box className={classes.summaryCard}>
+							<Header title={page?.summary} />
+							<Typography className={classes.summaryBody}>{localisation?.summary}</Typography>
+						</Box>
+						<Box className={classes.summaryCard}>
+							<Header title={page?.rules} />
+							<Typography className={classes.summaryBody}>{localisation?.rules}</Typography>
+						</Box>
+					</Box>
 				</Box>
 			</Box>
 			<Box className={classes.section2}>
@@ -66,16 +68,14 @@ export const GameDetailsPage = () => {
 					/>
 				</Box>
 				<Box className={classes.column}>
-					<Box className={classes.summaryPanel}>
-						<Box className={classes.summaryCard}>
-							<Header title={page?.summary} />
-							<Typography className={classes.summaryBody}>{localisation?.summary}</Typography>
-						</Box>
-						<Box className={classes.summaryCard}>
-							<Header title={page?.rules} />
-							<Typography className={classes.summaryBody}>{localisation?.rules}</Typography>
-						</Box>
-					</Box>
+					<LeaderboardTable
+						gameId={gameId}
+						type={StatType.AllTime}
+						rows={allTimeRankings}
+						isLoading={allTimeLoading}
+						ariaLabel={allTimeTitle}
+						header={<Header title={allTimeTitle} />}
+					/>
 				</Box>
 			</Box>
 		</Box>
