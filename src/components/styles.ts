@@ -171,8 +171,6 @@ export const useTableStyles = makeStyles<{ height: number | 'auto' }>()((theme, 
 	footer: {
 		width: '100%',
 		borderTop: `1px solid ${theme.palette.divider}`,
-		// Continue the container's left spine through the footer so it runs unbroken to the bottom.
-		borderLeft: `${theme.spacing(0.5)} solid ${theme.palette.secondary.main}`,
 	},
 }));
 
@@ -197,6 +195,7 @@ export const useYearNavigatorStyles = makeStyles()((theme) => ({
 		justifyContent: 'space-between',
 		height: YEAR_NAVIGATOR_HEIGHT,
 		padding: theme.spacing(0, 1),
+		...primarySurface(theme),
 	},
 	year: {
 		fontWeight: 700,

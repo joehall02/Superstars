@@ -23,11 +23,11 @@ export const YearNavigator = ({ year, onPrevious, onNext, canGoPrevious, canGoNe
 
 	return (
 		<Box className={classes.bar}>
-			<IconButton aria-label='Previous year' onClick={onPrevious} disabled={!canGoPrevious} size='small'>
+			<IconButton aria-label='Previous year' onClick={onPrevious} disabled={!canGoPrevious} size='small' color='inherit'>
 				<ChevronLeftIcon />
 			</IconButton>
 			<Typography variant='subtitle1' className={classes.year}>{year}</Typography>
-			<IconButton aria-label='Next year' onClick={onNext} disabled={!canGoNext} size='small'>
+			<IconButton aria-label='Next year' onClick={onNext} disabled={!canGoNext} size='small' color='inherit'>
 				<ChevronRightIcon />
 			</IconButton>
 		</Box>
