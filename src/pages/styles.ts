@@ -1,6 +1,7 @@
 import { alpha } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 
+import { ThemeMode } from '../enums/theme';
 import { cardSurface, imageTile, imageTileImage, imageTileOverlay, primaryBleedShadow, primarySurface } from '../styles';
 import { FOOTER_HEIGHT } from '../theme/layout';
 
@@ -108,7 +109,7 @@ export const useErrorPageStyles = makeStyles()((theme) => ({
 		borderLeft: `${theme.spacing(0.75)} solid ${theme.palette.secondary.main}`,
 	},
 	title: {
-		color: theme.palette.mode === 'dark' ? theme.palette.common.white : theme.palette.primary.main,
+		color: theme.palette.mode === ThemeMode.Dark ? theme.palette.common.white : theme.palette.primary.main,
 		lineHeight: 1,
 	},
 	message: {
@@ -133,7 +134,7 @@ export const useErrorPageStyles = makeStyles()((theme) => ({
 		fontFamily: 'monospace',
 		fontSize: '0.75rem',
 		fontWeight: 700,
-		color: theme.palette.mode === 'dark' ? theme.palette.secondary.main : theme.palette.primary.main,
+		color: theme.palette.mode === ThemeMode.Dark ? theme.palette.secondary.main : theme.palette.primary.main,
 	},
 	detailMessage: {
 		fontSize: '0.875rem',

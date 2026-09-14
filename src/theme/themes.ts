@@ -1,5 +1,7 @@
 import { createTheme, type ThemeOptions } from '@mui/material';
 
+import { ThemeMode } from '../enums/theme';
+
 // Solid fill for primary surfaces — see `primarySurface` in src/styles.ts.
 declare module '@mui/material/styles' {
 	interface Palette {
@@ -60,7 +62,7 @@ const sharedOptions: ThemeOptions = {
 export const lightTheme = createTheme({
 	...sharedOptions,
 	palette: {
-		mode: 'light',
+		mode: ThemeMode.Light,
 		primary: { main: lightPrimary },
 		primarySurface: lightPrimary,
 		secondary: { main: '#FFD737' },
@@ -72,7 +74,7 @@ export const lightTheme = createTheme({
 export const darkTheme = createTheme({
 	...sharedOptions,
 	palette: {
-		mode: 'dark',
+		mode: ThemeMode.Dark,
 		primary: { main: '#000000' },
 		primarySurface: '#171717', // muted black — #000 lightened ~9%
 		secondary: { main: '#F5DE47' },

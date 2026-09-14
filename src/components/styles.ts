@@ -1,6 +1,7 @@
 import { alpha } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 
+import { ThemeMode } from '../enums/theme';
 import { cardSurface, imageTile, imageTileImage, imageTileOverlay, primaryBleedShadow, primarySurface } from '../styles';
 import { FOOTER_HEIGHT, YEAR_NAVIGATOR_HEIGHT } from '../theme/layout';
 
@@ -24,7 +25,7 @@ export const usePageHeaderStyles = makeStyles<{ iconUrl?: string }>()((theme, { 
 		height: theme.spacing(6),
 		width: theme.spacing(6),
 		flexShrink: 0,
-		backgroundColor: theme.palette.mode === 'dark' ? theme.palette.common.white : theme.palette.primary.main,
+		backgroundColor: theme.palette.mode === ThemeMode.Dark ? theme.palette.common.white : theme.palette.primary.main,
 		maskImage: iconUrl ? `url(${iconUrl})` : undefined,
 		maskRepeat: 'no-repeat',
 		maskPosition: 'center',
@@ -39,7 +40,7 @@ export const usePageHeaderStyles = makeStyles<{ iconUrl?: string }>()((theme, { 
 		},
 	},
 	title: {
-		color: theme.palette.mode === 'dark' ? theme.palette.common.white : theme.palette.primary.main,
+		color: theme.palette.mode === ThemeMode.Dark ? theme.palette.common.white : theme.palette.primary.main,
 		lineHeight: 1,
 		paddingLeft: theme.spacing(2),
 		borderLeft: `${theme.spacing(1.75)} solid ${theme.palette.secondary.main}`,
@@ -240,7 +241,7 @@ export const useGameHeaderCellStyles = makeStyles()((theme) => ({
 		objectFit: 'contain',
 		display: 'block',
 		flexShrink: 0,
-		filter: theme.palette.mode === 'dark' ? 'invert(1)' : 'none',
+		filter: theme.palette.mode === ThemeMode.Dark ? 'invert(1)' : 'none',
 	},
 	// Game abbreviation on desktop; icon-only below `md`.
 	abbreviation: {
