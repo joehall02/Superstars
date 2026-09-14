@@ -40,6 +40,7 @@ The guiding principle throughout: **the spreadsheet is a verbatim mirror**, fetc
 | [Spreadsheet Conversion](./architecture/spreadsheet-conversion/conversion-architecture.md) | How the `.xlsx` becomes the `SuperstarsData` JSON contract — the pure `lib/` converter, workbook layout, the verbatim-mirror rule, and the error contract. Supporting: [`spreadsheet-bugs.md`](./architecture/spreadsheet-conversion/spreadsheet-bugs.md), [`example-data-shape.jsonc`](./architecture/spreadsheet-conversion/example-data-shape.jsonc). |
 | [Data Endpoints](./architecture/data-endpoints.md) | How the dataset is produced and served — the local file wrapper (`scripts/convert-data.ts`, `npm run dev`) and the production serverless endpoint (`api/convert-data.ts`): GCS fetch → convert → HTTP, prod vs local (`dev` / `dev:api`), the response contract, and edge caching (incl. how to bust it with a redeploy). |
 | [Client-Side Data Fetching](./architecture/client-side-data-fetching.md) | How the browser loads `SuperstarsData` — one React Query fetch keyed `['masterScores']`, validation, and per-page hooks/selectors. |
+| [Error Response Examples](./errors/errors.md) | Sample error payloads (converter `ConversionErrors` + invalid-shape) for exercising the Error Page via browser network overrides — plus how the central error gate routes data-load failures to `/error`. |
 
 ### Presentation
 

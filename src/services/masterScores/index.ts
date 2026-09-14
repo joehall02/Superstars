@@ -4,3 +4,4 @@ export { fetchMasterScores, getDataSourceUrl } from './fetchMasterScores';
 export * from './masterScoreSelectors';
 export { assertSuperstarsData } from './masterScoresGuard';
 export * from './useMasterScores';
+export * from './useMasterScoresErrors';

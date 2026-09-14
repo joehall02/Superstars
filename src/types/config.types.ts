@@ -27,6 +27,8 @@ export interface GameLocalisation {
 /** A page's UI text. */
 export interface PageLocalisation {
 	title: string;
+	/** Body message shown under the title (Error page). */
+	message?: string;
 	/** Heading for the all-time standings section (Rankings page). */
 	allTimeStandings?: string;
 	/** Heading for the per-year standings section (Rankings page). */

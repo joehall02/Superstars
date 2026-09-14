@@ -361,13 +361,13 @@ Column headers show abbreviated stat labels (GF, GA, GD, Avg); this adds a legen
 - [ ] Add back navigation to Games list
 
 ### 4.4 Error Page
-- [ ] Create Error page layout (shown when the data fetch fails or the response is invalid)
-- [ ] Display returned error details (from `ConversionErrors` or an invalid data shape)
-- [ ] Add clear, user-friendly error message
-- [ ] Add navigation back to rankings / retry
-- [ ] Consistent styling with rest of app
-- [ ] Route via `/error`
-- [ ] Central data-load error gate: consume the shared `useMasterScores` error state (`MasterScoresError` from the one `['masterScores']` fetch) and route to `/error`. Handle once for all data-backed pages (Rankings, Games, Game Details), mirroring `configProvider`'s central config-error handling — no per-page duplication.
+- [x] Create Error page layout (shown when the data fetch fails or the response is invalid)
+- [x] Display returned error details (from `ConversionErrors` or an invalid data shape)
+- [x] Add clear, user-friendly error message
+- [x] Add navigation back to rankings / retry
+- [x] Consistent styling with rest of app
+- [x] Route via `/error`
+- [x] Central data-load error gate: consume the shared `useMasterScores` error state (`MasterScoresError` from the one `['masterScores']` fetch) and route to `/error`. Handle once for all data-backed pages (Rankings, Games, Game Details), mirroring `configProvider`'s central config-error handling — no per-page duplication.
 
 ### 4.5 404 Page
 - [ ] Clear "Page Not Found" message
@@ -392,7 +392,6 @@ Column headers show abbreviated stat labels (GF, GA, GD, Avg); this adds a legen
 - [ ] Test with invalid/corrupt data
 - [ ] Add user-friendly error messages
 
-> NOTE: Lets do this section early
 ### 5.3 Vercel Deployment
 - [x] Create Vercel configuration
 - [x] Set up environment variables in Vercel (GCS bucket name, credentials, site password)

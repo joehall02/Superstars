@@ -1,7 +1,8 @@
 {
 	"pages": {
 		"rankings": { "title": "Rankings", "allTimeStandings": "All-time Standings", "yearStandings": "Year Standings", "yearChampions": "Year Champions", "overall": "Overall" },
-		"games": { "title": "Games", "allTimeLeaderboard": "All-time Leaderboard", "yearLeaderboard": "Year Leaderboard", "summary": "Summary", "rules": "Rules" }
+		"games": { "title": "Games", "allTimeLeaderboard": "All-time Leaderboard", "yearLeaderboard": "Year Leaderboard", "summary": "Summary", "rules": "Rules" },
+		"error": { "title": "Something went wrong", "message": "We couldn't load the Superstars data. Please try again." }
 	},
 	"games": {
 		"g_1": {
