@@ -35,6 +35,19 @@ export const primarySurface = (theme: Theme): CSSObject => ({
 });
 
 /**
+ * `box-shadow` value that bleeds the primary fill past an element's left, right and bottom
+ * edges (zero blur/spread → a solid same-colour skirt, no visible elevation). Covers the
+ * sub-pixel crack iOS Safari leaves where stacked fixed surfaces meet the viewport, the page
+ * or each other. Shadows don't affect layout, so this can't trigger overflow/scroll. Pass
+ * `topRadius` for a top-rounded surface: the side skirts start that far down so they cover the
+ * straight edges without filling (and squaring off) the rounded corners.
+ */
+export const primaryBleedShadow = (theme: Theme, topRadius = '0', bleed = theme.spacing(3)): string => {
+	const fill = theme.palette.primarySurface;
+	return `${bleed} ${topRadius} 0 0 ${fill}, -${bleed} ${topRadius} 0 0 ${fill}, 0 ${bleed} 0 0 ${fill}`;
+};
+
+/**
  * 4:3 framed image tile shared by the Games grid tiles and the Game Details image panel:
  * a bordered, rounded surface that crops a `cover` image and zooms it slightly on hover
  * (`overflow: hidden` crops the overflow). Pair with {@link imageTileImage} on the `<img>`

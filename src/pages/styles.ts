@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui';
 
-import { cardSurface, imageTile, imageTileImage, imageTileOverlay } from '../styles';
+import { cardSurface, imageTile, imageTileImage, imageTileOverlay, primaryBleedShadow, primarySurface } from '../styles';
 import { FOOTER_HEIGHT } from '../theme/layout';
 
 /** Component-local styles for `src/pages/`. */
@@ -65,8 +65,11 @@ export const useRankingsPageStyles = makeStyles()((theme) => ({
 		maxHeight: `calc(80vh - ${FOOTER_HEIGHT}px)`,
 		borderTopLeftRadius: theme.spacing(1),
 		borderTopRightRadius: theme.spacing(1),
-		// The paper's elevation shadow spills below onto the Footer — drop it.
-		boxShadow: 'none',
+		// Primary backing removes the cream Paper behind the card; the bleed covers the sub-pixel
+		// seams at the sheet's side edges and where it meets the footer. Side skirts start below
+		// the corner radius so they don't square off the rounded top.
+		...primarySurface(theme),
+		boxShadow: primaryBleedShadow(theme, theme.spacing(1)),
 		'& > .MuiPaper-root': {
 			borderBottomLeftRadius: 0,
 			borderBottomRightRadius: 0,
