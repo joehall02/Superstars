@@ -61,7 +61,7 @@ export const useRankingsPageStyles = makeStyles()((theme) => ({
 	// Bottom-anchored ProfileCard drawer on mobile: rounded top, capped height, and
 	// lifted to sit above the fixed mobile Footer rather than behind it.
 	drawerPaper: {
-		bottom: FOOTER_HEIGHT,
+		bottom: `calc(${FOOTER_HEIGHT}px + env(safe-area-inset-bottom))`,
 		maxHeight: `calc(80vh - ${FOOTER_HEIGHT}px)`,
 		borderTopLeftRadius: theme.spacing(1),
 		borderTopRightRadius: theme.spacing(1),
@@ -74,7 +74,7 @@ export const useRankingsPageStyles = makeStyles()((theme) => ({
 	},
 	// Stop the greyed overlay at the footer so the Footer bar stays uncovered.
 	drawerBackdrop: {
-		bottom: FOOTER_HEIGHT,
+		bottom: `calc(${FOOTER_HEIGHT}px + env(safe-area-inset-bottom))`,
 	},
 }));
 
