@@ -348,35 +348,41 @@ export const useGameBoxStyles = makeStyles()((theme) => ({
 	},
 }));
 
-export const useFooterStyles = makeStyles()((theme) => ({
-	// Pinned to the bottom of the viewport and mobile-only — the Navbar links take
-	// over from `md` up
-	footer: {
-		top: 'auto',
-		bottom: 0,
-		// Solid primary fill (shared with Navbar/Header/ProfileCard) so the fixed bar and the
-		// safe area below it read as one colour on iOS Safari.
-		...primarySurface(theme),
-		// Sit above the ProfileCard Drawer's Modal (z-index `modal`). Its full-viewport
-		// fixed container would otherwise layer over the footer's band, and on iOS Safari
-		// that steals the bottom safe-area colour
-		zIndex: theme.zIndex.modal + 1,
-		boxShadow: 'none',
-		[theme.breakpoints.up('md')]: {
-			display: 'none',
+export const useFooterStyles = makeStyles()((theme) => {
+	// Same-colour fill bleeding past the bar's left, right and bottom edges, covering the
+	// sub-pixel gap iOS Safari leaves between a fixed bar and the viewport edges.
+	const fill = theme.palette.primarySurface;
+	const bleed = theme.spacing(3);
+	return {
+		// Pinned to the bottom of the viewport and mobile-only — the Navbar links take
+		// over from `md` up
+		footer: {
+			top: 'auto',
+			bottom: 0,
+			// Solid primary fill (shared with Navbar/Header/ProfileCard) so the fixed bar and the
+			// safe area below it read as one colour on iOS Safari.
+			...primarySurface(theme),
+			// Sit above the ProfileCard Drawer's Modal (z-index `modal`). Its full-viewport
+			// fixed container would otherwise layer over the footer's band, and on iOS Safari
+			// that steals the bottom safe-area colour
+			zIndex: theme.zIndex.modal + 1,
+			boxShadow: `${bleed} 0 0 0 ${fill}, -${bleed} 0 0 0 ${fill}, 0 ${bleed} 0 0 ${fill}`,
+			[theme.breakpoints.up('md')]: {
+				display: 'none',
+			},
 		},
-	},
-	nav: {
-		backgroundColor: 'transparent',
-		height: FOOTER_HEIGHT,
-	},
-	navLink: {
-		color: 'inherit',
-		opacity: 0.7,
-		transition: 'opacity 0.2s ease, color 0.2s ease',
-		'&.Mui-selected': {
-			opacity: 1,
-			color: theme.palette.secondary.main,
+		nav: {
+			backgroundColor: 'transparent',
+			height: FOOTER_HEIGHT,
 		},
-	},
-}));
+		navLink: {
+			color: 'inherit',
+			opacity: 0.7,
+			transition: 'opacity 0.2s ease, color 0.2s ease',
+			'&.Mui-selected': {
+				opacity: 1,
+				color: theme.palette.secondary.main,
+			},
+		},
+	};
+});
