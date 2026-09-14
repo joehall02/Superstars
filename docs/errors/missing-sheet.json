@@ -1,0 +1,11 @@
+{
+	"errors": [
+		{
+			"code": "MISSING_SHEET",
+			"message": "Required sheet \"Air Hockey\" is missing from the workbook",
+			"context": {
+				"sheetName": "Air Hockey"
+			}
+		}
+	]
+}

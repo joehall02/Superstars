@@ -1,0 +1,11 @@
+{
+	"errors": [
+		{
+			"code": "CORRUPT_WORKBOOK",
+			"message": "The spreadsheet could not be parsed — the file is missing or corrupt.",
+			"context": {
+				"cause": "Unsupported file format or corrupt file: Unexpected byte 0x3c"
+			}
+		}
+	]
+}

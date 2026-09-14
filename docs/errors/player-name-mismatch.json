@@ -1,0 +1,14 @@
+{
+	"errors": [
+		{
+			"code": "PLAYER_NAME_MISMATCH",
+			"message": "Player row 7 is \"Brian\" on Roster but \"Bryan\" on Air Hockey",
+			"context": {
+				"sheetName": "Air Hockey",
+				"row": 7,
+				"expected": "Brian",
+				"actual": "Bryan"
+			}
+		}
+	]
+}

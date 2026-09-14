@@ -1,0 +1,17 @@
+{
+	"metadata": {
+		"lastUpdated": "2026-01-01T00:00:00.000Z",
+		"sourceFile": "master-scores.xlsx",
+		"availableYears": [2024, 2025],
+		"totalPlayers": 8,
+		"totalGames": 6
+	},
+	"entities": {
+		"players": {},
+		"games": {}
+	},
+	"rankings": {
+		"overall": {},
+		"byGame": {}
+	}
+}

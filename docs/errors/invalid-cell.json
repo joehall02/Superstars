@@ -1,0 +1,13 @@
+{
+	"errors": [
+		{
+			"code": "INVALID_CELL",
+			"message": "Expected a number in Air Hockey!D7 but found \"N/A\"",
+			"context": {
+				"sheetName": "Air Hockey",
+				"address": "D7",
+				"value": "N/A"
+			}
+		}
+	]
+}

@@ -1,0 +1,37 @@
+{
+	"errors": [
+		{
+			"code": "MISSING_SHEET",
+			"message": "Required sheet \"Bar Footy\" is missing from the workbook",
+			"context": {
+				"sheetName": "Bar Footy"
+			}
+		},
+		{
+			"code": "PLAYER_NAME_MISMATCH",
+			"message": "Player row 7 is \"Brian\" on Roster but \"Bryan\" on Air Hockey",
+			"context": {
+				"sheetName": "Air Hockey",
+				"row": 7,
+				"expected": "Brian",
+				"actual": "Bryan"
+			}
+		},
+		{
+			"code": "INVALID_CELL",
+			"message": "Expected a number in Darts!F12 but found \"-\"",
+			"context": {
+				"sheetName": "Darts",
+				"address": "F12",
+				"value": "-"
+			}
+		},
+		{
+			"code": "NO_PLAYERS",
+			"message": "No player names found in Roster!A2:A20",
+			"context": {
+				"sheetName": "Roster"
+			}
+		}
+	]
+}
