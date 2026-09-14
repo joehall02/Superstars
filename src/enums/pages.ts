@@ -11,4 +11,5 @@ export enum PageNames {
 	Games = 'games',
 	Login = 'login',
 	Error = 'error',
+	NotFound = 'notFound',
 }

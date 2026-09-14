@@ -1,22 +1,19 @@
-import { Box, Button, Container, Typography } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import { Navigate, useNavigate } from 'react-router';
 
-import { Navbar } from '../components/Navbar';
+import { Error } from '../components/Error';
 import { Page, PageNames } from '../enums/pages';
 import { usePageLocalisation } from '../hooks/config';
 import { masterScoresKey } from '../services/masterScores/useMasterScores';
 import { readMasterScoresError } from '../services/masterScores/useMasterScoresErrors';
-import { useErrorPageStyles } from './styles';
 
 /**
  * Shown when the master scores dataset fetch fails or returns an invalid shape — the protected
- * layout's error gate redirects here. Renders the failure's machine-readable
- * details (converter `ConversionError`s or a frontend `DataLoadError`) alongside a
- * friendly message, and a retry that clears the cached error and re-attempts the load.
+ * layout's error gate redirects here. Renders the failure's machine-readable details (converter
+ * `ConversionError`s or a frontend `DataLoadError`) via the shared {@link Error} component, with a
+ * retry that clears the cached error and re-attempts the load.
  */
 export const ErrorPage = () => {
-	const { classes } = useErrorPageStyles();
 	const navigate = useNavigate();
 	const queryClient = useQueryClient();
 	const page = usePageLocalisation(PageNames.Error);
@@ -37,34 +34,13 @@ export const ErrorPage = () => {
 		return <Navigate to={Page.Rankings} replace />;
 	}
 
-	const details = error.errors;
-
 	return (
-		<Box className={classes.root}>
-			<Navbar />
-			<Container maxWidth='sm' className={classes.container}>
-				<Box className={classes.card}>
-					<Typography variant='h1' className={classes.title}>
-						{page?.title ?? 'Something went wrong'}
-					</Typography>
-					<Typography className={classes.message}>
-						{page?.message ?? 'We couldn\'t load the Superstars data. Please try again.'}
-					</Typography>
-					{details.length > 0 && (
-						<Box className={classes.details} role='alert'>
-							{details.map((detail, index) => (
-								<Box key={index} className={classes.detailRow}>
-									<Typography component='code' className={classes.detailCode}>{detail.code}</Typography>
-									<Typography className={classes.detailMessage}>{detail.message}</Typography>
-								</Box>
-							))}
-						</Box>
-					)}
-					<Box className={classes.actions}>
-						<Button variant='contained' color='primary' className={classes.retryButton} onClick={handleRetry}>Try again</Button>
-					</Box>
-				</Box>
-			</Container>
-		</Box>
+		<Error
+			title={page?.title ?? 'Something went wrong'}
+			message={page?.message ?? 'We couldn\'t load the Superstars data. Please try again.'}
+			details={error.errors}
+			actionLabel='Try again'
+			onAction={handleRetry}
+		/>
 	);
 };

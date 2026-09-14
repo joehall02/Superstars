@@ -370,9 +370,9 @@ Column headers show abbreviated stat labels (GF, GA, GD, Avg); this adds a legen
 - [x] Central data-load error gate: consume the shared `useMasterScores` error state (`MasterScoresError` from the one `['masterScores']` fetch) and route to `/error`. Handle once for all data-backed pages (Rankings, Games, Game Details), mirroring `configProvider`'s central config-error handling — no per-page duplication.
 
 ### 4.5 404 Page
-- [ ] Clear "Page Not Found" message
-- [ ] Navigation link back to home/rankings
-- [ ] Consistent styling with rest of app
+- [x] Clear "Page Not Found" message
+- [x] Navigation link back to home/rankings
+- [x] Consistent styling with rest of app
 
 ---
 

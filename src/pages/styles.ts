@@ -1,7 +1,5 @@
-import { alpha } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 
-import { ThemeMode } from '../enums/theme';
 import { cardSurface, imageTile, imageTileImage, imageTileOverlay, primaryBleedShadow, primarySurface } from '../styles';
 import { FOOTER_HEIGHT } from '../theme/layout';
 
@@ -80,77 +78,6 @@ export const useRankingsPageStyles = makeStyles()((theme) => ({
 	// Stop the greyed overlay at the footer so the Footer bar stays uncovered.
 	drawerBackdrop: {
 		bottom: FOOTER_HEIGHT,
-	},
-}));
-
-export const useErrorPageStyles = makeStyles()((theme) => ({
-	// Standalone page (sits outside the protected layout) — mirror its full-height frame
-	// and faint primary wash so the Error page reads as part of the same app.
-	root: {
-		display: 'flex',
-		flexDirection: 'column',
-		minHeight: '100dvh',
-		backgroundColor: alpha(theme.palette.primary.main, 0.08),
-	},
-	container: {
-		flexGrow: 1,
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
-		padding: theme.spacing(4, 2),
-	},
-	card: {
-		...cardSurface(theme),
-		width: '100%',
-		display: 'flex',
-		flexDirection: 'column',
-		gap: theme.spacing(3),
-		padding: theme.spacing(4),
-		borderLeft: `${theme.spacing(0.75)} solid ${theme.palette.secondary.main}`,
-	},
-	title: {
-		color: theme.palette.mode === ThemeMode.Dark ? theme.palette.common.white : theme.palette.primary.main,
-		lineHeight: 1,
-	},
-	message: {
-		color: theme.palette.text.secondary,
-	},
-	// Machine-readable failure details from the converter / shape guard, one row per error.
-	details: {
-		display: 'flex',
-		flexDirection: 'column',
-		gap: theme.spacing(1.5),
-		padding: theme.spacing(2),
-		borderRadius: theme.shape.borderRadius,
-		border: `1px solid ${theme.palette.divider}`,
-		backgroundColor: alpha(theme.palette.primary.main, 0.06),
-	},
-	detailRow: {
-		display: 'flex',
-		flexDirection: 'column',
-		gap: theme.spacing(0.25),
-	},
-	detailCode: {
-		fontFamily: 'monospace',
-		fontSize: '0.75rem',
-		fontWeight: 700,
-		color: theme.palette.mode === ThemeMode.Dark ? theme.palette.secondary.main : theme.palette.primary.main,
-	},
-	detailMessage: {
-		fontSize: '0.875rem',
-		color: theme.palette.text.secondary,
-	},
-	actions: {
-		display: 'flex',
-		gap: theme.spacing(2),
-		flexWrap: 'wrap',
-	},
-	retryButton: {
-		...primarySurface(theme),
-		'&:hover': {
-			backgroundColor: theme.palette.primarySurface,
-			filter: 'brightness(1.2)',
-		},
 	},
 }));
 

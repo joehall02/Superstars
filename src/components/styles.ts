@@ -201,6 +201,14 @@ export const useYearNavigatorStyles = makeStyles()((theme) => ({
 	year: {
 		fontWeight: 700,
 	},
+	// Lift the disabled (boundary) arrow above MUI's default 0.26 so it stays legible,
+	// but keep it below the active arrow's full opacity.
+	arrow: {
+		'&.Mui-disabled': {
+			color: 'inherit',
+			opacity: 0.5,
+		},
+	},
 }));
 
 export const usePlayerCellStyles = makeStyles()((theme) => ({
@@ -379,6 +387,79 @@ export const useFooterStyles = makeStyles()((theme) => ({
 		'&.Mui-selected': {
 			opacity: 1,
 			color: theme.palette.secondary.main,
+		},
+	},
+}));
+
+export const useErrorStyles = makeStyles()((theme) => ({
+	// Standalone full-page error notice (Error + 404 pages) that sits outside the protected
+	// layout — mirror its full-height frame and faint primary wash so it reads as part of the app.
+	root: {
+		display: 'flex',
+		flexDirection: 'column',
+		minHeight: '100dvh',
+		backgroundColor: alpha(theme.palette.primary.main, 0.08),
+	},
+	container: {
+		flexGrow: 1,
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		padding: theme.spacing(4, 2),
+	},
+	card: {
+		...cardSurface(theme),
+		width: '100%',
+		display: 'flex',
+		flexDirection: 'column',
+		gap: theme.spacing(3),
+		padding: theme.spacing(4),
+		borderLeft: `${theme.spacing(0.75)} solid ${theme.palette.secondary.main}`,
+	},
+	title: {
+		color: theme.palette.mode === ThemeMode.Dark ? theme.palette.common.white : theme.palette.primary.main,
+		lineHeight: 1,
+	},
+	message: {
+		color: theme.palette.text.secondary,
+	},
+	// Machine-readable failure details from the converter / shape guard, one row per error.
+	details: {
+		display: 'flex',
+		flexDirection: 'column',
+		gap: theme.spacing(1.5),
+		padding: theme.spacing(2),
+		borderRadius: theme.shape.borderRadius,
+		border: `1px solid ${theme.palette.divider}`,
+		backgroundColor: alpha(theme.palette.primary.main, 0.06),
+	},
+	detailRow: {
+		display: 'flex',
+		flexDirection: 'column',
+		gap: theme.spacing(0.25),
+	},
+	detailCode: {
+		fontFamily: 'monospace',
+		fontSize: '0.75rem',
+		fontWeight: 700,
+		color: theme.palette.mode === ThemeMode.Dark ? theme.palette.secondary.main : theme.palette.primary.main,
+	},
+	detailMessage: {
+		fontSize: '0.875rem',
+		color: theme.palette.text.secondary,
+	},
+	actions: {
+		display: 'flex',
+		gap: theme.spacing(2),
+		flexWrap: 'wrap',
+	},
+	// Muted-black primary surface (matches the bars) instead of the contained button's pure-black
+	// primary.main in dark mode; brighten on hover so feedback doesn't drop to pure black.
+	actionButton: {
+		...primarySurface(theme),
+		'&:hover': {
+			backgroundColor: theme.palette.primarySurface,
+			filter: 'brightness(1.2)',
 		},
 	},
 }));
