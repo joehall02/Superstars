@@ -48,7 +48,7 @@ export const useProtectedRouteStyles = makeStyles()((theme) => ({
 			borderTopLeftRadius: 0,
 			borderTopRightRadius: 0,
 			padding: theme.spacing(2),
-			paddingBottom: `calc(${theme.spacing(2)} + ${FOOTER_HEIGHT}px + env(safe-area-inset-bottom))`,
+			paddingBottom: `calc(${theme.spacing(2)} + ${FOOTER_HEIGHT}px)`,
 		},
 	},
 }));

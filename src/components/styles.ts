@@ -61,12 +61,8 @@ export const useLogoStyles = makeStyles<{ height: number }>()((_theme, { height 
 
 export const useNavbarStyles = makeStyles()((theme) => ({
 	// Solid primary fill (shared with Footer/Header/ProfileCard) so the sticky bar and the
-	// safe area above it read as one colour on iOS Safari. The top inset padding lets the
-	// bar paint through the notch under `viewport-fit=cover` instead of tucking under it.
-	bar: {
-		...primarySurface(theme),
-		paddingTop: 'env(safe-area-inset-top)',
-	},
+	// safe area above it read as one colour on iOS Safari.
+	bar: primarySurface(theme),
 	// Equal-width left/right sides so the centre section lands on the page centre,
 	// regardless of the logo vs. toggle widths.
 	side: {
@@ -359,11 +355,8 @@ export const useFooterStyles = makeStyles()((theme) => ({
 		top: 'auto',
 		bottom: 0,
 		// Solid primary fill (shared with Navbar/Header/ProfileCard) so the fixed bar and the
-		// safe area below it read as one colour on iOS Safari. The bottom inset padding makes
-		// the bar paint through the home-indicator strip itself (one continuous surface) rather
-		// than relying on iOS's background-sampling, which leaves a flickering hairline seam.
+		// safe area below it read as one colour on iOS Safari.
 		...primarySurface(theme),
-		paddingBottom: 'env(safe-area-inset-bottom)',
 		// Sit above the ProfileCard Drawer's Modal (z-index `modal`). Its full-viewport
 		// fixed container would otherwise layer over the footer's band, and on iOS Safari
 		// that steals the bottom safe-area colour
