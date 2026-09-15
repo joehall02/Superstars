@@ -46,7 +46,6 @@
 		"goalDifference": "Goal Difference",
 		"points": "Points",
 		"averagePoints": "Average Points",
-		"score": "Score",
-		"totalGameRanks": "Total Game Ranks"
+		"score": "Score"
 	}
 }

@@ -236,15 +236,15 @@
 
 Column headers show abbreviated stat labels (GF, GA, GD, Avg); this adds a legend so users can decode them.
 
-- [ ] Add full stat descriptions to `localisation.json` (flat `statDescriptions` map, e.g. `goalsFor` → "Goals For"; keyed by stat property, reused across all games/groups)
-- [ ] Extend `LocalisationConfig` type + `assertAppConfig` guard for the new `statDescriptions` field
-- [ ] Add `getStatDescription(key)` to ConfigService (+ `useStatDescription(key)` hook)
-- [ ] Add optional `tooltip?: string` to `ColumnDef`; `buildStatColumns()` populates it from descriptions
-- [ ] Wrap abbreviated header labels in an MUI `<Tooltip>` in `Table.tsx` when `tooltip` is set
-- [ ] Wrap `GameHeaderCell`'s game abbreviation (Rankings all-time table, e.g. `AIR`, `BAR`) in a `<Tooltip>` showing the full game name (available via the `name` prop)
-- [ ] Add a touch-friendly `<Legend>` fallback (abbreviation → description list) since hover tooltips don't work on mobile
-  - [ ] Include the per-game rank column headers (game abbreviations) in the same legend, decoding each to its full game name
-- [ ] Unit-test the new getter and the `tooltip` wiring in `buildStatColumns()`
+- [x] Add full stat descriptions to `stats.json` (flat `statDescriptions` map, e.g. `goalsFor` → "Goals For"; keyed by stat property, reused across all games/groups — co-located with the labels rather than in `localisation.json`)
+- [x] Extend `StatsConfig` type + `assertAppConfig` guard for the new `statDescriptions` field
+- [x] Add `getStatDescription(key)` to ConfigService (+ `useStatDescription(key)` hook)
+- [x] Add optional `tooltip?: string` to `ColumnDef`; `buildStatColumns(labels, describe?)` populates it from descriptions
+- [x] Wrap abbreviated header labels in an MUI `<Tooltip>` in `Table.tsx` when `tooltip` is set
+- [x] Wrap `GameHeaderCell`'s game abbreviation (Rankings all-time table, e.g. `AIR`, `BAR`) in a `<Tooltip>` showing the full game name (available via the `name` prop)
+- [x] Add a touch-friendly `<Legend>` fallback (`src/components/table/Legend.tsx`) since hover tooltips don't work on mobile — mobile-only info-button popover in the table `Header`, self-gated via `useScreenDetection`; entries built by `buildStatLegend`/`buildGameLegend` (`src/helpers/legend.ts`), hidden when empty
+  - [x] Include the per-game rank column headers (game abbreviations) in the same legend, decoding each to its full game name (with the game icon, so the icon-only mobile header is identifiable)
+- [x] Unit-test the new getter, guard, `tooltip` wiring in `buildStatColumns()`, and the legend builders
 
 ### 3.4 Custom Scrollbar Component
 - [ ] Create Scrollbar component
