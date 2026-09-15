@@ -13,12 +13,14 @@ export const getStat = (row: unknown, key: string): number | null =>
 
 /**
  * Builds numeric, sortable, right-aligned columns from config {@link StatLabels}.
- * Entry order is preserved, so the config file dictates column order.
+ * Entry order is preserved, so the config file dictates column order. `describe`
+ * (optional) supplies each column's header tooltip, decoding its abbreviated label.
  */
-export const buildStatColumns = <Row>(labels: StatLabels): ColumnDef<Row>[] =>
+export const buildStatColumns = <Row>(labels: StatLabels, describe?: (key: string) => string | undefined): ColumnDef<Row>[] =>
 	Object.entries(labels).map(([key, label]): ColumnDef<Row> => ({
 		key,
 		label,
+		tooltip: describe?.(key),
 		align: 'right',
 		sortable: true,
 		getValue: (row: Row) => getStat(row, key),

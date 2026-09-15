@@ -23,6 +23,7 @@ export const createConfigService = (config: AppConfig, assetBase: string): Confi
 			return groupId ? config.stats.statGroups[groupId] ?? {} : {};
 		},
 		getOverallStatLabels: (type) => config.stats.overall[type] ?? {},
+		getStatDescription: (key) => config.stats.statDescriptions[key],
 		getNavLinks: () => config.layout.navLinks,
 	};
 };

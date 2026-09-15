@@ -21,6 +21,7 @@ const config: AppConfig = {
 		},
 		games: { g_1: { allTime: 'headToHead', byYear: 'pointsOnly' } },
 		overall: { allTime: { score: 'Score' }, byYear: { totalGameRanks: 'Total Ranks' } },
+		statDescriptions: { goalsFor: 'Goals For', points: 'Points' },
 	},
 	layout: {
 		navLinks: [{ id: PageNames.Rankings, label: 'Rankings', path: Page.Rankings, icon: 'leaderboard' }],
@@ -80,6 +81,13 @@ describe('createConfigService', () => {
 			expect(service.getOverallStatLabels(StatType.AllTime)).toEqual({ score: 'Score' });
 			expect(service.getOverallStatLabels(StatType.ByYear)).toEqual({ totalGameRanks: 'Total Ranks' });
 		});
+	});
+
+	it('getStatDescription decodes a stat key, or undefined when missing', () => {
+		const service = serviceWithBase();
+
+		expect(service.getStatDescription('goalsFor')).toBe('Goals For');
+		expect(service.getStatDescription('nope')).toBeUndefined();
 	});
 
 	it('getGameAbbreviation returns the short code, or undefined when missing', () => {

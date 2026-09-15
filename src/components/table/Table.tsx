@@ -1,4 +1,4 @@
-import { Box, Skeleton, Table as MuiTable, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel } from '@mui/material';
+import { Box, Skeleton, Table as MuiTable, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, Tooltip } from '@mui/material';
 import { type ReactNode, useMemo, useState } from 'react';
 
 import { SortDirection } from '../../enums/config';
@@ -38,6 +38,13 @@ const renderCell = <Row,>(column: ColumnDef<Row>, row: Row): ReactNode => {
 	}
 
 	return column.getValue?.(row) ?? '—';
+};
+
+/** Renders a column's header, wrapping it in a hover tooltip that decodes an abbreviated label when set. */
+const renderHeader = <Row,>(column: ColumnDef<Row>): ReactNode => {
+	const content = column.header ?? column.label;
+
+	return column.tooltip ? <Tooltip title={column.tooltip}><span>{content}</span></Tooltip> : content;
 };
 
 /**
@@ -102,10 +109,10 @@ export const Table = <Row,>({
 									<TableCell key={column.key} align={column.align}>
 										{column.sortable ? (
 											<TableSortLabel active={isActive} direction={direction} onClick={() => handleSort(column)}>
-												{column.header ?? column.label}
+												{renderHeader(column)}
 											</TableSortLabel>
 										) : (
-											column.header ?? column.label
+											renderHeader(column)
 										)}
 									</TableCell>
 								);

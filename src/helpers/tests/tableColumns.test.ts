@@ -37,6 +37,15 @@ describe('buildStatColumns', () => {
 
 		expect(wins.getValue?.({ wins: 9 })).toBe(9);
 	});
+
+	test('populates the tooltip from describe, leaving it undefined without one', () => {
+		const decode = (key: string) => (key === 'goalDifference' ? 'Goal Difference' : undefined);
+		const [played, , goalDifference] = buildStatColumns(labels, decode);
+
+		expect(goalDifference.tooltip).toBe('Goal Difference');
+		expect(played.tooltip).toBeUndefined();
+		expect(buildStatColumns(labels)[2].tooltip).toBeUndefined();
+	});
 });
 
 describe('sortRows', () => {

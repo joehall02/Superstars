@@ -64,7 +64,7 @@ export const GameDetailsPage = () => {
 						rows={allTimeRankings}
 						isLoading={allTimeLoading}
 						ariaLabel={allTimeTitle}
-						header={<Header title={allTimeTitle} />}
+						headerTitle={allTimeTitle}
 						height={DEFAULT_TABLE_HEIGHT + YEAR_NAVIGATOR_HEIGHT}
 					/>
 				</Box>
@@ -75,7 +75,7 @@ export const GameDetailsPage = () => {
 						rows={yearRankings}
 						isLoading={yearLoading}
 						ariaLabel={page?.yearLeaderboard}
-						header={<Header title={page?.yearLeaderboard} />}
+						headerTitle={page?.yearLeaderboard}
 						footer={activeYear !== undefined && <YearNavigator year={activeYear} {...yearNavigator} />}
 					/>
 				</Box>

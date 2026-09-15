@@ -1,3 +1,5 @@
+import { Tooltip } from '@mui/material';
+
 import { useGameAbbreviation, useGameIcon } from '../../hooks/config';
 import { useGameHeaderCellStyles } from '../styles';
 
@@ -19,9 +21,11 @@ export const GameHeaderCell = ({ gameId, name }: IGameHeaderCellProps) => {
 	const { classes } = useGameHeaderCellStyles();
 
 	return (
-		<span className={classes.cell}>
-			{iconUrl && <img className={classes.icon} src={iconUrl} alt={name} />}
-			<span className={classes.abbreviation}>{abbreviation}</span>
-		</span>
+		<Tooltip title={name}>
+			<span className={classes.cell}>
+				{iconUrl && <img className={classes.icon} src={iconUrl} alt={name} />}
+				<span className={classes.abbreviation}>{abbreviation}</span>
+			</span>
+		</Tooltip>
 	);
 };

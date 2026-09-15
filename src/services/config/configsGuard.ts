@@ -27,8 +27,8 @@ export const assertAppConfig = (config: {
 		invalid('missing localisation.pages / localisation.games');
 	}
 
-	if (!isRecord(stats) || !isRecord(stats.statGroups) || !isRecord(stats.games) || !isRecord(stats.overall)) {
-		invalid('missing stats.{statGroups,games,overall}');
+	if (!isRecord(stats) || !isRecord(stats.statGroups) || !isRecord(stats.games) || !isRecord(stats.overall) || !isRecord(stats.statDescriptions)) {
+		invalid('missing stats.{statGroups,games,overall,statDescriptions}');
 	}
 
 	if (!isRecord(layout) || !Array.isArray(layout.navLinks)) invalid('missing layout.navLinks');

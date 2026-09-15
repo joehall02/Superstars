@@ -178,6 +178,7 @@ export const useTableStyles = makeStyles<{ height: number | 'auto' }>()((theme, 
 export const useTableHeaderStyles = makeStyles()((theme) => ({
 	// Full-width title bar above the column headers — stays put while columns scroll.
 	bar: {
+		position: 'relative',
 		width: '100%',
 		padding: theme.spacing(1, 2),
 		textAlign: 'center',
@@ -186,6 +187,53 @@ export const useTableHeaderStyles = makeStyles()((theme) => ({
 	title: {
 		fontWeight: 700,
 		fontStyle: 'italic',
+	},
+	// Legend button pinned to the right edge so the title stays centred.
+	action: {
+		position: 'absolute',
+		top: '50%',
+		right: theme.spacing(0.5),
+		transform: 'translateY(-50%)',
+		color: 'inherit',
+	},
+}));
+
+export const useLegendStyles = makeStyles()((theme) => ({
+	button: {
+		color: 'inherit',
+	},
+	list: {
+		display: 'flex',
+		flexDirection: 'column',
+		gap: theme.spacing(0.75),
+		margin: 0,
+		padding: theme.spacing(1.5, 2),
+		maxWidth: 280,
+	},
+	row: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		gap: theme.spacing(2),
+	},
+	term: {
+		display: 'flex',
+		alignItems: 'center',
+		gap: theme.spacing(1),
+		margin: 0,
+		fontWeight: 700,
+	},
+	description: {
+		margin: 0,
+		color: theme.palette.text.secondary,
+	},
+	icon: {
+		width: theme.spacing(2.5),
+		height: theme.spacing(2.5),
+		objectFit: 'contain',
+		display: 'block',
+		flexShrink: 0,
+		filter: theme.palette.mode === ThemeMode.Dark ? 'invert(1)' : 'none',
 	},
 }));
 

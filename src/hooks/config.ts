@@ -38,4 +38,6 @@ export const useStatLabels = (gameId: string, type: StatType): StatLabels => use
 
 export const useOverallStatLabels = (type: StatType): StatLabels => useConfig().getOverallStatLabels(type);
 
+export const useStatDescription = (key: string): string | undefined => useConfig().getStatDescription(key);
+
 export const useNavLinks = (): NavLink[] => useConfig().getNavLinks();

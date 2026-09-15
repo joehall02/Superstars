@@ -23,6 +23,8 @@ export interface ColumnDef<Row> {
 	label: string;
 	/** Rich header content (e.g. an icon + label); falls back to `label` when unset. */
 	header?: ReactNode;
+	/** Full description shown in a hover tooltip on the header (decodes an abbreviated `label`). */
+	tooltip?: string;
 	align?: ColumnAlign;
 	sortable?: boolean;
 	getValue?: (row: Row) => number | string | null;

@@ -7,7 +7,7 @@ import { assertAppConfig } from '../configsGuard';
 const validConfig = {
 	images: { games: {}, players: {} },
 	localisation: { pages: {}, games: {} },
-	stats: { statGroups: {}, games: {}, overall: {} },
+	stats: { statGroups: {}, games: {}, overall: {}, statDescriptions: {} },
 	layout: { navLinks: [] },
 };
 
@@ -28,6 +28,7 @@ describe('assertAppConfig', () => {
 
 	it('throws ConfigError when a stats section is missing', () => {
 		expect(() => assertAppConfig({ ...validConfig, stats: { statGroups: {}, games: {} } })).toThrow(ConfigError);
+		expect(() => assertAppConfig({ ...validConfig, stats: { statGroups: {}, games: {}, overall: {} } })).toThrow(ConfigError);
 	});
 
 	it('throws ConfigError when layout.navLinks is not an array', () => {

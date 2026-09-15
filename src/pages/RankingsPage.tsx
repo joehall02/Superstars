@@ -60,7 +60,7 @@ export const RankingsPage = () => {
 						isLoading={isLoading}
 						onSelectPlayer={setManualSelection}
 						ariaLabel={page?.allTimeStandings}
-						header={<Header title={page?.allTimeStandings} />}
+						headerTitle={page?.allTimeStandings}
 						height={isMobile ? 400 : 500}
 					/>
 				</Box>
@@ -75,7 +75,7 @@ export const RankingsPage = () => {
 						rows={yearRankings}
 						isLoading={yearLoading}
 						ariaLabel={page?.yearStandings}
-						header={<Header title={page?.yearStandings} />}
+						headerTitle={page?.yearStandings}
 						footer={activeYear !== undefined && <YearNavigator year={activeYear} {...yearNavigator} />}
 					/>
 				</Box>

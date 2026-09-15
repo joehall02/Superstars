@@ -42,18 +42,26 @@ export const buildGameRankColumns = (games: Game[]): ColumnDef<OverallLeaderboar
  * Builds the full leaderboard column set for a single game: the fixed rank + player
  * prefix prepended to the config-driven stat columns.
  */
-export const buildLeaderboardColumns = (labels: StatLabels, players: Record<string, Player>): ColumnDef<LeaderboardRow>[] => [
+export const buildLeaderboardColumns = (
+	labels: StatLabels,
+	players: Record<string, Player>,
+	describe?: (key: string) => string | undefined,
+): ColumnDef<LeaderboardRow>[] => [
 	...buildPlayerColumns<LeaderboardRow>(players),
-	...buildStatColumns<LeaderboardRow>(labels),
+	...buildStatColumns<LeaderboardRow>(labels, describe),
 ];
 
 /**
  * Builds the column set for the overall (game-agnostic) standings: the same rank + player
  * prefix followed by the overall stat columns (`score` for all-time, `totalGameRanks` by year).
  */
-export const buildOverallColumns = (labels: StatLabels, players: Record<string, Player>): ColumnDef<OverallLeaderboardRow>[] => [
+export const buildOverallColumns = (
+	labels: StatLabels,
+	players: Record<string, Player>,
+	describe?: (key: string) => string | undefined,
+): ColumnDef<OverallLeaderboardRow>[] => [
 	...buildPlayerColumns<OverallLeaderboardRow>(players),
-	...buildStatColumns<OverallLeaderboardRow>(labels),
+	...buildStatColumns<OverallLeaderboardRow>(labels, describe),
 ];
 
 /**

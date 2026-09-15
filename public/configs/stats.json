@@ -37,5 +37,16 @@
 	"overall": {
 		"allTime": { "score": "Score" },
 		"byYear": { "totalGameRanks": "Total Ranks" }
+	},
+	"statDescriptions": {
+		"played": "Played",
+		"wins": "Wins",
+		"goalsFor": "Goals For",
+		"goalsAgainst": "Goals Against",
+		"goalDifference": "Goal Difference",
+		"points": "Points",
+		"averagePoints": "Average Points",
+		"score": "Score",
+		"totalGameRanks": "Total Game Ranks"
 	}
 }

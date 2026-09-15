@@ -60,11 +60,21 @@ export interface LocalisationConfig {
 /** Maps a stat property name to its display label; iteration order drives table column order. */
 export type StatLabels = Record<string, string>;
 
+/** A single row of the column-header legend: an abbreviation decoded to its full description. */
+export interface LegendEntry {
+	abbreviation: string;
+	description: string;
+	/** Icon shown beside the abbreviation (game headers render an icon-only column on mobile). */
+	icon?: string;
+}
+
 /** `stats.json` — reusable stat groups, per-game references, and overall-ranking labels. */
 export interface StatsConfig {
 	statGroups: Record<string, StatLabels>;
 	games: Record<string, Record<StatType, string>>;
 	overall: Record<StatType, StatLabels>;
+	/** Full descriptions for the abbreviated column labels, keyed by stat property (e.g. `goalsFor` → "Goals For"). */
+	statDescriptions: StatLabels;
 }
 
 // ---------------------------------------------------------------------------
@@ -110,5 +120,6 @@ export interface ConfigService {
 	getPageLocalisation: (pageId: string) => PageLocalisation | undefined;
 	getStatLabels: (gameId: string, type: StatType) => StatLabels;
 	getOverallStatLabels: (type: StatType) => StatLabels;
+	getStatDescription: (key: string) => string | undefined;
 	getNavLinks: () => NavLink[];
 }
