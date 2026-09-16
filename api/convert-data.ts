@@ -50,7 +50,7 @@ export default async (_req: IncomingMessage, res: ServerResponse): Promise<void>
 			buffer = await downloadSpreadsheet();
 		} catch (cause) {
 			console.error('Failed to load spreadsheet from GCS:', cause);
-			const errors: ApiErrors = { errors: [sourceUnavailableError(cause)] };
+			const errors: ApiErrors = { errors: [sourceUnavailableError()] };
 			sendJson(res, 500, errors);
 			return;
 		}
@@ -69,7 +69,7 @@ export default async (_req: IncomingMessage, res: ServerResponse): Promise<void>
 		// FUNCTION_INVOCATION_FAILED.
 		console.error('Unexpected error in /api/convert-data:', cause);
 		if (!res.headersSent) {
-			const errors: ApiErrors = { errors: [unexpectedError(cause)] };
+			const errors: ApiErrors = { errors: [unexpectedError()] };
 			sendJson(res, 500, errors);
 		}
 	}

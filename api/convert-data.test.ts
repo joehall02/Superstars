@@ -96,7 +96,8 @@ describe('api/convert-data — source failures', () => {
 		expect(res.statusCode).toBe(500);
 		const body = res.body as ApiErrors;
 		expect(body.errors[0].code).toBe(ApiErrorCode.SourceUnavailable);
-		expect(body.errors[0].context).toMatchObject({ cause: 'boom' });
+		// The underlying cause must not leak onto the wire (error hygiene).
+		expect(body.errors[0]).not.toHaveProperty('context');
 		// The converter is never reached when the bytes never arrive.
 		expect(mockConvert).not.toHaveBeenCalled();
 	});

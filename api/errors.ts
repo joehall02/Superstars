@@ -11,8 +11,6 @@ import { ApiErrorCode } from './enums.js';
 export interface ApiError {
 	code: ApiErrorCode;
 	message: string;
-	/** Machine-readable details for the error screen. */
-	context?: Record<string, unknown>;
 }
 
 /** Returned as the error body when the endpoint fails before/around conversion. */
@@ -25,13 +23,14 @@ export interface ApiErrors {
  * the object was unreachable or the server is misconfigured. Distinct from a parse
  * failure: the bytes never arrived, so there was nothing to convert.
  *
- * @param cause - The underlying download/configuration failure.
+ * The underlying `cause` is logged server-side by the caller, never returned on
+ * the wire — it can carry bucket names, object paths, and auth detail.
+ *
  * @returns The SOURCE_UNAVAILABLE API error.
  */
-export const sourceUnavailableError = (cause: unknown): ApiError => ({
+export const sourceUnavailableError = (): ApiError => ({
 	code: ApiErrorCode.SourceUnavailable,
 	message: 'The data source could not be reached — the spreadsheet could not be loaded.',
-	context: { cause: cause instanceof Error ? cause.message : String(cause) },
 });
 
 /**
@@ -40,11 +39,12 @@ export const sourceUnavailableError = (cause: unknown): ApiError => ({
  * arrived, but processing them crashed. Catching this keeps the endpoint from
  * failing as an opaque `FUNCTION_INVOCATION_FAILED`.
  *
- * @param cause - The underlying error.
+ * The underlying `cause` is logged server-side by the caller, never returned on
+ * the wire.
+ *
  * @returns The UNEXPECTED_ERROR API error.
  */
-export const unexpectedError = (cause: unknown): ApiError => ({
+export const unexpectedError = (): ApiError => ({
 	code: ApiErrorCode.Unexpected,
 	message: 'An unexpected error occurred while preparing the data.',
-	context: { cause: cause instanceof Error ? cause.message : String(cause) },
 });
