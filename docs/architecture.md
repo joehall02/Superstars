@@ -48,6 +48,12 @@ The guiding principle throughout: **the spreadsheet is a verbatim mirror**, fetc
 | --- | --- |
 | [Config Service](./architecture/config-service/config-service.md) | The presentational reference data (game/player images, stat labels, localisation, nav links) — four JSON config files, the functional getter surface, and the React context. Supporting: [`config-shape-examples/`](./architecture/config-service/config-shape-examples/). |
 
+### Build & delivery
+
+| Doc | What it covers |
+| --- | --- |
+| [Bundle Splitting](./architecture/bundle-splitting.md) | How the client build is chunked — third-party deps split into separately-cacheable vendor chunks (MUI + emotion the bulk) via `rolldownOptions.output.codeSplitting`, and pages lazy-loaded per route so five of six leave the initial load. Covers what was deliberately *not* done and why. |
+
 ## Related
 
 - [`implementation-plan.md`](./implementation-plan.md) — the phased build checklist.
