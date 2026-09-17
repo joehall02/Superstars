@@ -23,8 +23,8 @@ export const assertAppConfig = (config: {
 		invalid('missing images.games / images.players');
 	}
 
-	if (!isRecord(localisation) || !isRecord(localisation.pages) || !isRecord(localisation.games)) {
-		invalid('missing localisation.pages / localisation.games');
+	if (!isRecord(localisation) || !isRecord(localisation.pages) || !isRecord(localisation.games) || !isRecord(localisation.footer)) {
+		invalid('missing localisation.pages / localisation.games / localisation.footer');
 	}
 
 	if (!isRecord(stats) || !isRecord(stats.statGroups) || !isRecord(stats.games) || !isRecord(stats.overall) || !isRecord(stats.statDescriptions)) {

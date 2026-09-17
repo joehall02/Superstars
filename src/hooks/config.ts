@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import { ConfigContext } from '../context/configContext';
 import { type StatType } from '../enums/config';
-import type { ConfigService, GameLocalisation, NavLink, PageLocalisation, StatLabels } from '../types/config.types';
+import type { ConfigService, FooterLocalisation, GameLocalisation, NavLink, PageLocalisation, StatLabels } from '../types/config.types';
 
 /**
  * Access the loaded {@link ConfigService}. The provider gates render until config is
@@ -33,6 +33,8 @@ export const useGameLocalisation = (gameId: string): GameLocalisation | undefine
 
 export const usePageLocalisation = (pageId: string): PageLocalisation | undefined =>
 	useConfig().getPageLocalisation(pageId);
+
+export const useFooterLocalisation = (): FooterLocalisation => useConfig().getFooterLocalisation();
 
 export const useStatLabels = (gameId: string, type: StatType): StatLabels => useConfig().getStatLabels(gameId, type);
 

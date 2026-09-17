@@ -439,6 +439,30 @@ export const useFooterStyles = makeStyles()((theme) => ({
 	},
 }));
 
+export const useSiteFooterStyles = makeStyles()((theme) => ({
+	footer: {
+		marginTop: theme.spacing(4),
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		paddingTop: theme.spacing(3),
+		borderTop: `1px solid ${theme.palette.divider}`,
+	},
+	// Muted by default; brightens on hover — primary in light mode, secondary in dark
+	link: {
+		display: 'inline-flex',
+		alignItems: 'center',
+		gap: theme.spacing(1),
+		color: theme.palette.text.secondary,
+		textDecoration: 'none',
+		fontSize: '0.875rem',
+		transition: 'color 0.2s ease',
+		'&:hover': {
+			color: theme.palette.mode === ThemeMode.Dark ? theme.palette.secondary.main : theme.palette.primary.main,
+		},
+	},
+}));
+
 export const useErrorStyles = makeStyles()((theme) => ({
 	// Standalone full-page error notice (Error + 404 pages) that sits outside the protected
 	// layout — mirror its full-height frame and faint primary wash so it reads as part of the app.

@@ -17,6 +17,7 @@ export const createConfigService = (config: AppConfig, assetBase: string): Confi
 		getGameAbbreviation: (gameId) => config.localisation.games[gameId]?.abbreviation,
 		getGameLocalisation: (gameId) => config.localisation.games[gameId],
 		getPageLocalisation: (pageId) => config.localisation.pages[pageId],
+		getFooterLocalisation: () => config.localisation.footer,
 		getStatLabels: (gameId, type) => {
 			const groupId = config.stats.games[gameId]?.[type];
 

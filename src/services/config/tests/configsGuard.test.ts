@@ -6,7 +6,7 @@ import { assertAppConfig } from '../configsGuard';
 /** Minimal payload that satisfies every skeleton check (empty collections are valid). */
 const validConfig = {
 	images: { games: {}, players: {} },
-	localisation: { pages: {}, games: {} },
+	localisation: { pages: {}, games: {}, footer: { sourceCode: 'View source on GitHub', sourceUrl: 'https://github.com/joehall02/Superstars' } },
 	stats: { statGroups: {}, games: {}, overall: {}, statDescriptions: {} },
 	layout: { navLinks: [] },
 };

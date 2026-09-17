@@ -5,16 +5,20 @@
 		"error": { "title": "Something went wrong", "message": "We couldn't load the Superstars data. Please try again." },
 		"notFound": { "title": "404 Page not found", "message": "The page you're looking for doesn't exist." }
 	},
+	"footer": {
+		"sourceCode": "View source on GitHub",
+		"sourceUrl": "https://github.com/joehall02/Superstars"
+	},
 	"games": {
 		"g_1": {
 			"abbreviation": "AIR",
 			"summary": "Fast-paced 1v1 air hockey matches. First to 5 goals wins.",
-			"rules": "Standard air hockey rules. Serve alternates after each goal. Puck must cross center line to count."
+			"rules": "Standard air hockey rules. Serve alternates after each goal."
 		},
 		"g_2": {
 			"abbreviation": "BAR",
-			"summary": "Table football (foosball) tournament. Teams of 2 compete in knockout format.",
-			"rules": "5 goals to win. No spinning. Serve from center after each goal. Winner stays on."
+			"summary": "Table football tournament. Teams compete in knockout format.",
+			"rules": "5 goals to win. No spinning. Serve from center after each goal."
 		},
 		"g_3": {
 			"abbreviation": "BWL",
@@ -24,17 +28,17 @@
 		"g_4": {
 			"abbreviation": "TEN",
 			"summary": "Ten pin bowling. Highest total score across multiple frames wins.",
-			"rules": "Standard ten pin scoring. 2 games per session. Total pinfall determines ranking."
+			"rules": "Standard ten pin scoring. Players have 2 throws per round. Total pinfall determines ranking."
 		},
 		"g_5": {
 			"abbreviation": "DRT",
-			"summary": "Darts competition. 501 format with best average deciding the winner.",
-			"rules": "501 straight start, double out. 3 darts per turn. Average points per game determines yearly ranking."
+			"summary": "Darts competition. Players aim for the highest score across multiple rounds.",
+			"rules": "Each player throws 3 darts per turn over multiple rounds, aiming for maximum points each time. The team with the most points at the end wins."
 		},
 		"g_6": {
 			"abbreviation": "CRD",
-			"summary": "Card games tournament. Various games played across the year.",
-			"rules": "Different card games each year. Points awarded based on finishing position. Average points determines ranking."
+			"summary": "Canadian Whist tournament. Groups are formed with one member from each team.",
+			"rules": "Each group plays rounds of Canadian Whist. The player with the most points at the end wins that group's game."
 		}
 	}
 }

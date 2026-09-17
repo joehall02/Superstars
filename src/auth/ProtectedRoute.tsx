@@ -4,6 +4,7 @@ import { Navigate, Outlet } from 'react-router';
 import { Footer } from '../components/Footer';
 import { Navbar } from '../components/Navbar';
 import { PageHeader } from '../components/PageHeader';
+import { SiteFooter } from '../components/SiteFooter';
 import { Page } from '../enums/pages';
 import { useIsAuthenticated } from '../hooks/auth';
 import { useRouteTitle, useScrollToTop } from '../hooks/route';
@@ -44,7 +45,10 @@ export const ProtectedRoute = () => {
 			<Container maxWidth='lg' className={classes.container}>
 				{title && <PageHeader title={title} iconUrl={iconUrl} />}
 				<Box className={classes.border}>
-					<Outlet />
+					<Box className={classes.content}>
+						<Outlet />
+					</Box>
+					<SiteFooter />
 				</Box>
 			</Container>
 			<Footer />

@@ -13,6 +13,7 @@ const config: AppConfig = {
 	localisation: {
 		pages: { [PageNames.Rankings]: { title: 'Rankings', allTimeStandings: 'All-time Standings' } },
 		games: { g_1: { abbreviation: 'AIR', summary: 'Air hockey.', rules: 'First to 5.' } },
+		footer: { sourceCode: 'View source on GitHub', sourceUrl: 'https://github.com/joehall02/Superstars' },
 	},
 	stats: {
 		statGroups: {
@@ -109,6 +110,13 @@ describe('createConfigService', () => {
 
 		expect(service.getPageLocalisation(PageNames.Rankings)).toEqual({ title: 'Rankings', allTimeStandings: 'All-time Standings' });
 		expect(service.getPageLocalisation('nope')).toBeUndefined();
+	});
+
+	it('getFooterLocalisation returns the footer text', () => {
+		expect(serviceWithBase().getFooterLocalisation()).toEqual({
+			sourceCode: 'View source on GitHub',
+			sourceUrl: 'https://github.com/joehall02/Superstars',
+		});
 	});
 
 	it('getNavLinks returns the configured links', () => {

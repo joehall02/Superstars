@@ -33,6 +33,8 @@ export const useProtectedRouteStyles = makeStyles()((theme) => ({
 	// the layout renders above it (outside the panel). 
 	border: {
 		flexGrow: 1,
+		display: 'flex',
+		flexDirection: 'column',
 		backgroundColor: theme.palette.background.paper,
 		border: `3px solid ${theme.palette.secondary.main}`,
 		borderBottom: 'none',
@@ -50,5 +52,10 @@ export const useProtectedRouteStyles = makeStyles()((theme) => ({
 			padding: theme.spacing(2),
 			paddingBottom: `calc(${theme.spacing(2)} + ${FOOTER_HEIGHT}px)`,
 		},
+	},
+	// Wraps the page outlet and grows to fill the panel, so the SiteFooter below it is pushed
+	// to the base on short pages while keeping its top margin on long (scrolling) ones.
+	content: {
+		flexGrow: 1,
 	},
 }));

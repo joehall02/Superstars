@@ -47,10 +47,19 @@ export interface PageLocalisation {
 	rules?: string;
 }
 
-/** `localisation.json` — per-page and per-game text content. */
+/** The site footer's content. */
+export interface FooterLocalisation {
+	/** Label for the source-code link. */
+	sourceCode: string;
+	/** Target of the source-code link (the project's repository). */
+	sourceUrl: string;
+}
+
+/** `localisation.json` — per-page and per-game text content plus the shared footer. */
 export interface LocalisationConfig {
 	pages: Record<string, PageLocalisation>;
 	games: Record<string, GameLocalisation>;
+	footer: FooterLocalisation;
 }
 
 // ---------------------------------------------------------------------------
@@ -118,6 +127,7 @@ export interface ConfigService {
 	getGameAbbreviation: (gameId: string) => string | undefined;
 	getGameLocalisation: (gameId: string) => GameLocalisation | undefined;
 	getPageLocalisation: (pageId: string) => PageLocalisation | undefined;
+	getFooterLocalisation: () => FooterLocalisation;
 	getStatLabels: (gameId: string, type: StatType) => StatLabels;
 	getOverallStatLabels: (type: StatType) => StatLabels;
 	getStatDescription: (key: string) => string | undefined;
