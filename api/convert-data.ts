@@ -4,12 +4,22 @@ import { Storage } from '@google-cloud/storage';
 
 import { SOURCE_FILE_NAME } from '../lib/consts.js';
 import { convertMasterScoresToJson } from '../lib/convertMasterScores.js';
-import { isConversionErrors } from '../shared/types.js';
+import { type ConversionResult, isConversionErrors } from '../shared/types.js';
 import { CACHE_CONTROL } from './consts.js';
 import { type ApiErrors, sourceUnavailableError, unexpectedError } from './errors.js';
 
 /** The spreadsheet's object path inside the private GCS bucket. */
 const SPREADSHEET_OBJECT = `spreadsheet/${SOURCE_FILE_NAME}`;
+
+/**
+ * Warm-instance memo. The edge cache keys on the full URL, so `?x=<rand>` bypasses
+ * it and forces a fresh GCS download + xlsx parse per request. Caching the converted
+ * result in module scope for a short TTL bounds that cost: repeat hits on a warm
+ * function serve from memory. It does not persist across cold starts (that's fine),
+ * and a per-IP Vercel Firewall rule is the actual throttle for a determined caller.
+ */
+const MEMO_TTL_MS = 5 * 60 * 1000;
+let memo: { result: ConversionResult; expiresAt: number } | undefined;
 
 /** Serialises `body` as a JSON response with the given status and optional cache header. */
 const sendJson = (res: ServerResponse, status: number, body: unknown, cacheControl?: string): void => {
@@ -45,17 +55,25 @@ const downloadSpreadsheet = async (): Promise<Buffer> => {
  */
 export default async (_req: IncomingMessage, res: ServerResponse): Promise<void> => {
 	try {
-		let buffer: Buffer;
-		try {
-			buffer = await downloadSpreadsheet();
-		} catch (cause) {
-			console.error('Failed to load spreadsheet from GCS:', cause);
-			const errors: ApiErrors = { errors: [sourceUnavailableError()] };
-			sendJson(res, 500, errors);
-			return;
-		}
+		let result: ConversionResult;
+		if (memo && memo.expiresAt > Date.now()) {
+			result = memo.result;
+		} else {
+			let buffer: Buffer;
+			try {
+				buffer = await downloadSpreadsheet();
+			} catch (cause) {
+				console.error('Failed to load spreadsheet from GCS:', cause);
+				const errors: ApiErrors = { errors: [sourceUnavailableError()] };
+				sendJson(res, 500, errors);
+				return;
+			}
 
-		const result = convertMasterScoresToJson(buffer);
+			result = convertMasterScoresToJson(buffer);
+			// Only successful results are memoised — the failure path returns above, so a
+			// transient GCS outage can never get pinned for the TTL.
+			memo = { result, expiresAt: Date.now() + MEMO_TTL_MS };
+		}
 
 		if (isConversionErrors(result)) {
 			sendJson(res, 200, result);

@@ -13,9 +13,12 @@
 import { ConversionErrorCode } from '../shared/enums';
 import { type ConversionErrors, type SuperstarsData } from '../shared/types';
 import { CACHE_CONTROL } from './consts';
-import handler from './convert-data';
 import { ApiErrorCode } from './enums';
 import { type ApiErrors } from './errors';
+
+// Re-imported fresh per test (see `beforeEach`) so the module-scope warm-instance
+// memo starts empty each time and can't leak a cached result across cases.
+let handler: (typeof import('./convert-data'))['default'];
 
 // `vi.hoisted` so these mocks exist before the (hoisted) `vi.mock` factories run.
 const { mockDownload, mockConvert } = vi.hoisted(() => ({
@@ -61,7 +64,11 @@ const invoke = (res: ReturnType<typeof makeResponse>): Promise<void> =>
 const fakeData = { sentinel: 'data' } as unknown as SuperstarsData;
 const fakeErrors: ConversionErrors = { errors: [{ code: ConversionErrorCode.MissingSheet, message: 'nope' }] };
 
-beforeEach(() => {
+beforeEach(async () => {
+	// Fresh module → empty memo. The hoisted mocks keep their identity across the
+	// reset, so the re-imported handler still talks to the same GCS/converter stubs.
+	vi.resetModules();
+	({ default: handler } = await import('./convert-data'));
 	mockDownload.mockReset();
 	mockConvert.mockReset();
 	vi.stubEnv('GCS_PRIVATE_BUCKET', 'test-bucket');
@@ -148,5 +155,41 @@ describe('api/convert-data — conversion errors', () => {
 		expect(res.statusCode).toBe(200);
 		expect(res.body).toEqual(fakeErrors);
 		expect(res.headers['Cache-Control']).toBeUndefined();
+	});
+});
+
+describe('api/convert-data — warm-instance memo', () => {
+	beforeEach(() => {
+		mockDownload.mockResolvedValue([Buffer.from('xlsx')]);
+		mockConvert.mockReturnValue(fakeData);
+	});
+
+	test('serves a second request from the memo without re-downloading or re-parsing', async () => {
+		const first = makeResponse();
+		await invoke(first);
+		const second = makeResponse();
+		await invoke(second);
+
+		expect(second.statusCode).toBe(200);
+		expect(second.body).toEqual({ sentinel: 'data' });
+		// The download + parse ran once; the second hit came from the memo.
+		expect(mockDownload).toHaveBeenCalledOnce();
+		expect(mockConvert).toHaveBeenCalledOnce();
+	});
+
+	test('does not memoise a failed download — the next request retries', async () => {
+		mockDownload.mockRejectedValueOnce(new Error('boom'));
+
+		const first = makeResponse();
+		await invoke(first);
+		expect(first.statusCode).toBe(500);
+
+		const second = makeResponse();
+		await invoke(second);
+
+		expect(second.statusCode).toBe(200);
+		expect(second.body).toEqual({ sentinel: 'data' });
+		// A second download happened because the failure was never cached.
+		expect(mockDownload).toHaveBeenCalledTimes(2);
 	});
 });
