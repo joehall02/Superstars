@@ -1,16 +1,15 @@
+import { type ReactNode, Suspense } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router';
 
 import { ProtectedRoute } from './auth/ProtectedRoute';
+import { Loading } from './components/Loading';
 import { Page, PageNames } from './enums/pages';
-import { ErrorPage } from './pages/ErrorPage';
-import { GameDetailsPage } from './pages/GameDetailsPage';
-import { GamesPage } from './pages/GamesPage';
-import { LoginPage } from './pages/LoginPage';
-import { NotFoundPage } from './pages/NotFoundPage';
-import { RankingsPage } from './pages/RankingsPage';
+import { ErrorPage, GameDetailsPage, GamesPage, LoginPage, NotFoundPage, RankingsPage } from './pages/lazyPages';
 import { queryClient } from './queryClient';
 import { fetchMasterScores } from './services/masterScores/fetchMasterScores';
 import { masterScoresKey } from './services/masterScores/useMasterScores';
+
+const withSuspense = (element: ReactNode) => <Suspense fallback={<Loading />}>{element}</Suspense>;
 
 /**
  * Warms the dataset cache on entry to any protected route, so pages read it from
@@ -42,12 +41,12 @@ export const router = createBrowserRouter([
 		element: <ProtectedRoute />,
 		loader: masterScoresLoader,
 		children: [
-			{ path: Page.Rankings, element: <RankingsPage />, handle: { title: { source: 'page', page: PageNames.Rankings } } },
-			{ path: Page.Games, element: <GamesPage />, handle: { title: { source: 'page', page: PageNames.Games } } },
-			{ path: `${Page.Games}/:gameId`, element: <GameDetailsPage />, handle: { title: { source: 'gameParam' } } },
+			{ path: Page.Rankings, element: withSuspense(<RankingsPage />), handle: { title: { source: 'page', page: PageNames.Rankings } } },
+			{ path: Page.Games, element: withSuspense(<GamesPage />), handle: { title: { source: 'page', page: PageNames.Games } } },
+			{ path: `${Page.Games}/:gameId`, element: withSuspense(<GameDetailsPage />), handle: { title: { source: 'gameParam' } } },
 		],
 	},
-	{ path: Page.Login, element: <LoginPage /> },
-	{ path: Page.Error, element: <ErrorPage /> },
-	{ path: '*', element: <NotFoundPage /> },
+	{ path: Page.Login, element: withSuspense(<LoginPage />) },
+	{ path: Page.Error, element: withSuspense(<ErrorPage />) },
+	{ path: '*', element: withSuspense(<NotFoundPage />) },
 ]);
