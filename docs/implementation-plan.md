@@ -379,25 +379,25 @@ Column headers show abbreviated stat labels (GF, GA, GD, Avg); this adds a legen
 ## Phase 5: Polish & Deployment
 
 ### 5.1 Responsive Design
-- [ ] Test all pages on mobile viewports
-- [ ] Test all pages on tablet viewports
-- [ ] Test all pages on desktop viewports
-- [ ] Fix any responsive layout issues
-- [ ] Ensure touch interactions work on mobile
+- [x] Test all pages on mobile viewports
+- [x] Test all pages on tablet viewports
+- [x] Test all pages on desktop viewports
+- [x] Fix any responsive layout issues
+- [x] Ensure touch interactions work on mobile
 
 ### 5.2 Error Handling & Edge Cases
-- [ ] Add global error boundary
-- [ ] Handle missing data gracefully
-- [ ] Add fallback UI for errors
-- [ ] Test with invalid/corrupt data
-- [ ] Add user-friendly error messages
+- [x] Add global error boundary
+- [x] Handle missing data gracefully
+- [x] Add fallback UI for errors
+- [x] Test with invalid/corrupt data
+- [x] Add user-friendly error messages
 
 ### 5.3 Vercel Deployment
 - [x] Create Vercel configuration
 - [x] Set up environment variables in Vercel (GCS bucket name, credentials, site password)
 - [ ] Enable Deployment Protection (Vercel Authentication) so Preview/non-production deployments require a Vercel login
 - [x] Configure build settings
-- [ ] Set up custom domain
+- [x] Set up custom domain
 - [x] Test deployment pipeline
 - [x] Verify serverless function can access GCS bucket from Vercel
 
@@ -416,13 +416,13 @@ Set up **after** the first successful Vercel deploy, so day-to-day pushes to Git
 
 ### 5.4 Testing & QA
 - [ ] Test authentication flow
-- [ ] Test all navigation paths
-- [ ] Test dark/light mode toggle
-- [ ] Test data display accuracy
-- [ ] Test year navigation
-- [ ] Test player selection
-- [ ] Test game navigation
-- [ ] Cross-browser testing
+- [x] Test all navigation paths
+- [x] Test dark/light mode toggle
+- [x] Test data display accuracy
+- [x] Test year navigation
+- [x] Test player selection
+- [x] Test game navigation
+- [x] Cross-browser testing
 
 ### 5.5 Docker & Local Production Testing
 - [x] Create Dockerfile for production-like local testing:
@@ -444,10 +444,10 @@ Set up **after** the first successful Vercel deploy, so day-to-day pushes to Git
 - [x] Configure Vitest for TypeScript (`test` block in `vite.config.ts`)
 - [x] Colocate test files alongside source files (e.g., `convertMasterScores.test.ts` next to `convertMasterScores.ts`)
 - [x] Add test scripts to package.json (`npm test`, `npm run test:watch`, `npm run test:coverage`)
-- [ ] Focus on business logic tests (not component tests):
+- [x] Focus on business logic tests (not component tests):
   - [x] Spreadsheet conversion logic (`lib/convertMasterScores.ts`)
-  - [ ] Data-response validation (shape guard + `ConversionErrors` handling)
-  - [ ] MasterScoreService pure extraction methods
+  - [x] Data-response validation (shape guard + `ConversionErrors` handling)
+  - [x] MasterScoreService pure extraction methods
 
 ### 5.7 CI/CD Pipeline (GitHub Actions)
 

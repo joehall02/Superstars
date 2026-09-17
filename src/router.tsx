@@ -3,6 +3,7 @@ import { createBrowserRouter, Navigate } from 'react-router';
 
 import { ProtectedRoute } from './auth/ProtectedRoute';
 import { Loading } from './components/Loading';
+import { RouteErrorBoundary } from './components/RouteErrorBoundary';
 import { Page, PageNames } from './enums/pages';
 import { ErrorPage, GameDetailsPage, GamesPage, LoginPage, NotFoundPage, RankingsPage } from './pages/lazyPages';
 import { queryClient } from './queryClient';
@@ -29,24 +30,33 @@ const masterScoresLoader  = () => {
 /**
  * App route table.
  *
- * Protected pages sit under a single pathless `<ProtectedRoute />` layout route
- * so the auth gate is declared once.
+ * A single pathless root route owns the {@link RouteErrorBoundary}, so it wraps every route
+ * (including `/login`, `/error` and the 404) — a render crash anywhere is caught rather
+ * than blanking the app.
+ *
+ * Protected pages sit under a nested pathless `<ProtectedRoute />` layout route so the 
+ * auth gate is declared once.
  */
 export const router = createBrowserRouter([
 	{
-		path: '/',
-		element: <Navigate to={Page.Rankings} replace />,
-	},
-	{
-		element: <ProtectedRoute />,
-		loader: masterScoresLoader,
+		ErrorBoundary: RouteErrorBoundary,
 		children: [
-			{ path: Page.Rankings, element: withSuspense(<RankingsPage />), handle: { title: { source: 'page', page: PageNames.Rankings } } },
-			{ path: Page.Games, element: withSuspense(<GamesPage />), handle: { title: { source: 'page', page: PageNames.Games } } },
-			{ path: `${Page.Games}/:gameId`, element: withSuspense(<GameDetailsPage />), handle: { title: { source: 'gameParam' } } },
+			{
+				path: '/',
+				element: <Navigate to={Page.Rankings} replace />,
+			},
+			{
+				element: <ProtectedRoute />,
+				loader: masterScoresLoader,
+				children: [
+					{ path: Page.Rankings, element: withSuspense(<RankingsPage />), handle: { title: { source: 'page', page: PageNames.Rankings } } },
+					{ path: Page.Games, element: withSuspense(<GamesPage />), handle: { title: { source: 'page', page: PageNames.Games } } },
+					{ path: `${Page.Games}/:gameId`, element: withSuspense(<GameDetailsPage />), handle: { title: { source: 'gameParam' } } },
+				],
+			},
+			{ path: Page.Login, element: withSuspense(<LoginPage />) },
+			{ path: Page.Error, element: withSuspense(<ErrorPage />) },
+			{ path: '*', element: withSuspense(<NotFoundPage />) },
 		],
 	},
-	{ path: Page.Login, element: withSuspense(<LoginPage />) },
-	{ path: Page.Error, element: withSuspense(<ErrorPage />) },
-	{ path: '*', element: withSuspense(<NotFoundPage />) },
 ]);
