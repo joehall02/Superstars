@@ -425,17 +425,17 @@ Set up **after** the first successful Vercel deploy, so day-to-day pushes to Git
 - [ ] Cross-browser testing
 
 ### 5.5 Docker & Local Production Testing
-- [ ] Create Dockerfile for production-like local testing:
-  - [ ] Multi-stage build: Node.js for building, Nginx for serving
-  - [ ] Run `npm run convert-data` during build to generate JSON from spreadsheet
-  - [ ] Build React app with `VITE_DATA_SOURCE=local` environment variable (`vite build` copies `public/data/master-scores.json` into `dist/data/`)
-  - [ ] Copy built `dist/` assets to Nginx directory (the JSON is already inside `dist/data/`)
-- [ ] Create Nginx configuration:
-  - [ ] Serve static React build from `/` (this also serves `/data/master-scores.json` — no special location block needed)
-  - [ ] Configure caching headers for static assets
-- [ ] Create `.dockerignore` to exclude node_modules, .git, etc.
-- [ ] Add Docker build and run scripts to package.json
-- [ ] Document Docker usage in README
+- [x] Create Dockerfile for production-like local testing:
+  - [x] Multi-stage build: Node.js for building, Nginx for serving
+  - [x] Run `npm run convert-data` during build to generate JSON from spreadsheet
+  - [x] Build React app with `VITE_DATA_SOURCE=local` environment variable (`vite build` copies `public/data/master-scores.json` into `dist/data/`)
+  - [x] Copy built `dist/` assets to Nginx directory (the JSON is already inside `dist/data/`)
+- [x] Create Nginx configuration:
+  - [x] Serve static React build from `/` (SPA fallback via `try_files … /index.html`; this also serves `/data/master-scores.json`)
+  - [x] Configure caching headers for static assets (immutable for `/assets/`, `no-cache` for JSON/shell)
+- [x] Create `.dockerignore` to exclude node_modules, .git, etc.
+- [x] Add Docker build and run scripts to package.json (`docker:build`, `docker:run`)
+- [x] Document Docker usage in README
 
 **Note**: Docker uses the same data fetching logic as local development (`VITE_DATA_SOURCE=local`), fetching from the pre-generated JSON file. Production uses `VITE_DATA_SOURCE=api` to fetch from Vercel serverless functions. No separate Express server needed.
 

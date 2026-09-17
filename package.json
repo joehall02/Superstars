@@ -15,7 +15,9 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "docker:build": "docker build -t superstars .",
+    "docker:run": "docker run --rm -p 8080:80 superstars"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

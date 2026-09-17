@@ -1,0 +1,35 @@
+node_modules
+dist
+dist-ssr
+**/*.log
+
+# Env files & secrets — but keep .env.production so `vite build` can load its
+# VITE_* values. Vite never inlines the non-VITE_ secrets into the bundle, and
+# the multi-stage build leaves the file out of the final Nginx image.
+.env
+.env.*
+!.env.production
+
+# VCS / CI / editor tooling
+.git
+.github
+.husky
+.vscode
+.idea
+
+# Docs and local-only source assets not needed to build the app.
+docs
+assets
+.venv
+.claude
+.vercel
+
+# Tests aren't part of the build.
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+
+# Docker files themselves.
+Dockerfile
+.dockerignore

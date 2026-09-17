@@ -53,6 +53,7 @@ The guiding principle throughout: **the spreadsheet is a verbatim mirror**, fetc
 | Doc | What it covers |
 | --- | --- |
 | [Bundle Splitting](./architecture/bundle-splitting.md) | How the client build is chunked — third-party deps split into separately-cacheable vendor chunks (MUI + emotion the bulk) via `rolldownOptions.output.codeSplitting`, and pages lazy-loaded per route so five of six leave the initial load. Covers what was deliberately *not* done and why. |
+| [Docker](./architecture/docker.md) | The production-like local-testing image — multi-stage Node→Nginx build, the local data path (`VITE_DATA_SOURCE=local`), `.env.production` handling (which vars matter, which secrets are excluded), and the Nginx config that mirrors `vercel.json`'s SPA rewrite, caching, and security headers. |
 
 ## Related
 
