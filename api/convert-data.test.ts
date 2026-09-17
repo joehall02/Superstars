@@ -10,16 +10,17 @@
  * bytes are needed — the download and conversion outcomes are driven per test.
  */
 
+import type { IncomingMessage, ServerResponse } from 'node:http';
+
 import { ConversionErrorCode } from '../shared/enums';
 import { type ConversionErrors, type SuperstarsData } from '../shared/types';
 import { CACHE_CONTROL } from './consts';
-import type * as ConvertDataModule from './convert-data';
 import { ApiErrorCode } from './enums';
 import { type ApiErrors } from './errors';
 
 // Re-imported fresh per test (see `beforeEach`) so the module-scope warm-instance
 // memo starts empty each time and can't leak a cached result across cases.
-let handler: ConvertDataModule['default'];
+let handler: (req: IncomingMessage, res: ServerResponse) => Promise<void>;
 
 // `vi.hoisted` so these mocks exist before the (hoisted) `vi.mock` factories run.
 const { mockDownload, mockConvert } = vi.hoisted(() => ({
