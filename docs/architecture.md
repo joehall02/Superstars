@@ -58,3 +58,4 @@ The guiding principle throughout: **the spreadsheet is a verbatim mirror**, fetc
 
 - [`implementation-plan.md`](./implementation-plan.md) — the phased build checklist.
 - [`technical-decisions.md`](./technical-decisions.md) — rationale for key choices.
+- [`plans/domain.md`](./plans/domain.md) — buying the custom domain at Porkbun and delegating its DNS to Vercel.

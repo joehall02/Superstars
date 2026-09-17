@@ -199,6 +199,33 @@ The signing/verification lives behind the login endpoint and `verifyToken()` hel
 
 ---
 
+## Custom Domain DNS (delegate nameservers to Vercel, not manual records)
+
+**Current approach:** The custom domain is registered at **Porkbun** but its DNS
+is **delegated to Vercel** — Porkbun's nameservers are set to Vercel's
+(`ns1.vercel-dns.com` / `ns2.vercel-dns.com`), and Vercel serves the zone and
+auto-provisions SSL. No apex `A` / `www` `CNAME` records are managed by hand. See
+[`plans/domain.md`](./plans/domain.md) for the setup steps.
+
+**Why it works now:**
+- The domain only ever points at this one Vercel app — there are no other records (email, subdomains, verification) that would benefit from living in a single Porkbun-hosted zone.
+- We plan to stay on Vercel for the foreseeable future, so the registrar-independence of keeping DNS at Porkbun buys nothing today.
+- Delegation is the lowest-effort, lowest-footgun path: Vercel owns the record values, so if it ever changes its recommended apex IP / CNAME target, nothing silently breaks.
+- Stays on Vercel's free **Hobby** plan — custom domains, Vercel DNS, and auto SSL are all included; only commercial use or exceeding usage limits would require Pro.
+
+**Trade-offs accepted:**
+- DNS is managed in Vercel, not at the registrar — to add email or other records later we'd either add them in Vercel's DNS or switch to the manual-records approach.
+- One-way-ish coupling to Vercel's DNS; moving DNS hosts later means re-delegating nameservers rather than editing two records.
+
+**Revisit / switch to keeping DNS at Porkbun (apex `A` + `www` `CNAME`) if:**
+- We add **email** on the domain (MX/SPF/DKIM/TXT) or other services that make a single registrar-hosted zone worthwhile.
+- We want DNS to be **host-independent** of Vercel (e.g. anticipating a move off Vercel).
+
+The manual-records alternative is documented in `plans/domain.md`; switching is a
+few records, not a rebuild.
+
+---
+
 ## `.js` Extensions on Relative Imports in `api/`, `lib/`, `shared/`
 
 **Current approach:** Relative imports **within** `api/`, `lib/`, and `shared/` carry explicit `.js` extensions (`import … from './consts.js'`), even though the files are `.ts`. `src/` keeps its extensionless imports, and `*.test.ts` files in these folders also stay extensionless.
